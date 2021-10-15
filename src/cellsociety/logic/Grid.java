@@ -110,12 +110,33 @@ public class Grid {
     //gets an array of the values of the 4 neighbors
     //directly above, below, to the left and to the right
     //of the cell at (x,y)
-    public int[] getFourNeighbors(int x, int y) {
-        int[] result = new int[4];
-        result[0] = currentGrid[x - 1][y];
-        result[1] = currentGrid[x][y - 1];
-        result[2] = currentGrid[x][y + 1];
-        result[3] = currentGrid[x + 1][y];
+    public  ArrayList<Integer> getFourNeighbors(int x, int y) {
+        ArrayList<Integer> result = new ArrayList();
+        for (int i = 0; i < 4; i++) {
+            result.add(0);
+        }
+        if (x == 0) {
+            result.set(0, -1);
+            result.set(3, currentGrid[x + 1][y]);
+        }else if (x == width - 1) {
+            result.set(0, currentGrid[x - 1][y]);
+            result.set(3, -1);
+        } else{
+            result.set(0, currentGrid[x - 1][y]);
+            result.set(3, currentGrid[x + 1][y]);
+        }
+
+        if(y == 0){
+            result.set(1, -1);
+            result.set(2, currentGrid[x][y + 1]);
+        }else if (y == height - 1) {
+            result.set(1, currentGrid[x][y - 1]);
+            result.set(2, -1);
+        } else{
+            result.set(1, currentGrid[x][y - 1]);
+            result.set(2, currentGrid[x][y + 1]);
+        }
+
         return result;
     }
 

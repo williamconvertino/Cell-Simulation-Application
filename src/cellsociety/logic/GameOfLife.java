@@ -27,4 +27,8 @@ public class GameOfLife extends Logic {
         getGrid().updateGrid();
     }
 
+
+
+
+
 }
