@@ -64,6 +64,9 @@ public class Logic {
         return prop;
     }
 
+    public Grid getGrid(){
+        return grid;
+    }
 
 
 }

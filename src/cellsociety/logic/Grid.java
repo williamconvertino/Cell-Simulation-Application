@@ -49,6 +49,7 @@ public class Grid {
     //of the cell at (x,y)
     public int[] getAllNeighbors(int x, int y) {
         int[] result = new int[8];
+        //TODO do some bounds checking here
         result[0] = currentGrid[x - 1][y - 1];
         result[1] = currentGrid[x - 1][y];
         result[2] = currentGrid[x - 1][y + 1];
