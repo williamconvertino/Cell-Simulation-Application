@@ -23,14 +23,14 @@ class GridTest {
     @Test
     void setInitialCellValueTest() {
         grid = new Grid(50, 50, 1);
-
         for(int i = 0; i < 50*50; i++){
             assertEquals(1, grid.getCell(0,0), "The cells do not contain their specified initial value of 1");
         }
     }
 
     @Test
-    void getAllNeighbors() {
+    void getAllNeighborsBoundsChecking() {
+        grid.getAllNeighbors(0,0);
     }
 
     @Test

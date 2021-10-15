@@ -15,12 +15,8 @@ public class Grid {
         futureGrid = new int[width][height];
         this.width = width;
         this.height = height;
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                currentGrid[i][j] = 0;
-                futureGrid[i][j] = 0;
-            }
-        }
+        currentGrid = zeroGrid();
+        futureGrid = zeroGrid();
 
     }
 
@@ -31,8 +27,12 @@ public class Grid {
         futureGrid = new int[width][height];
         this.width = width;
         this.height = height;
-        currentGrid = zeroGrid();
-        futureGrid = zeroGrid();
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                currentGrid[i][j] = initialValue;
+                futureGrid[i][j] = initialValue;
+            }
+        }
     }
 
     //gets the value of the cell at (x,y)
