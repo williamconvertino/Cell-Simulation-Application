@@ -3,6 +3,10 @@ package cellsociety.logic;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.security.cert.X509Certificate;
+import java.util.Arrays;
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GridTest {
@@ -30,7 +34,20 @@ class GridTest {
 
     @Test
     void getAllNeighborsBoundsChecking() {
-        grid.getAllNeighbors(0,0);
+        int xPos = 0;
+        int yPos = 0;
+        assertEquals(5, Collections.frequency(grid.getAllNeighbors(xPos, yPos), -1));
+        assertEquals(3, Collections.frequency(grid.getAllNeighbors(xPos, yPos), 0));
+
+        xPos = grid.getWidth() - 1;
+        yPos = grid.getHeight() - 1;
+        assertEquals(5, Collections.frequency(grid.getAllNeighbors(xPos, yPos), -1));
+        assertEquals(3, Collections.frequency(grid.getAllNeighbors(xPos, yPos), 0));
+
+        xPos = grid.getWidth()/2;
+        yPos = grid.getHeight()/2;
+        assertEquals(0, Collections.frequency(grid.getAllNeighbors(xPos, yPos), -1));
+        assertEquals(8, Collections.frequency(grid.getAllNeighbors(xPos, yPos), 0));
     }
 
     @Test

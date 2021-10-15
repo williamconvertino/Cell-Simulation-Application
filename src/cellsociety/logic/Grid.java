@@ -47,57 +47,60 @@ public class Grid {
 
     //gets an array of the values of the 8 neighbors
     //of the cell at (x,y)
-    public int[] getAllNeighbors(int x, int y) {
-        int[] result = new int[8];
-        if(x == 0){
-                result[0] = -1;
-                result[1] = -1;
-                result[2] = -1;
-        }else {
-            if (y == 0){
-                result[0] = -1;
-                result[1] = currentGrid[x - 1][y];
-                result[2] = currentGrid[x - 1][y + 1];
-            } else if (y == width - 1){
-                result[0] = currentGrid[x - 1][y - 1];
-                result[1] = currentGrid[x - 1][y];
-                result[2] = -1;
+    public ArrayList<Integer> getAllNeighbors(int x, int y) {
+        ArrayList<Integer> result = new ArrayList();
+        for (int i = 0; i < 8; i++) {
+            result.add(0);
+        }
+        if (x == 0) {
+            result.set(0, -1);
+            result.set(1, -1);
+            result.set(2, -1);
+        } else {
+            if (y == 0) {
+                result.set(0, -1);
+                result.set(1, currentGrid[x - 1][y]);
+                result.set(2, currentGrid[x - 1][y + 1]);
+            } else if (y == width - 1) {
+                result.set(0, currentGrid[x - 1][y - 1]);
+                result.set(1, currentGrid[x - 1][y]);
+                result.set(2, -1);
             } else {
-                result[0] = currentGrid[x - 1][y - 1];
-                result[1] = currentGrid[x - 1][y];
-                result[2] = currentGrid[x - 1][y + 1];
+                result.set(0, currentGrid[x - 1][y - 1]);
+                result.set(1, currentGrid[x - 1][y]);
+                result.set(2, currentGrid[x - 1][y + 1]);
             }
         }
 
-        if(x == width - 1){
-            result[5] = -1;
-            result[6] = -1;
-            result[7] = -1;
-        }else {
-            if (y == 0){
-                result[5] = -1;
-                result[6] = currentGrid[x + 1][y];
-                result[7] = currentGrid[x + 1][y + 1];
-            } else if (y == width - 1){
-                result[5] = currentGrid[x + 1][y - 1];
-                result[6] = currentGrid[x + 1][y];
-                result[7] = -1;
+        if (x == width - 1) {
+            result.set(5, -1);
+            result.set(6, -1);
+            result.set(7, -1);
+        } else {
+            if (y == 0) {
+                result.set(5, -1);
+                result.set(6, currentGrid[x + 1][y]);
+                result.set(7, currentGrid[x + 1][y + 1]);
+            } else if (y == width - 1) {
+                result.set(5, currentGrid[x + 1][y - 1]);
+                result.set(6, currentGrid[x + 1][y]);
+                result.set(7, -1);
             } else {
-                result[5] = currentGrid[x + 1][y - 1];
-                result[6] = currentGrid[x + 1][y];
-                result[7] = currentGrid[x + 1][y + 1];
+                result.set(5, currentGrid[x + 1][y - 1]);
+                result.set(6, currentGrid[x + 1][y]);
+                result.set(7, currentGrid[x + 1][y + 1]);
             }
         }
 
-        if(y == 0){
-            result[3] = -1;
-            result[4] = currentGrid[x][y + 1];
-        } else if(y == height - 1) {
-            result[3] = currentGrid[x][y - 1];
-            result[4] = -1;
-        } else{
-            result[3] = currentGrid[x][y - 1];
-            result[4] = currentGrid[x][y + 1];
+        if (y == 0) {
+            result.set(3, -1);
+            result.set(4, currentGrid[x][y + 1]);
+        } else if (y == height - 1) {
+            result.set(3, currentGrid[x][y - 1]);
+            result.set(4, -1);
+        } else {
+            result.set(3, currentGrid[x][y - 1]);
+            result.set(4, currentGrid[x][y + 1]);
         }
 
 
@@ -132,11 +135,11 @@ public class Grid {
         return result;
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return width;
     }
 
-    public int getHeight(){
+    public int getHeight() {
         return height;
     }
 }
