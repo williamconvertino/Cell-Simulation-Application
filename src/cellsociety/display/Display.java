@@ -28,7 +28,7 @@ public class Display {
 
 
     /**
-     * Create display based on given maze.
+     * Create display based on given background color and Grid Cell length.
      */
     public Display (Paint background, int gridSize) {
         Group root = new Group();
