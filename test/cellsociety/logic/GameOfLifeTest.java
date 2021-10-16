@@ -20,8 +20,9 @@ class GameOfLifeTest {
         gol.update();
         for(int i = 0; i < gol.getGrid().getWidth(); i++){
             for(int j = 0; j < gol.getGrid().getHeight(); j++){
-                System.out.println(gol.getGrid().getCell(i, j) + ",");
+                System.out.print(gol.getGrid().getCell(i, j) + ",");
             }
+            System.out.println("");
         }
 
     }
