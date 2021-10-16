@@ -34,6 +34,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle(String.format("%s %s",WINDOW_NAME,CURRENT_VERSION));
-        new Controller();
+
     }
 }
