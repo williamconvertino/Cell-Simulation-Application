@@ -2,6 +2,8 @@ package cellsociety.display;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -48,6 +50,16 @@ public class Display {
             }
             xPos++;
         }
+
+        Button lifeButton = new Button("Game of Life");
+        Button fireButton = new Button("Spreading of Fire");
+        Button segregationButton = new Button("Schelling's model of segregation");
+        Button sharkButton = new Button("Wa-Tor World model of predator-prey relationships");
+
+        root.getChildren().add(lifeButton);
+        root.getChildren().add(fireButton);
+        root.getChildren().add(segregationButton);
+        root.getChildren().add(sharkButton);
 
         scene = new Scene(root,SCENE_WIDTH, SCENE_HEIGHT, background);
     }
