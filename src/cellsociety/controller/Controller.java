@@ -15,14 +15,14 @@ import javafx.scene.paint.Color;
  */
 public class Controller {
 
-  //The current algorithm with which the grid should be updated.
-  private Logic myAlgorithm;
-
   //The current display class of our program.
   private Display myDisplay;
 
   /**
+   * Creates a Controller to run a new instance of Cell Society,
+   * using the passed scene to initialize its display.
    *
+   * @param myScene the scene to which the display elements should be added.
    */
   public Controller(Scene myScene) {
     myDisplay = new Display(Color.color(100, 0, 100), 10);
@@ -30,9 +30,13 @@ public class Controller {
 
 
   /**
-   *
+   *  Executes every program tick to allow the Logic and Display to update.
    */
   public void update() {
+
+    if ((myGrid = myLogicController.getActiveGrid()) == null) {
+      //myDisplay.updateScene(myGrid);
+    }
 
   }
 
