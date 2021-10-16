@@ -1,12 +1,10 @@
 package cellsociety;
 
 
-<<<<<<< HEAD
 import cellsociety.display.Display;
 import javafx.scene.paint.Color;
 import javafx.application.Application;
 import javafx.stage.Stage;
-=======
 import java.awt.Dimension;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,7 +13,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
->>>>>>> 205739d0455e15b8ee8dc1470432cee473c444f7
 
 /**
  * A class to organize and initialize our JFX Application.
@@ -23,15 +20,7 @@ import javafx.util.Duration;
  * @author William Convertino
  * @since 0.0.1
  */
-<<<<<<< HEAD
-public class Main extends Application{
-    @Override
-    public void start(Stage stage) {
-        Display display = new Display(Color.BLACK, 15);
-        stage.setScene(display.getScene());
-        stage.show();
-    }
-=======
+
 public class Main extends Application {
 
     /**The current version of our CellSociety program.**/
@@ -52,7 +41,6 @@ public class Main extends Application {
 
     //The Cell Society program to run.
     private Controller cellSocietyProgram;
->>>>>>> 205739d0455e15b8ee8dc1470432cee473c444f7
 
     /**
      * Starts our program as a JFX Application, giving the window a title
@@ -71,14 +59,6 @@ public class Main extends Application {
         initializeWindow(primaryStage);
     }
 
-<<<<<<< HEAD
-    /**
-     * Start of the program.
-     */
-    public static void main (String[] args) {
-        launch(args);
-        System.out.println("Hello world");
-=======
     //Creates the JFX Timeline for our program, allowing the cellSocietyProgram to
     //update each tick.
     private void initializeTimeline() {
@@ -86,7 +66,6 @@ public class Main extends Application {
         myTimeline.setCycleCount(Timeline.INDEFINITE);
         myTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1.0/FPS), e -> cellSocietyProgram.update()));
         myTimeline.play();
->>>>>>> 205739d0455e15b8ee8dc1470432cee473c444f7
     }
 
     //Initializes and displays the program window using the default window width and height.
