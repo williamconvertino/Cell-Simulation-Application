@@ -18,6 +18,8 @@ class LogicTest {
     @BeforeEach
     void setUp() {
         logic = new Logic(100, 100) {
+            @Override
+            public void update() {}
         };
     }
 
