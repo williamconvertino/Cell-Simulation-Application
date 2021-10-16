@@ -1,47 +1,63 @@
 package cellsociety.logic;
 
 import cellsociety.errors.FileNotFoundError;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.Scanner;
 
-public class Logic {
+public abstract class Logic {
     private Grid grid;
-    HashMap<String, String> metadata;
+    private HashMap<String, String> metadata;
 
     public Logic(int width, int height){
         grid = new Grid(width, height);
     }
 
 
-    public void initializeWithCSVFile(String file){
+    public boolean initializeWithCSVFile(String file){
         try{
-            //parsing a CSV file into Scanner class constructor
-            Scanner sc = new Scanner(new File(file));
-            sc.useDelimiter(",");//sets the delimiter pattern
-            //width and height are the first two values in the csv
-            int width = sc.nextInt();
-            int height = sc.nextInt();
-            this.grid = new Grid(width, height);
-            int i = 0, j = 0;
-            while (sc.hasNext())  //returns a boolean value
-            {
-                grid.setCell(i% grid.getWidth(), j% grid.getHeight(), sc.nextInt());  //find and returns the next complete token from this scanner
-                j++;
-                if(j%grid.getHeight() == 0) i++;
-            }
-            sc.close();  //closes the scanner
+            // Create an object of filereader
+            // class with CSV file as a parameter.
+            FileReader filereader = new FileReader(file);
 
+            // create csvReader object passing
+            // file reader as a parameter
+            CSVReader csvReader = new CSVReader(filereader);
+            int i = 0, j = 0;
+
+            String[] nextRecord;
+            nextRecord = csvReader.readNext();
+            //make a dimensions array to just read the width and height first
+            int[] dimensions = new int[2];
+            for (String cell : nextRecord) {
+                    dimensions[i] = Integer.parseInt(cell); i++;
+            }
+            //set i =0 because we'll be using it to iterate
+            i = 0;
+            //dimensions[0] is width and dimensions[1] is height
+            this.grid = new Grid(dimensions[0], dimensions[1]);
+            while ((nextRecord = csvReader.readNext()) != null) {
+                for (String cell : nextRecord) {
+                    getGrid().setCell(i% grid.getWidth(), j% grid.getHeight(), Integer.parseInt(cell));
+                    j++;
+                }
+                i++;
+            }
             grid.updateGrid();
+            return true;
         } catch (FileNotFoundException e){
-            //TODO do some error checking here
+            return false;
+        } catch (CsvValidationException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
         }
+
     }
 
     public void initializeWithSimFile(String file){
