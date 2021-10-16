@@ -3,6 +3,7 @@ package cellsociety;
 import cellsociety.display.Display;
 import cellsociety.io.IOHandler;
 import cellsociety.logic.Logic;
+import javafx.scene.Scene;
 
 /**
  * Organizes and runs the different parts of the Cell Society
@@ -26,9 +27,10 @@ public class Controller {
   /**
    *
    */
-  public Controller() {
+  public Controller(Scene myScene) {
 
   }
+
 
   /**
    *

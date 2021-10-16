@@ -42,6 +42,9 @@ public class Main extends Application {
     //The Cell Society program to run.
     private Controller cellSocietyProgram;
 
+    //The JFX scene of the program.
+    private Scene cellSocietyScene;
+
     /**
      * Starts our program as a JFX Application, giving the window a title
      * that contains our program name and the current version. Also initializes
@@ -54,9 +57,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle(String.format("%s %s",WINDOW_NAME,CURRENT_VERSION));
-        cellSocietyProgram = new Controller();
         initializeTimeline();
         initializeWindow(primaryStage);
+        cellSocietyProgram = new Controller(cellSocietyScene);
     }
 
     //Creates the JFX Timeline for our program, allowing the cellSocietyProgram to
@@ -71,8 +74,8 @@ public class Main extends Application {
     //Initializes and displays the program window using the default window width and height.
     //Also gives the Controller access to the window's display group.
     private void initializeWindow(Stage myStage) {
-        Scene myScene = new Scene(new Group(), WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT);
-        myStage.setScene(myScene);
+        cellSocietyScene = new Scene(new Group(), WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT);
+        myStage.setScene(cellSocietyScene);
         myStage.show();
     }
 
