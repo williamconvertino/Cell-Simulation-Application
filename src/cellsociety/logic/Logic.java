@@ -16,6 +16,7 @@ public abstract class Logic {
 
     public Logic(int width, int height){
         grid = new Grid(width, height);
+        metadata = new HashMap<>();
     }
 
 
@@ -60,10 +61,14 @@ public abstract class Logic {
 
     }
 
-    public void initializeWithSimFile(String file){
+    public boolean initializeWithSimFile(String file){
         Properties prop = readPropertiesFile(file);
+        if(prop == null){
+            return false;
+        }
         for (final String name: prop.stringPropertyNames())
             metadata.put(name, prop.getProperty(name));
+        return true;
     }
 
     private Properties readPropertiesFile(String fileName){
@@ -84,5 +89,8 @@ public abstract class Logic {
         return grid;
     }
 
+    public HashMap getMetaData(){
+        return metadata;
+    }
 
 }

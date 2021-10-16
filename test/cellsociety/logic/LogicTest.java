@@ -5,7 +5,9 @@ import org.apache.commons.logging.Log;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,7 +27,7 @@ class LogicTest {
 
         assertEquals(10, logic.getGrid().getWidth());
         assertEquals(10, logic.getGrid().getHeight());
-        try{
+        try {
             // Create an object of filereader
             // class with CSV file as a parameter.
             FileReader filereader = new FileReader("data/game_of_life/blinkers.csv");
@@ -44,14 +46,33 @@ class LogicTest {
                 i++;
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
+        int xPos = 0, yPos = 0;
+        assertEquals(0, logic.getGrid().getCell(xPos, yPos));
+        xPos = 0;
+        yPos = logic.getGrid().getHeight() - 1;
+        assertEquals(1, logic.getGrid().getCell(xPos, yPos));
+        xPos = logic.getGrid().getWidth() - 1;
+        yPos = 0;
+        assertEquals(0, logic.getGrid().getCell(xPos, yPos));
+        xPos = logic.getGrid().getWidth() - 1;
+        yPos = logic.getGrid().getHeight() - 1;
+        assertEquals(0, logic.getGrid().getCell(xPos, yPos));
     }
 
     @Test
-    void initializeWithSimFile() {
+    void initializeWithSimFileBlinkers() {
+        assertEquals(true, logic.initializeWithSimFile("data/game_of_life/blinkers.sim"));
+
+        assertEquals("GameOfLife", logic.getMetaData().get("Type"));
+        assertEquals("Blinkers", logic.getMetaData().get("Title"));
+        assertEquals("John Conway", logic.getMetaData().get("Author"));
+        assertEquals("Examples of a blinker, a line of cells 3 wide that switches back and forth from vertical to horizontal", logic.getMetaData().get("Description"));
+        assertEquals("game_of_life/blinkers.csv", logic.getMetaData().get("InitialStates"));
+
     }
 
     @Test
