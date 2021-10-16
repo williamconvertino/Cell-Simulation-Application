@@ -1,7 +1,6 @@
 package cellsociety.controller;
 
 import cellsociety.display.Display;
-import cellsociety.io.IOHandler;
 import cellsociety.logic.Logic;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -21,9 +20,6 @@ public class Controller {
 
   //The current display class of our program.
   private Display myDisplay;
-
-  //The current IOHandler of our program.
-  private IOHandler myIOHandler;
 
   /**
    *
