@@ -3,7 +3,7 @@ package cellsociety.io;
 import cellsociety.logic.Grid;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
-import java.io.FileNotFoundException;
+
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -12,12 +12,9 @@ import java.io.IOException;
  * A class to read CVS files.
  *
  */
-public class CVSFileReader {
+public class CSVFileReader {
 
-  public static Grid readFile(String fileName) {
-
-    Grid myGrid;
-
+  public static Grid readFile(String fileName) throws IOException, CsvValidationException {
     try{
       // Create an object of filereader
       // class with CSV file as a parameter.
@@ -38,19 +35,20 @@ public class CVSFileReader {
       //set i =0 because we'll be using it to iterate
       i = 0;
       //dimensions[0] is width and dimensions[1] is height
-      myGrid = new Grid(dimensions[0], dimensions[1]);
+      Grid grid = new Grid(dimensions[0], dimensions[1]);
       while ((nextRecord = csvReader.readNext()) != null) {
         for (String cell : nextRecord) {
-          myGrid.setCell(i% myGrid.getWidth(), j% myGrid.getHeight(), Integer.parseInt(cell));
+          grid.setCell(i% grid.getWidth(), j% grid.getHeight(), Integer.parseInt(cell));
           j++;
         }
         i++;
       }
-      myGrid.updateGrid();
-      return myGrid;
-    } catch (Exception e){   //TODO: Add better error handling.
-      return null;
+      grid.updateGrid();
+      return grid;
+    } catch (IOException e){
+      throw new IOException();
     }
+
   }
 
 }

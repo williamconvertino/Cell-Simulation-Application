@@ -1,7 +1,7 @@
 package cellsociety.logic;
 
-import cellsociety.io.CVSFileReader;
-import com.opencsv.CSVReader;
+//import cellsociety.io.CSVFileReader;
+import cellsociety.io.CSVFileReader;
 import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.*;
@@ -30,40 +30,9 @@ public abstract class Logic {
      */
     public boolean initializeWithCSVFile(String file){
         try{
-            // Create an object of filereader
-            // class with CSV file as a parameter.
-            FileReader filereader = new FileReader(file);
-
-            // create csvReader object passing
-            // file reader as a parameter
-            CSVReader csvReader = new CSVReader(filereader);
-            int i = 0, j = 0;
-
-            String[] nextRecord;
-            nextRecord = csvReader.readNext();
-            //make a dimensions array to just read the width and height first
-            int[] dimensions = new int[2];
-            for (String cell : nextRecord) {
-                    dimensions[i] = Integer.parseInt(cell); i++;
-            }
-            //set i =0 because we'll be using it to iterate
-            i = 0;
-            //dimensions[0] is width and dimensions[1] is height
-            this.grid = CVSFileReader.readFile(file);
-            while ((nextRecord = csvReader.readNext()) != null) {
-                for (String cell : nextRecord) {
-                    getGrid().setCell(i% grid.getWidth(), j% grid.getHeight(), Integer.parseInt(cell));
-                    j++;
-                }
-                i++;
-            }
-            grid.updateGrid();
+            grid = CSVFileReader.readFile(file);
             return true;
-        } catch (FileNotFoundException e){
-            return false;
-        } catch (CsvValidationException e) {
-            return false;
-        } catch (IOException e) {
+        } catch (IOException | CsvValidationException e) {
             return false;
         }
 

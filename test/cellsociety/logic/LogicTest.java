@@ -19,7 +19,8 @@ class LogicTest {
     void setUp() {
         logic = new Logic(100, 100) {
             @Override
-            public void update() {}
+            public void update() {
+            }
         };
     }
 
@@ -42,14 +43,13 @@ class LogicTest {
             String[] nextRecord = csvReader.readNext();
             while ((nextRecord = csvReader.readNext()) != null) {
                 for (String cell : nextRecord) {
-                    assertEquals(Integer.parseInt(cell), logic.getGrid().getCell(i, j));
+                    assertEquals(Integer.parseInt(cell), logic.getGrid().getCell(i % logic.getGrid().getWidth(), j % logic.getGrid().getHeight()));
                     j++;
                 }
                 i++;
             }
 
         } catch (Exception e) {
-
         }
 
         int xPos = 0, yPos = 0;
