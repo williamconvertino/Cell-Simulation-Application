@@ -205,4 +205,11 @@ public class Grid {
     public int getHeight() {
         return height;
     }
+
+    /**
+     * @return gets the current grid
+     */
+    public int[][] getCurrentGrid(){
+        return currentGrid;
+    }
 }
