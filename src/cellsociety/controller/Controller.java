@@ -36,7 +36,7 @@ public class Controller {
    * @param myScene the scene to which the display elements should be added.
    */
   public Controller(Scene myScene) {
-    myDisplay = new Display(Color.color(100, 0, 100), 10);
+    myDisplay = new Display(myScene, Color.color(50,50,80));
   }
 
 
