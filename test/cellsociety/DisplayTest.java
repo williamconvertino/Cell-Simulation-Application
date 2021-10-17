@@ -15,7 +15,7 @@ public class DisplayTest {
      */
     @Test
     void DisplayUpdateTest () {
-        Display display = new Display(Color.BLACK, 15);
+        Display display = new Display(Color.BLACK, 15, 1000, 600);
         // different ways to test double results
         int[][] testGrid = new int[15][15];
         for(int i = 0; i < testGrid.length; i++){
