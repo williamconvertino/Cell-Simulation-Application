@@ -42,7 +42,7 @@ public class Controller {
   public void update() {
 
     if ((myGrid = myLogicController.getActiveGrid()) == null) {
-      myDisplay.updateScene(myGrid.getCurrentGrid());
+      //myDisplay.updateScene(myGrid);
     }
 
   }

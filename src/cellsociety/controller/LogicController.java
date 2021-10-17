@@ -1,7 +1,11 @@
 package cellsociety.controller;
 
+import cellsociety.io.SIMFileReader;
+import cellsociety.logic.GameOfLife;
 import cellsociety.logic.Grid;
 import cellsociety.logic.Logic;
+import java.awt.Dimension;
+import java.util.Map;
 import org.apache.commons.logging.Log;
 
 /**
@@ -27,6 +31,29 @@ public class LogicController {
    */
   public LogicController () {
 
+  }
+
+  /**
+   * Initializes a new simulation based on a SIM file input.
+   *
+   * @param fileName the name of the SIM file with the initialization configuration data.
+   * @throws Exception if the file cannot be found or is improperly formatted.
+   */
+  public void initializeFromFile (String fileName) throws Exception {
+
+    Map<String, String> metadata;
+    try {
+      metadata = SIMFileReader.getMetadataFromFile(fileName);
+
+
+    } catch (Exception e) { //TODO: Fix error handling.
+      throw e;
+    }
+
+  }
+
+  private void loadGameOfLife(Dimension gridSize) {
+    this.currentAlgorithm = new GameOfLife(gridSize.width, gridSize.height);
   }
 
   /**
