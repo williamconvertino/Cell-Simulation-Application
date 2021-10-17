@@ -1,5 +1,6 @@
 package cellsociety.logic;
 
+import cellsociety.io.SIMFileReader;
 import com.opencsv.CSVReader;
 import org.apache.commons.logging.Log;
 import org.junit.jupiter.api.BeforeEach;

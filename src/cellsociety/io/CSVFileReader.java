@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class CSVFileReader {
 
-  public static Grid readFile(String fileName) throws IOException, CsvValidationException {
+  public static Grid readFile(String fileName) {
     try{
       // Create an object of filereader
       // class with CSV file as a parameter.
@@ -45,8 +45,8 @@ public class CSVFileReader {
       }
       grid.updateGrid();
       return grid;
-    } catch (IOException e){
-      throw new IOException();
+    } catch (IOException | CsvValidationException e){
+      return null;
     }
 
   }
