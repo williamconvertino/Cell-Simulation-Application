@@ -19,8 +19,6 @@ import javafx.scene.shape.Rectangle;
 
 
 public class Display {
-    public final static int SCENE_WIDTH = 1000;
-    public final static int SCENE_HEIGHT = 600;
     public final static int LEFT_OFFSET_GRID = 350;
     public final static int TOP_OFFSET_GRID = 50;
     public final static double CELL_LENGTH = 29;
@@ -32,7 +30,7 @@ public class Display {
     /**
      * Create display based on given background color and Grid Cell length.
      */
-    public Display (Paint background, int gridSize) {
+    public Display (Display display, Paint background, int gridSize, int sceneWidth, int sceneHeight) {
         Group root = new Group();
 
         rectGrid = new Rectangle[gridSize][gridSize];
@@ -61,7 +59,7 @@ public class Display {
         root.getChildren().add(segregationButton);
         root.getChildren().add(sharkButton);
 
-        scene = new Scene(root,SCENE_WIDTH, SCENE_HEIGHT, background);
+        scene = new Scene(root,sceneWidth, sceneHeight, background);
     }
 
     /**
