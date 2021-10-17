@@ -30,7 +30,7 @@ public class Display {
     /**
      * Create display based on given background color and Grid Cell length.
      */
-    public Display (Display display, Paint background, int gridSize, int sceneWidth, int sceneHeight) {
+    public Display ( Paint background, int gridSize, int sceneWidth, int sceneHeight) {
         Group root = new Group();
 
         rectGrid = new Rectangle[gridSize][gridSize];
