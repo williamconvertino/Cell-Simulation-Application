@@ -34,7 +34,7 @@ public class SIMFileReader {
    * @param fileName the string of the Sim file to be used
    * @return a Properties class containing the data held in the Sim file
    */
-  public static Properties readPropertiesFile(String fileName) {
+  private static Properties readPropertiesFile(String fileName) {
     FileInputStream fis;
     Properties prop = null;
     try {
