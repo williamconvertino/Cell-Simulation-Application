@@ -65,17 +65,7 @@ class LogicTest {
         assertEquals(0, logic.getGrid().getCell(xPos, yPos));
     }
 
-    @Test
-    void initializeWithSimFileBlinkers() {
-        assertEquals(true, logic.initializeWithSimFile("data/game_of_life/blinkers.sim"));
 
-        assertEquals("GameOfLife", logic.getMetaData().get("Type"));
-        assertEquals("Blinkers", logic.getMetaData().get("Title"));
-        assertEquals("John Conway", logic.getMetaData().get("Author"));
-        assertEquals("Examples of a blinker, a line of cells 3 wide that switches back and forth from vertical to horizontal", logic.getMetaData().get("Description"));
-        assertEquals("game_of_life/blinkers.csv", logic.getMetaData().get("InitialStates"));
-
-    }
 
     @Test
     void getGrid() {

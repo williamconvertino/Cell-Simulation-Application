@@ -2,6 +2,7 @@ package cellsociety.logic;
 
 //import cellsociety.io.CSVFileReader;
 import cellsociety.io.CSVFileReader;
+import cellsociety.io.SIMFileReader;
 import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.*;
@@ -45,33 +46,11 @@ public abstract class Logic {
      * @return returns true if the Sim file was read successfully, false otherwise
      */
     public boolean initializeWithSimFile(String file){
-        Properties prop = readSimFile(file);
-        if(prop == null){
-            return false;
-        }
-        for (final String name: prop.stringPropertyNames())
-            metadata.put(name, prop.getProperty(name));
-        return true;
+            metadata = SIMFileReader.getMetadataFromFile(file);
+            return metadata == null;
     }
 
-    /**
-     * reads in a Sim file as a properties file since they follow the same structure
-     * @param fileName the string of the Sim file to be used
-     * @return a Properties class containing the data held in the Sim file
-     */
-    private Properties readSimFile(String fileName){
-        FileInputStream fis;
-        Properties prop = null;
-        try {
-            fis = new FileInputStream(fileName);
-            prop = new Properties();
-            prop.load(fis);
-            fis.close();
-        } catch(FileNotFoundException fnfe) {
-        } catch(IOException ioe) {
-        }
-        return prop;
-    }
+
 
     /**
      * @return the grid held by the logic

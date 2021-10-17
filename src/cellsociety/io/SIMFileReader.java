@@ -10,11 +10,17 @@ import java.util.Properties;
 
 public class SIMFileReader {
 
-  public static HashMap<String,String> getMetadataFromFile(String file) throws IOException {
+  /**
+   * reads in a Sim file as a properties file since they follow the same structure
+   * @param file the string of the Sim file to be used
+   * @return a Properties class containing the data held in the Sim file
+   */
+  public static HashMap<String,String> getMetadataFromFile(String file) {
 
     HashMap metadata = new HashMap();
 
     Properties prop = readPropertiesFile(file);
+    if(prop == null) return null;
     for (final String name : prop.stringPropertyNames()) {
       metadata.put(name, prop.getProperty(name));
     }
@@ -28,7 +34,7 @@ public class SIMFileReader {
    * @param fileName the string of the Sim file to be used
    * @return a Properties class containing the data held in the Sim file
    */
-  public static Properties readPropertiesFile(String fileName) throws IOException {
+  public static Properties readPropertiesFile(String fileName) {
     FileInputStream fis;
     Properties prop = null;
     try {
@@ -37,7 +43,7 @@ public class SIMFileReader {
       prop.load(fis);
       fis.close();
     } catch(IOException ioe) {
-      throw new IOException();
+      //throw new IOException();
     }
     return prop;
   }
