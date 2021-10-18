@@ -1,15 +1,13 @@
 package cellsociety.display;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
-import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
@@ -30,6 +28,10 @@ import org.w3c.dom.css.Rect;
 
 public class Display {
 
+    public static final String DEFAULT_RESOURCE_PACKAGE = "cellsociety.resources.";
+    public static final String DEFAULT_RESOURCE_FOLDER =
+            "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
+
     public static Map<Integer, Color> COLOR_MAP = new HashMap();
     static {
         COLOR_MAP.put(0, Color.WHITE);
@@ -44,15 +46,16 @@ public class Display {
     private Rectangle[][] displayGrid;
 
     private Group root;
+    protected ResourceBundle myResources;
 
     /**
      * Create display based on given background color and Grid Cell length.
      */
-    public Display (Stage myStage, Color background) {
+    public Display (Stage myStage, Color background, String language) {
         this.myStage = myStage;
         root = (Group)myStage.getScene().getRoot();
         myStage.getScene().setFill(background);
-
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     }
 
     public void initializeGrid(int[][] grid) {
@@ -99,5 +102,12 @@ public class Display {
         fileChooserButton.setLayoutX(0);
         fileChooserButton.setLayoutY(0);
         root.getChildren().add(fileChooserButton);
+    }
+
+    public void showError(String message, String command) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(myResources.getString("CommandError"));
+        alert.setContentText(String.format("%s: %s", message, command));
+        alert.show();
     }
 }
