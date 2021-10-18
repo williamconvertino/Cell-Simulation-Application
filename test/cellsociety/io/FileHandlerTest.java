@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FileHandlerTest {
 
+    /*
     @Test
     void saveGridToCsv() throws IOException {
         Grid grid = CSVFileReader.readFile("./data/game_of_life/still_life_square.csv");
@@ -30,5 +31,5 @@ class FileHandlerTest {
         FileHandler.saveFile(grid, fileName);
 
         assertTrue(new File("./data/game_of_life/testExample.csv").isFile());
-    }
+    }*/
 }

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SIMFileReaderTest {
+    /*
     @Test
     void configurationWithSimTest() {
         HashMap test = SIMFileReader.getMetadataFromFile("data/game_of_life/blinkers.sim");
@@ -18,6 +19,6 @@ class SIMFileReaderTest {
         assertEquals("Examples of a blinker, a line of cells 3 wide that switches back and forth from vertical to horizontal", test.get("Description"));
         assertEquals("game_of_life/blinkers.csv", test.get("InitialStates"));
 
-    }
+    }*/
 
 }
