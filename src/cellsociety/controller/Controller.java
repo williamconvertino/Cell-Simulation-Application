@@ -2,13 +2,12 @@ package cellsociety.controller;
 
 import cellsociety.display.Display;
 import cellsociety.logic.Grid;
-import cellsociety.logic.Logic;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 
 /**
  * Organizes and runs the different parts of the Cell Society
- * program, allowing the Display, Logic, IO handling, and Error
+ * program, allowing the Display, Simulation, IO handling, and Error
  * handling to communicate with each other.
  *
  * @author William Convertino
@@ -32,17 +31,26 @@ public class Controller {
    * @param myScene the scene to which the display elements should be added.
    */
   public Controller(Scene myScene) {
-    myDisplay = new Display(Color.color(0,0,1), 10, 100, 100);
+    this.myLogicController = new LogicController();
+    initializeDisplay(myScene);
   }
 
+  //Initializes the display components.
+  private void initializeDisplay (Scene myScene) {
+    myDisplay = new Display(myScene, Color.color(50,50,80));
+    myDisplay.addPlayButton();
+    myDisplay.addPauseButton();
+    myDisplay.addFileExplorer();
+  }
 
   /**
-   *  Executes every program tick to allow the Logic and Display to update.
+   *  Executes every program tick to allow the Simulation and Display to update.
    */
   public void update() {
 
-    if ((myGrid = myLogicController.getActiveGrid()) == null) {
-      //myDisplay.updateScene(myGrid);
+    myLogicController.update();
+    if ((myGrid = myLogicController.getActiveGrid()) != null) {
+      myDisplay.updateScene(myGrid.getCurrentGrid());
     }
 
   }
