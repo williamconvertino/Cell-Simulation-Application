@@ -33,6 +33,7 @@ public class FileHandler {
                 eachRow[j] = String.valueOf(grid.getCell(i,j));
             }
             list.add(eachRow);
+            eachRow = new String[grid.getWidth()];
         }
         return list;
     }
