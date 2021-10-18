@@ -2,6 +2,5 @@ Type=GameOfLife
 Title=Still Life Square
 Author=Alexis
 Description=Example of a square still life, a configuration that remains static for any number of generations
-InitialStates=game_of_life/penta-decathlon.csv
-StateColors=DDDDDD,FF0000
+InitialStates=game_of_life/still_life_square.csv
 
