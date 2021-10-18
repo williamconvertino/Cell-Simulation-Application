@@ -3,32 +3,17 @@ package cellsociety.errors;
 import java.io.FileNotFoundException;
 
 /**
- * Signals that the user attempted to open a file that could not be found.
+ * Signals that there was some unsupported exception thrown in the program.
  *
  * @author William Convertino
  */
-public class FileNotFoundError extends FileNotFoundException {
-
-  //The name of the file that was accessed.
-  private String filename;
+public class UnhandledExceptionError extends Exception {
 
   /**
-   * Constructs a new FileNotFoundError with the specified
-   * filename that was attempted.
-   *
-   * @param filename the name of the file that the system attempted to open.
+   * Constructs a new UnhandledExceptionError.
    */
-  public FileNotFoundError (String filename) {
-    this.filename = filename;
-  }
+  public UnhandledExceptionError() {
 
-  /**
-   * Returns the name of the file that the user attempted to open.
-   *
-   * @return the name of the file that the user attempted to open.
-   */
-  public String getFilename() {
-    return filename;
   }
 
 }

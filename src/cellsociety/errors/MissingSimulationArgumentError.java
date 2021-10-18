@@ -3,32 +3,32 @@ package cellsociety.errors;
 import java.io.FileNotFoundException;
 
 /**
- * Signals that the user attempted to open a file that could not be found.
+ * Signals that the user attempted to run a simulation while missing a required argument.
  *
  * @author William Convertino
  */
-public class FileNotFoundError extends FileNotFoundException {
+public class MissingSimulationArgumentError extends IllegalArgumentException {
 
-  //The name of the file that was accessed.
-  private String filename;
+  //The name of the argument that was missing.
+  private String argument;
 
   /**
-   * Constructs a new FileNotFoundError with the specified
-   * filename that was attempted.
+   * Constructs a new MissingSimulationArgumentError with the missing
+   * argument.
    *
-   * @param filename the name of the file that the system attempted to open.
+   * @param argument the argument that the simulation was not passed.
    */
-  public FileNotFoundError (String filename) {
-    this.filename = filename;
+  public MissingSimulationArgumentError(String argument) {
+    this.argument = argument;
   }
 
   /**
-   * Returns the name of the file that the user attempted to open.
+   * Returns the name of the argument that the user was missing.
    *
-   * @return the name of the file that the user attempted to open.
+   * @return the name of the argument that the user was missing.
    */
-  public String getFilename() {
-    return filename;
+  public String getArgument() {
+    return argument;
   }
 
 }

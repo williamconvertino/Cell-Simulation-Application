@@ -7,27 +7,27 @@ import java.io.FileNotFoundException;
  *
  * @author William Convertino
  */
-public class InvalidSimulationType extends Exception {
+public class InvalidSimulationTypeError extends Exception {
 
   //The type of simulation that was given.
   private String type;
 
   /**
-   * Constructs a new InvalidSimulationType with the type of simulation
+   * Constructs a new InvalidSimulationTypeError with the type of simulation
    * that was attempted.
    *
    * @param type the type of simulation that the user attempted to run.
    */
-  public InvalidSimulationType(String type) {
+  public InvalidSimulationTypeError(String type) {
     this.type = type;
   }
 
   /**
-   * Returns the name of the file that the user attempted to open.
+   * Returns the type of simulation that the user attempted to run.
    *
-   * @return the name of the file that the user attempted to open.
+   * @return the type of simulation that the user attempted to run.
    */
-  public String getFilename() {
+  public String getType() {
     return type;
   }
 
