@@ -1,74 +1,56 @@
 package cellsociety.logic;
 
-//import cellsociety.io.CSVFileReader;
-
 import cellsociety.errors.MissingSimulationArgumentError;
-import cellsociety.io.CSVFileReader;
-import cellsociety.io.SIMFileReader;
-import com.opencsv.exceptions.CsvValidationException;
-
-import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 /**
- * The base Logic class for the individual games
+ * The base simulation class for the individual simulation types. Contains a grid and functionality to
+ * update the grid based on the subclass' algorithms.
  *
  * @author Alexis Cruz
+ * @author William Convertino
  */
-public abstract class Logic {
+public abstract class Simulation {
+
+    //The current grid state of the simulation.
     private Grid grid;
 
-    // a hashmap containing the data collected from sim files
+    //A map containing the simulation's data collected from the simulation's sim files.
     private Map<String, String> metadata;
 
-    public Logic(Grid grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
+    /**
+     * Constructs a new Simulation with a specified starting Grid and a Map of
+     * simulation-specific data values.
+     *
+     * @param grid the starting grid of the simulation.
+     * @param metadata the user-specified values used by the simulation.
+     * @throws MissingSimulationArgumentError if the metadata is missing a required argument for the simulation.
+     */
+    public Simulation(Grid grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
         this.grid = grid;
         this.metadata = metadata;
     }
 
-
     /**
-     * initializes the game using a specified CSV file
+     * Returns the current grid state of the simulation.
      *
-     * @param file the string of the CSV file to be used
-     * @return returns true if the CSV file was read successfully, false other wise
-     */
-    public boolean initializeWithCSVFile(String file) {
-        grid = CSVFileReader.readFile(file);
-        return grid != null;
-    }
-
-    /**
-     * initializes the game using a specified Sim file
-     * and sets the parameters to the metadata map
-     *
-     * @param file the string of the Sim file to be used
-     * @return returns true if the Sim file was read successfully, false otherwise
-     */
-    public boolean initializeWithSimFile(String file) {
-        metadata = SIMFileReader.getMetadataFromFile(file);
-        return metadata != null;
-    }
-
-
-    /**
-     * @return the grid held by the logic
+     * @return the current grid state of the simulation.
      */
     public Grid getGrid() {
         return grid;
     }
 
     /**
-     * @return the metadata of the Logic
+     * Returns the metadata of the simulation.
+     *
+     * @return the metadata of the simulation.
      */
     public Map<String, String> getMetaData() {
         return metadata;
     }
 
     /**
-     * the update function to be run every tick of the game
+     * The update function to be run every tick of the game.
      */
     public abstract void update();
 
