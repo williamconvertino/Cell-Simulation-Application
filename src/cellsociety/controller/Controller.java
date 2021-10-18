@@ -2,8 +2,12 @@ package cellsociety.controller;
 
 import cellsociety.display.Display;
 import cellsociety.logic.Grid;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * Organizes and runs the different parts of the Cell Society
@@ -28,19 +32,25 @@ public class Controller {
    * Creates a Controller to run a new instance of Cell Society,
    * using the passed scene to initialize its display.
    *
-   * @param myScene the scene to which the display elements should be added.
+   * @param myStage the stage on which the display elements should be added.
    */
-  public Controller(Scene myScene) {
+  public Controller(Stage myStage) {
     this.myLogicController = new LogicController();
-    initializeDisplay(myScene);
+    initializeDisplay(myStage);
   }
 
   //Initializes the display components.
-  private void initializeDisplay (Scene myScene) {
-    myDisplay = new Display(myScene, Color.color(.50,.50,.80));
+  private void initializeDisplay (Stage myStage) {
+    myDisplay = new Display(myStage, Color.color(.50,.50,.80));
+    myDisplay.addFileChoser(new EventHandler() {
+      @Override
+      public void handle(Event event) {
+
+      }
+    });
     //myDisplay.addPlayButton();
     //myDisplay.addPauseButton();
-    //myDisplay.addFileExplorer();
+
   }
 
   /**

@@ -1,10 +1,14 @@
 package cellsociety.display;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -12,6 +16,8 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -34,7 +40,7 @@ public class Display {
     public final static int TOP_OFFSET_GRID = 50;
     public final static double CELL_LENGTH = 29;
     public final static double CELL_OFFSET = 1.5;
-    private Scene scene;
+    private Stage myStage;
     private Rectangle[][] displayGrid;
 
     private Group root;
@@ -42,9 +48,10 @@ public class Display {
     /**
      * Create display based on given background color and Grid Cell length.
      */
-    public Display (Scene myScene, Color background) {
-        root = (Group)myScene.getRoot();
-        myScene.setFill(background);
+    public Display (Stage myStage, Color background) {
+        this.myStage = myStage;
+        root = (Group)myStage.getScene().getRoot();
+        myStage.getScene().setFill(background);
 
     }
 
@@ -74,5 +81,23 @@ public class Display {
                 displayGrid[i][j].setFill(COLOR_MAP.get(grid[i][j]));
             }
         }
+    }
+
+    public void addFileChoser(EventHandler fileChosenHandler) {
+        Button fileChooserButton = new Button("Choose a file");
+        /*
+        fileChooserButton.setOnAction(new EventHandler<ActionEvent>() {
+            FileChooser myFileChoser = new FileChooser();
+            @Override
+            public void handle(ActionEvent event) {
+                File file = myFileChoser.showOpenDialog(myStage);
+                fileChosenHandler.handle(file);
+            }
+        });
+
+         */
+        fileChooserButton.setLayoutX(0);
+        fileChooserButton.setLayoutY(0);
+        root.getChildren().add(fileChooserButton);
     }
 }
