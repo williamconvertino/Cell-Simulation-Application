@@ -2,12 +2,14 @@ package cellsociety.logic;
 
 //import cellsociety.io.CSVFileReader;
 
+import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.io.CSVFileReader;
 import cellsociety.io.SIMFileReader;
 import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -17,12 +19,13 @@ import java.util.Properties;
  */
 public abstract class Logic {
     private Grid grid;
-    // a hashmap containing the data collected from sim files
-    private HashMap<String, String> metadata;
 
-    public Logic(int width, int height) {
-        grid = new Grid(width, height);
-        metadata = new HashMap<>();
+    // a hashmap containing the data collected from sim files
+    private Map<String, String> metadata;
+
+    public Logic(Grid grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
+        this.grid = grid;
+        this.metadata = metadata;
     }
 
 
@@ -60,7 +63,7 @@ public abstract class Logic {
     /**
      * @return the metadata of the Logic
      */
-    public HashMap<String, String> getMetaData() {
+    public Map<String, String> getMetaData() {
         return metadata;
     }
 
