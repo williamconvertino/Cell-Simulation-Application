@@ -1,6 +1,8 @@
 package cellsociety.display;
 
+import cellsociety.io.FilePickerEventHandler;
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,19 +85,19 @@ public class Display {
         }
     }
 
-    public void addFileChoser(EventHandler fileChosenHandler) {
+    public void addFileChoser(FilePickerEventHandler fileChosenHandler) {
         Button fileChooserButton = new Button("Choose a file");
-        /*
+
         fileChooserButton.setOnAction(new EventHandler<ActionEvent>() {
             FileChooser myFileChoser = new FileChooser();
             @Override
             public void handle(ActionEvent event) {
+                myFileChoser.setInitialDirectory(new File(Paths.get(".").toAbsolutePath().normalize().toString()));
                 File file = myFileChoser.showOpenDialog(myStage);
-                fileChosenHandler.handle(file);
+                fileChosenHandler.sendFile(file);
             }
         });
 
-         */
         fileChooserButton.setLayoutX(0);
         fileChooserButton.setLayoutY(0);
         root.getChildren().add(fileChooserButton);

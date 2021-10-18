@@ -1,7 +1,9 @@
 package cellsociety.controller;
 
 import cellsociety.display.Display;
+import cellsociety.io.FilePickerEventHandler;
 import cellsociety.logic.Grid;
+import java.io.File;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -42,15 +44,23 @@ public class Controller {
   //Initializes the display components.
   private void initializeDisplay (Stage myStage) {
     myDisplay = new Display(myStage, Color.color(.50,.50,.80));
-    myDisplay.addFileChoser(new EventHandler() {
+    myDisplay.addFileChoser(new FilePickerEventHandler() {
       @Override
-      public void handle(Event event) {
-
-      }
+      public void handle(Event event) {};
+      @Override
+      public void sendFile(File file) {loadFile(file);}
     });
     //myDisplay.addPlayButton();
     //myDisplay.addPauseButton();
+  }
 
+  public void loadFile(File file) {
+      try {
+        myLogicController.initializeFromFile(file);
+      } catch (Exception e) {
+        e.printStackTrace();
+        //myDisplay.showError(e);
+      }
   }
 
   /**
