@@ -37,10 +37,10 @@ public class Controller {
 
   //Initializes the display components.
   private void initializeDisplay (Scene myScene) {
-    myDisplay = new Display(myScene, Color.color(50,50,80));
-    myDisplay.addPlayButton();
-    myDisplay.addPauseButton();
-    myDisplay.addFileExplorer();
+    myDisplay = new Display(myScene, Color.color(.50,.50,.80));
+    //myDisplay.addPlayButton();
+    //myDisplay.addPauseButton();
+    //myDisplay.addFileExplorer();
   }
 
   /**

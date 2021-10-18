@@ -1,8 +1,11 @@
 package cellsociety.display;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import java.util.Map;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
@@ -16,57 +19,50 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import org.w3c.dom.css.Rect;
 
 
 public class Display {
+
+    public static Map<Integer, Color> COLOR_MAP = new HashMap();
+    static {
+        COLOR_MAP.put(0, Color.WHITE);
+        COLOR_MAP.put(1, Color.BLUE);
+        COLOR_MAP.put(0, Color.RED);
+    }
     public final static int LEFT_OFFSET_GRID = 350;
     public final static int TOP_OFFSET_GRID = 50;
     public final static double CELL_LENGTH = 29;
     public final static double CELL_OFFSET = 1.5;
     private Scene scene;
-    private Rectangle[][] rectGrid;
+    private Rectangle[][] displayGrid;
 
+    private Group root;
 
     /**
      * Create display based on given background color and Grid Cell length.
      */
-    public Display ( Paint background, int gridSize, int sceneWidth, int sceneHeight) {
-        Group root = new Group();
+    public Display (Scene myScene, Color background) {
+        root = (Group)myScene.getRoot();
+        myScene.setFill(background);
 
-        rectGrid = new Rectangle[gridSize][gridSize];
-
-        int xPos = 0;
-        gridSize --;
-        for(int x = 0; x < (CELL_LENGTH + CELL_OFFSET)*gridSize; x += CELL_LENGTH + CELL_OFFSET){
-            int yPos = 0;
-            for(int y = 0; y < (CELL_LENGTH + CELL_OFFSET)*gridSize; y += CELL_LENGTH + CELL_OFFSET){
-                Rectangle cell = new Rectangle(x + LEFT_OFFSET_GRID, y + TOP_OFFSET_GRID, CELL_LENGTH, CELL_LENGTH);
-                cell.setFill(Color.WHITE);
-                rectGrid[xPos][yPos] = cell;
-                root.getChildren().add(cell);
-                yPos++;
-            }
-            xPos++;
-        }
-
-        Button lifeButton = new Button("Game of Life");
-        Button fireButton = new Button("Spreading of Fire");
-        Button segregationButton = new Button("Schelling's model of segregation");
-        Button sharkButton = new Button("Wa-Tor World model of predator-prey relationships");
-
-        root.getChildren().add(lifeButton);
-        root.getChildren().add(fireButton);
-        root.getChildren().add(segregationButton);
-        root.getChildren().add(sharkButton);
-
-        scene = new Scene(root,sceneWidth, sceneHeight, background);
     }
 
-    /**
-     * Return current Scene
-     */
-    public Scene getScene () {
-        return scene;
+    public void initializeGrid(int[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return;
+        }
+        displayGrid = new Rectangle[grid.length][grid[0].length];
+
+        for(int x = 0; x < grid.length; x++) {
+            for (int y = 0; y < grid[0].length; y++) {
+                Rectangle cell = new Rectangle(x*(CELL_LENGTH + LEFT_OFFSET_GRID) - LEFT_OFFSET_GRID,
+                    y*(CELL_LENGTH + TOP_OFFSET_GRID) - TOP_OFFSET_GRID , CELL_LENGTH, CELL_LENGTH);
+                displayGrid[x][y] = cell;
+                root.getChildren().add(cell);
+            }
+        }
+        updateScene(grid);
     }
 
     /**
@@ -75,11 +71,7 @@ public class Display {
     public void updateScene (int[][] grid) {
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid.length; j++){
-                if(grid[i][j] == 0){
-                    rectGrid[i][j].setFill(Color.WHITE);
-                }else if(grid[i][j] == 1){
-                    rectGrid[i][j].setFill(Color.LIGHTBLUE);
-                }
+                displayGrid[i][j].setFill(COLOR_MAP.get(grid[i][j]));
             }
         }
     }
