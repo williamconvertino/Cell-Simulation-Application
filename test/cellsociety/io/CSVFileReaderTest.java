@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CSVFileReaderTest {
 
     @Test
-    void initializeWithCSVFile() {
+    void configurationWithCSVTest() {
         Grid grid = CSVFileReader.readFile("data/game_of_life/still_life_square.csv");
         assertNotEquals(null, grid);
 

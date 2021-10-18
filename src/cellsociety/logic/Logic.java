@@ -60,7 +60,7 @@ public abstract class Logic {
     /**
      * @return the metadata of the Logic
      */
-    public HashMap getMetaData() {
+    public HashMap<String, String> getMetaData() {
         return metadata;
     }
 

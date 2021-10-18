@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SIMFileReaderTest {
     @Test
-    void getMetadataFromFile() {
+    void configurationWithSimTest() {
         HashMap test = SIMFileReader.getMetadataFromFile("data/game_of_life/blinkers.sim");
         assertNotEquals(null, test);
 
