@@ -78,6 +78,10 @@ public class Display {
      * Update Scene
      */
     public void updateScene (int[][] grid) {
+        if (displayGrid == null) {
+            initializeGrid(grid);
+            return;
+        }
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid.length; j++){
                 displayGrid[i][j].setFill(COLOR_MAP.get(grid[i][j]));
@@ -92,7 +96,7 @@ public class Display {
             FileChooser myFileChoser = new FileChooser();
             @Override
             public void handle(ActionEvent event) {
-                myFileChoser.setInitialDirectory(new File(Paths.get(".").toAbsolutePath().normalize().toString()));
+                myFileChoser.setInitialDirectory(new File(Paths.get(".").toAbsolutePath().normalize().toString() + "/data"));
                 File file = myFileChoser.showOpenDialog(myStage);
                 fileChosenHandler.sendFile(file);
             }

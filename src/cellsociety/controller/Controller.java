@@ -28,7 +28,7 @@ public class Controller {
   private LogicController myLogicController;
 
   //The current grid that should be shown by the Display.
-  private Grid myGrid;
+  private int[][] myGrid;
 
   /**
    * Creates a Controller to run a new instance of Cell Society,
@@ -69,8 +69,9 @@ public class Controller {
   public void update() {
 
     myLogicController.update();
-    if ((myGrid = myLogicController.getActiveGrid()) != null) {
-      myDisplay.updateScene(myGrid.getCurrentGrid());
+    if (myLogicController.getActiveGrid() != null &&
+        (myGrid = myLogicController.getActiveGrid().getCurrentGrid()) != null) {
+      myDisplay.updateScene(myGrid);
     }
 
   }

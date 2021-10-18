@@ -28,7 +28,7 @@ public class LogicController {
 
   public static final String TYPE = "Type";
   public static final String INITIAL_STATE = "InitialStates";
-  public static final int CYCLE_DELAY = 2;
+  public static final int CYCLE_DELAY = 1;
 
   private Runnable cycleRunnable;
   private ScheduledExecutorService cycleExecutor;
@@ -83,6 +83,7 @@ public class LogicController {
     }
     try {
       currentSimulation = loadLogicClass(grid, metadata);
+
       gridToDisplay = currentSimulation.getGrid();
     } catch (NoSuchMethodException e) {
       throw new InvalidSimulationTypeError(metadata.get(TYPE));
@@ -94,9 +95,12 @@ public class LogicController {
 
   }
 
+  //Initiates the proper simulation type and loads it into the currentSimulation variable.
   private Simulation loadLogicClass(Grid grid, Map<String, String> metadata)
       throws NoSuchMethodException, MissingSimulationArgumentError, InvocationTargetException, IllegalAccessException {
-    return (Simulation)getClass().getMethod(metadata.get(TYPE), Grid.class, Map.class).invoke(this,grid, metadata);
+    //return (Simulation)getClass().getMethod(metadata.get(TYPE), Grid.class, Map.class).invoke(this,grid, metadata);
+
+    return GameOfLife(grid, metadata);
   }
 
   private Simulation GameOfLife(Grid grid, Map<String, String> metadata) {
