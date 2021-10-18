@@ -36,7 +36,7 @@ public class Display {
     static {
         COLOR_MAP.put(0, Color.WHITE);
         COLOR_MAP.put(1, Color.BLUE);
-        COLOR_MAP.put(0, Color.RED);
+        COLOR_MAP.put(2, Color.RED);
     }
     public final static int LEFT_OFFSET_GRID = 100;
     public final static int TOP_OFFSET_GRID = 50;
