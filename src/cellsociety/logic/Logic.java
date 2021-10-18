@@ -1,5 +1,6 @@
 package cellsociety.logic;
 
+import cellsociety.io.CVSFileReader;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
@@ -48,7 +49,7 @@ public abstract class Logic {
             //set i =0 because we'll be using it to iterate
             i = 0;
             //dimensions[0] is width and dimensions[1] is height
-            this.grid = new Grid(dimensions[0], dimensions[1]);
+            this.grid = CVSFileReader.readFile(file);
             while ((nextRecord = csvReader.readNext()) != null) {
                 for (String cell : nextRecord) {
                     getGrid().setCell(i% grid.getWidth(), j% grid.getHeight(), Integer.parseInt(cell));
