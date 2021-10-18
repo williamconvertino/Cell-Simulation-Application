@@ -12,15 +12,15 @@ class CSVFileReaderTest {
 
     @Test
     void initializeWithCSVFile() {
-        Grid grid = CSVFileReader.readFile("data/game_of_life/blinkers.csv");
+        Grid grid = CSVFileReader.readFile("data/game_of_life/still_life_square.csv");
         assertNotEquals(null, grid);
 
-        assertEquals(10, grid.getWidth());
-        assertEquals(10, grid.getHeight());
+        assertEquals(4, grid.getWidth());
+        assertEquals(4, grid.getHeight());
         try {
             // Create an object of filereader
             // class with CSV file as a parameter.
-            FileReader filereader = new FileReader("data/game_of_life/blinkers.csv");
+            FileReader filereader = new FileReader("data/game_of_life/still_life_square.csv");
 
             // create csvReader object passing
             // file reader as a parameter
@@ -44,13 +44,25 @@ class CSVFileReaderTest {
         int xPos = 0, yPos = 0;
         assertEquals(0, grid.getCell(xPos, yPos));
         xPos = 0;
-        yPos = grid.getHeight() - 1;
+        yPos = 3;
+        assertEquals(0, grid.getCell(xPos, yPos));
+        xPos = 1;
+        yPos = 1;
         assertEquals(1, grid.getCell(xPos, yPos));
-        xPos = grid.getWidth() - 1;
+        xPos = 1;
+        yPos = 2;
+        assertEquals(1, grid.getCell(xPos, yPos));
+        xPos = 2;
+        yPos = 1;
+        assertEquals(1, grid.getCell(xPos, yPos));
+        xPos = 2;
+        yPos = 2;
+        assertEquals(1, grid.getCell(xPos, yPos));
+        xPos = 3;
         yPos = 0;
         assertEquals(0, grid.getCell(xPos, yPos));
-        xPos = grid.getWidth() - 1;
-        yPos = grid.getHeight() - 1;
+        xPos = 3;
+        yPos = 3;
         assertEquals(0, grid.getCell(xPos, yPos));
     }
 
