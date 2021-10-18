@@ -36,7 +36,7 @@ public class Display {
         COLOR_MAP.put(1, Color.BLUE);
         COLOR_MAP.put(0, Color.RED);
     }
-    public final static int LEFT_OFFSET_GRID = 350;
+    public final static int LEFT_OFFSET_GRID = 100;
     public final static int TOP_OFFSET_GRID = 50;
     public final static double CELL_LENGTH = 29;
     public final static double CELL_OFFSET = 1.5;
@@ -63,8 +63,8 @@ public class Display {
 
         for(int x = 0; x < grid.length; x++) {
             for (int y = 0; y < grid[0].length; y++) {
-                Rectangle cell = new Rectangle(x*(CELL_LENGTH + LEFT_OFFSET_GRID) - LEFT_OFFSET_GRID,
-                    y*(CELL_LENGTH + TOP_OFFSET_GRID) - TOP_OFFSET_GRID , CELL_LENGTH, CELL_LENGTH);
+                Rectangle cell = new Rectangle(x*(CELL_LENGTH + CELL_OFFSET) + LEFT_OFFSET_GRID,
+                    y*(CELL_OFFSET + TOP_OFFSET_GRID) + TOP_OFFSET_GRID , CELL_LENGTH, CELL_LENGTH);
                 displayGrid[x][y] = cell;
                 root.getChildren().add(cell);
             }
