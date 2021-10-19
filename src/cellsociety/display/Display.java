@@ -60,6 +60,7 @@ public class Display {
     }
 
     public void initializeGrid(int[][] grid) {
+        resetGrid();
         if (grid == null || grid.length == 0 || grid[0].length == 0) {
             return;
         }
@@ -74,6 +75,17 @@ public class Display {
             }
         }
         updateScene(grid);
+    }
+
+    //Removes all elements of the displayGrid from the display.
+    private void resetGrid() {
+        if (displayGrid != null) {
+            for (int i = 0; i < displayGrid.length; i++) {
+                for (int j = 0; j < displayGrid[0].length; j++) {
+                    root.getChildren().remove(displayGrid[i][j]);
+                }
+            }
+        }
     }
 
     /**
