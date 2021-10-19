@@ -16,6 +16,32 @@ creating logic subclasses for each different application because they update the
 Finally, we will have a controller classes to link together all the different parts. The main controller class deals with
 the higher level ideas, while the logic controller will load and initialize the algorithms.
 
+|**Logic**| Collaborates With|
+|---|---|
+|Getting the neighbors of a cell        ||
+|Updating each cell on each tick of application | |
+|Creating a new grid for each tick | |
+|Sending the new grid over to Controller |Controller |
+
+|**Display**| Collaborates With|
+|---|---|
+|Create a control panel for the user (upload file, pause, etc.)  ||
+|Update the scene at each tick | |
+|Get the stage and scene from Main |Main|
+
+|**Input Output**| Collaborates With|
+|---|---|
+|Save current grid configuration from Display  |Display|
+|Read the file and parse the data ||
+|Send the parsed file over to Logic |Logic|
+
+|**Controller**| Collaborates With|
+|---|---|
+|Get next state of Grid and pass it to Display  |Logic, Display|
+|Send I/O data to Logic |I/O, Logic |
+|Send the scene from Main to Display so the Display can modify it |Main, Display|
+|Keep track of the current Grid state for logic controller  |Logic|
+
 ## Design Details
 
 Our classes work together using the controller classes. If we have an error, our Logic or IO classes will
@@ -24,6 +50,37 @@ in an English.properties file. Our Logic will implement an inheritance hierarchy
 where there will be a superclass and then the subclasses will be specific to each of the four applications, running each
 of the different algorithms on the grid. The logic sends a new grid over to the controller, which sends it over to display
 so that the display can show the new state of the grid. 
+
+**Use Case #1**: The file runs, user pauses on a specific configuration and saves the current grid
+1. Use case begins when user runs the file
+2. User hits the pause button, causing the state of the button to say "Resume" now and causing the animation to stop on the
+current configuration of the grid
+3. The user hits a "save" button and inputs the name they choose for the file
+4. The display passes this button event to the controller which calls the saveFile method from a FileHandler class in I/O
+5. The file is saved on the computer of the user
+
+**Use Case #2**: The user uploads a file with an invalid simulation type
+1. Use case begins when user uploads a file to the application using a button from the control panel in the 
+Display class. 
+2. The file is passed to the I/O classes so that the I/O classes can parse the data
+3. The I/O parses the data and sends this data to a controller
+4. The controller sees that there is data in the file that does not make any sense
+5. It catches the error and gives it to the Display class so that the Display class can show the error in a user-friendly
+way such as a pop-up
+6. Program does not crash
+
+**Use Case #3**: The user loads a Game of Life file into program and then after a while the user loads a Spreading Fire file 
+into the program
+1. Use case begins when the user uploads the Game of Life file from a button on the display
+2. The file runs with constant communication between Logic, Controller, and Display - the logic is creating a new grid at every 
+tick based on the Game of Life algorithm and is sending this grid to the controller which sends it over to Display so that the 
+Display follows Single Responsibility and is only concerned with displaying the grid retrieved from Logic.
+3. Then, after a while, the user presses the upload file button again and uploads a Spreading Fire application.
+4. This causes the Display to reset back to its original state via a reset() method. 
+5. Everything in Logic and Controller was reverted back to its original state before the Game of Life program started 
+and the Spreading Fire application now runs on the Display.
+
+
 
 ## Design Considerations
 
