@@ -39,7 +39,7 @@ public class LogicController {
   //The current program grid to display to the user.
   private Grid gridToDisplay;
 
-  //Keeps track of whether or not the simulation is paused.
+  //Keeps track of whether the simulation is paused.
   private boolean isPaused;
 
   /**
@@ -51,7 +51,7 @@ public class LogicController {
 
   //Initializes a cycle executor to run the simulation's update method at a specified interval.
   private void initializeCycles(int delay) {
-    this.isPaused = false; //TODO: Set isPaused to true by default.
+    this.isPaused = true;
     this.cycleRunnable = new Runnable() {
       @Override
       public void run() {
@@ -103,6 +103,7 @@ public class LogicController {
     return GameOfLife(grid, metadata);
   }
 
+  //Returns a new GameOfLife simulation.
   private Simulation GameOfLife(Grid grid, Map<String, String> metadata) {
     return new GameOfLife(grid, metadata);
   }
