@@ -47,13 +47,12 @@ public class Controller {
   private void initializeDisplay (Stage myStage) {
     myDisplay = new Display(myStage, Color.color(.50,.50,.80));
     try {
-      myDisplay.addFileChoser(getClass().getMethod("loadFile", File.class), this);
+      myDisplay.addFileChoserButton(getClass().getMethod("loadFile", File.class), this);
+      myDisplay.addPlayButton(getClass().getMethod("playSimulation"), this);
+      myDisplay.addPauseButton(getClass().getMethod("pauseSimulation"), this);
     } catch (Exception e) {
       //myDisplay.showError(new UnhandledExceptionError());
     }
-
-    //myDisplay.addPlayButton();
-    //myDisplay.addPauseButton();
   }
 
   /**

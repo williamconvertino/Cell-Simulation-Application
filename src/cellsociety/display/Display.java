@@ -104,16 +104,25 @@ public class Display {
     }
 
     //Adds a new button to the screen with the passed method as its event.
-    private Button addButton(Method myMethod, Object instance) {
+    private Button addButton(Method myMethod, Object instance, int xpos, int ypos) {
         Button myButton = new Button();
+        myButton.setLayoutX(xpos);
+        myButton.setLayoutY(ypos);
         myButton.setOnAction(e -> {try {myMethod.invoke(instance);} catch (Exception exception) {}});
         root.getChildren().add(myButton);
         return myButton;
     }
 
-    public void addFileChoser(Method loadFile, Object instance) {
+    /**
+     * Adds a button to the display that allows the user to pick a
+     * sim file to run.
+     *
+     * @param loadFile the method that initiates the file loading.
+     * @param instance the instance of the class that is calling the method (Usually will be the 'this' keyword).
+     */
+    public void addFileChoserButton(Method loadFile, Object instance) {
 
-        Button fileChooserButton = addButton(loadFile, instance);
+        Button fileChooserButton = addButton(loadFile, instance, 0, 0);
         fileChooserButton.setOnAction(e-> {
             try {
                 FileChooser myFileChoser = new FileChooser();
@@ -122,11 +131,29 @@ public class Display {
                 loadFile.invoke(instance, myFileChoser.showOpenDialog(myStage));
             } catch (Exception exception) {}
         } );
-
-        fileChooserButton.setLayoutX(0);
-        fileChooserButton.setLayoutY(0);
         fileChooserButton.setText("Choose File"); //TODO: Format button and fix language
-        root.getChildren().add(fileChooserButton);
+    }
+
+    /**
+     * Adds a button to pause the current simulation.
+     *
+     * @param pauseSimulation the method to pause the simulation.
+     * @param instance the instance of the class that is calling the method (Usually will be the 'this' keyword).
+     */
+    public void addPauseButton(Method pauseSimulation, Object instance) {
+        Button myButton = addButton(pauseSimulation, instance, 100, 0);
+        myButton.setText("Pause");
+    }
+
+    /**
+     * Adds a button to play the current simulation.
+     *
+     * @param playSimulation the method to play the simulation.
+     * @param instance the instance of the class that is calling the method (Usually will be the 'this' keyword).
+     */
+    public void addPlayButton(Method playSimulation, Object instance) {
+        Button myButton = addButton(playSimulation, instance, 200, 0);
+        myButton.setText("Play");
     }
 
 
