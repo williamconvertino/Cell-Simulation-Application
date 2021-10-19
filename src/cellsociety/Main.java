@@ -54,7 +54,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle(String.format("%s %s",WINDOW_NAME,CURRENT_VERSION));
         initializeWindow(primaryStage);
-        cellSocietyProgram = new Controller(primaryStage);
+        cellSocietyProgram = new Controller(primaryStage, INIT_LANGUAGE);
         initializeTimeline();
     }
 
