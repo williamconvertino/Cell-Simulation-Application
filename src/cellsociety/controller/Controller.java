@@ -1,9 +1,11 @@
 package cellsociety.controller;
 
 import cellsociety.display.Display;
+import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.io.FilePickerEventHandler;
 import cellsociety.logic.Grid;
 import java.io.File;
+import java.lang.reflect.Method;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -44,16 +46,21 @@ public class Controller {
   //Initializes the display components.
   private void initializeDisplay (Stage myStage) {
     myDisplay = new Display(myStage, Color.color(.50,.50,.80));
-    myDisplay.addFileChoser(new FilePickerEventHandler() {
-      @Override
-      public void handle(Event event) {};
-      @Override
-      public void sendFile(File file) {loadFile(file);}
-    });
+    try {
+      myDisplay.addFileChoser(getClass().getMethod("loadFile", File.class), this);
+    } catch (Exception e) {
+      //myDisplay.showError(new UnhandledExceptionError());
+    }
+
     //myDisplay.addPlayButton();
     //myDisplay.addPauseButton();
   }
 
+  /**
+   * Loads a new simulation from a file.
+   *
+   * @param file the file from which the simulation should be initialized.
+   */
   public void loadFile(File file) {
       try {
         myLogicController.initializeFromFile(file);
@@ -61,6 +68,15 @@ public class Controller {
         e.printStackTrace();
         //myDisplay.showError(e);
       }
+  }
+
+  public void pauseSimulation () {
+    myLogicController.pauseSimulation();
+  }
+
+
+  public void playSimulation () {
+    myLogicController.playSimulation();
   }
 
   /**

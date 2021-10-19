@@ -1,7 +1,9 @@
 package cellsociety.display;
 
+import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.io.FilePickerEventHandler;
 import java.io.File;
+import java.lang.reflect.Method;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -101,21 +103,31 @@ public class Display {
         }
     }
 
-    public void addFileChoser(FilePickerEventHandler fileChosenHandler) {
-        Button fileChooserButton = new Button("Choose a file");
+    //Adds a new button to the screen with the passed method as its event.
+    private Button addButton(Method myMethod, Object instance) {
+        Button myButton = new Button();
+        myButton.setOnAction(e -> {try {myMethod.invoke(instance);} catch (Exception exception) {}});
+        root.getChildren().add(myButton);
+        return myButton;
+    }
 
-        fileChooserButton.setOnAction(new EventHandler<ActionEvent>() {
-            FileChooser myFileChoser = new FileChooser();
-            @Override
-            public void handle(ActionEvent event) {
-                myFileChoser.setInitialDirectory(new File(Paths.get(".").toAbsolutePath().normalize().toString() + "/data"));
-                File file = myFileChoser.showOpenDialog(myStage);
-                fileChosenHandler.sendFile(file);
-            }
-        });
+    public void addFileChoser(Method loadFile, Object instance) {
+
+        Button fileChooserButton = addButton(loadFile, instance);
+        fileChooserButton.setOnAction(e-> {
+            try {
+                FileChooser myFileChoser = new FileChooser();
+                myFileChoser.setInitialDirectory(
+                    new File(Paths.get(".").toAbsolutePath().normalize().toString() + "/data"));
+                loadFile.invoke(instance, myFileChoser.showOpenDialog(myStage));
+            } catch (Exception exception) {}
+        } );
 
         fileChooserButton.setLayoutX(0);
         fileChooserButton.setLayoutY(0);
+        fileChooserButton.setText("Choose File"); //TODO: Format button and fix language
         root.getChildren().add(fileChooserButton);
     }
+
+
 }
