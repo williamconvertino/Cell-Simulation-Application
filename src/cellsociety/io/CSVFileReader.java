@@ -1,9 +1,12 @@
 package cellsociety.io;
 
+import cellsociety.errors.FileNotFoundError;
+import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.logic.Grid;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -15,11 +18,11 @@ import java.io.IOException;
  */
 public class CSVFileReader {
 
-  public static Grid readFile(String fileName) { //TODO: Refactor this
+  public static Grid readFile(String fileName) throws FileNotFoundError, UnhandledExceptionError { //TODO: Refactor this
     try{
       // Create an object of filereader
       // class with CSV file as a parameter.
-      FileReader filereader = new FileReader(fileName);
+      FileReader filereader = new FileReader("data/" + fileName);
 
       // create csvReader object passing
       // file reader as a parameter
@@ -46,8 +49,10 @@ public class CSVFileReader {
       }
       grid.updateGrid();
       return grid;
-    } catch (IOException | CsvValidationException e){
-      return null;
+    } catch (FileNotFoundException e){
+      throw new FileNotFoundError(fileName);
+    } catch (Exception e) {
+      throw new UnhandledExceptionError();
     }
 
   }

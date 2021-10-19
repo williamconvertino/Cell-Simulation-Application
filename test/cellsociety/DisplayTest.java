@@ -10,9 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DisplayTest {
+
     /**
      * Test a method from Display.
      */
+    /*
     @Test
     void DisplayUpdateTest () {
         Display display = new Display(Color.BLACK, 15, 1000, 600);
@@ -25,5 +27,5 @@ public class DisplayTest {
         }
         display.updateScene(testGrid);
 
-    }
+    }*/
 }

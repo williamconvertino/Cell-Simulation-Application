@@ -2,6 +2,7 @@ package cellsociety.io;
 
 import cellsociety.errors.FileNotFoundError;
 import cellsociety.errors.UnhandledExceptionError;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class SIMFileReader {
    * @param file the name/path of the SIM file.
    * @return a Map containing the metadata held in the SIM file.
    */
-  public static Map<String,String> getMetadataFromFile(String file) throws FileNotFoundError, UnhandledExceptionError {
+  public static Map<String,String> getMetadataFromFile(File file) throws FileNotFoundError, UnhandledExceptionError {
 
     HashMap metadata = new HashMap();
     try {
@@ -36,7 +37,7 @@ public class SIMFileReader {
       }
       return metadata;
     } catch (FileNotFoundException e) {
-      throw new FileNotFoundError(file);
+      throw new FileNotFoundError(file.getName());
     } catch (IOException e) {
       throw new UnhandledExceptionError();
     }
@@ -45,12 +46,12 @@ public class SIMFileReader {
   /**
    * Reads a SIM file and returns a Properties file with its values.
    *
-   * @param filename the path of the SIM file being used.
+   * @param file the path of the SIM file being used.
    * @return a Properties class containing the data held in the SIM file.
    */
-  private static Properties readPropertiesFile(String filename) throws IOException {
+  private static Properties readPropertiesFile(File file) throws IOException {
     FileInputStream fis;
-    fis = new FileInputStream(filename);
+    fis = new FileInputStream(file);
     Properties myProperties = new Properties();
     myProperties.load(fis);
     fis.close();

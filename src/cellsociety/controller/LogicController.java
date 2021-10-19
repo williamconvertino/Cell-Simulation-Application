@@ -9,6 +9,7 @@ import cellsociety.io.SIMFileReader;
 import cellsociety.logic.GameOfLife;
 import cellsociety.logic.Grid;
 import cellsociety.logic.Simulation;
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -27,7 +28,7 @@ public class LogicController {
 
   public static final String TYPE = "Type";
   public static final String INITIAL_STATE = "InitialStates";
-  public static final int CYCLE_DELAY = 2;
+  public static final int CYCLE_DELAY = 1;
 
   private Runnable cycleRunnable;
   private ScheduledExecutorService cycleExecutor;
@@ -50,7 +51,7 @@ public class LogicController {
 
   //Initializes a cycle executor to run the simulation's update method at a specified interval.
   private void initializeCycles(int delay) {
-    this.isPaused = true;
+    this.isPaused = false; //TODO: Set isPaused to true by default.
     this.cycleRunnable = new Runnable() {
       @Override
       public void run() {
@@ -66,14 +67,14 @@ public class LogicController {
   /**
    * Initializes a new simulation based on a SIM file input.
    *
-   * @param filename the name of the SIM file with the initialization configuration data.
+   * @param file the SIM file with the initialization configuration data.
    * @throws Exception if the file cannot be found or is improperly formatted.
    */
-  public void initializeFromFile (String filename) throws FileNotFoundError, InvalidSimulationTypeError, MissingSimulationArgumentError, UnhandledExceptionError {
+  public void initializeFromFile (File file) throws FileNotFoundError, InvalidSimulationTypeError, MissingSimulationArgumentError, UnhandledExceptionError {
     Map<String, String> metadata;
     Grid grid;
     try {
-      metadata = SIMFileReader.getMetadataFromFile(filename);
+      metadata = SIMFileReader.getMetadataFromFile(file);
       grid = CSVFileReader.readFile(metadata.get(INITIAL_STATE));
     } catch (FileNotFoundError e) {
       throw e;
@@ -82,6 +83,7 @@ public class LogicController {
     }
     try {
       currentSimulation = loadLogicClass(grid, metadata);
+
       gridToDisplay = currentSimulation.getGrid();
     } catch (NoSuchMethodException e) {
       throw new InvalidSimulationTypeError(metadata.get(TYPE));
@@ -93,12 +95,15 @@ public class LogicController {
 
   }
 
+  //Initiates the proper simulation type and loads it into the currentSimulation variable.
   private Simulation loadLogicClass(Grid grid, Map<String, String> metadata)
       throws NoSuchMethodException, MissingSimulationArgumentError, InvocationTargetException, IllegalAccessException {
-    return (Simulation)getClass().getMethod(metadata.get(TYPE), Grid.class, Map.class).invoke(this,grid, metadata);
+    //return (Simulation)getClass().getMethod(metadata.get(TYPE), Grid.class, Map.class).invoke(this,grid, metadata);
+
+    return GameOfLife(grid, metadata);
   }
 
-  private Simulation loadGameOfLife(Grid grid, Map<String, String> metadata) {
+  private Simulation GameOfLife(Grid grid, Map<String, String> metadata) {
     return new GameOfLife(grid, metadata);
   }
 
