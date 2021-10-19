@@ -51,7 +51,7 @@ public class LogicController {
 
   //Initializes a cycle executor to run the simulation's update method at a specified interval.
   private void initializeCycles(int delay) {
-    this.isPaused = true;
+    this.isPaused = false; //TODO: Set isPaused to true by default.
     this.cycleRunnable = new Runnable() {
       @Override
       public void run() {

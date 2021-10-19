@@ -78,7 +78,7 @@ public class Display {
      * Update Scene
      */
     public void updateScene (int[][] grid) {
-        if (displayGrid == null) {
+        if (displayGrid == null || grid.length != displayGrid.length) {
             initializeGrid(grid);
             return;
         }
