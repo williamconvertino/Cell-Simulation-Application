@@ -1,9 +1,12 @@
 package cellsociety.controller;
 
 import cellsociety.display.Display;
+import cellsociety.io.FileHandler;
 import cellsociety.io.FilePickerEventHandler;
 import cellsociety.logic.Grid;
 import java.io.File;
+import java.nio.file.Paths;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -22,6 +25,9 @@ import javafx.stage.Stage;
  */
 public class Controller {
 
+  //The stage of the JFX application.
+  private Stage myStage;
+
   //The current display class of our program.
   private Display myDisplay;
 
@@ -31,39 +37,43 @@ public class Controller {
   //The current grid that should be shown by the Display.
   private int[][] myGrid;
 
-
-  private Button saveButton;
-  private Button pauseButton;
-  private Button playButton;
-  private Button resetButton;
-
   /**
    * Creates a Controller to run a new instance of Cell Society,
    * using the passed scene to initialize its display.
    *
    * @param myStage the stage on which the display elements should be added.
    */
-  public Controller(Stage myStage) {
+  public Controller(Stage myStage, String initialLanguage) {
     this.myLogicController = new LogicController();
-    initializeDisplay(myStage);
+    this.myStage = myStage;
+    initializeDisplay(myStage, initialLanguage);
   }
 
   //Initializes the display components.
-  private void initializeDisplay (Stage myStage) {
-    myDisplay = new Display(myStage, Color.color(.50,.50,.80));
-    myDisplay.addFileChoser(new FilePickerEventHandler() {
-      @Override
-      public void handle(Event event) {};
-      @Override
-      public void sendFile(File file) {loadFile(file);}
-    });
+  private void initializeDisplay (Stage myStage, String language) {
+    myDisplay = new Display(myStage, Color.color(.50,.50,.80), language);
+    initializeButtons(myDisplay);
+  }
 
-    saveButton = new Button("Save");
-    playButton = new Button("Play");
-    pauseButton = new Button("Pause");
-    resetButton = new Button("Reset");
+  private void initializeButtons(Display myDisplay) {
+    Button saveButton = new Button();
+    saveButton.setOnAction(e->saveCurrentGrid());
+    Button playButton = new Button();
+    playButton.setOnAction(e->myLogicController.playSimulation());
+    Button pauseButton = new Button();
+    pauseButton.setOnAction(e->myLogicController.pauseSimulation());
+    Button resetButton = new Button();
+    resetButton.setOnAction(e->myDisplay.resetGrid());
+    Button loadButton = new Button();
+    loadButton.setOnAction(e->{ try{FileChooser myFileChoser = new FileChooser();
+      myFileChoser.setInitialDirectory(new File(Paths.get(".").toAbsolutePath().normalize() + "/data"));
+          loadFile(myFileChoser.showOpenDialog(myStage));} catch(Exception exception) {}});
 
-    myDisplay.addButtons(saveButton, playButton, pauseButton, resetButton);
+    myDisplay.addButtons(saveButton, playButton, pauseButton, resetButton, loadButton);
+  }
+
+  public void saveCurrentGrid() {
+    FileHandler.saveFile(myLogicController.getActiveGrid(), "user_file.cvs");
   }
 
   public void loadFile(File file) {
@@ -71,7 +81,7 @@ public class Controller {
         myLogicController.initializeFromFile(file);
       } catch (Exception e) {
         e.printStackTrace();
-        //myDisplay.showError(e);
+        myDisplay.showError(e);
       }
   }
 

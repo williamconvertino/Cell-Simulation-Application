@@ -1,17 +1,18 @@
 package cellsociety.display;
 
+import cellsociety.errors.FileNotFoundError;
+import cellsociety.errors.InvalidSimulationTypeError;
+import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.io.FilePickerEventHandler;
 import java.io.File;
+import java.util.*;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
@@ -32,6 +33,10 @@ import org.w3c.dom.css.Rect;
 
 public class Display {
 
+    public static final String DEFAULT_RESOURCE_PACKAGE = "cellsociety.resources.";
+    public static final String DEFAULT_RESOURCE_FOLDER =
+            "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
+
     public static Map<Integer, Color> COLOR_MAP = new HashMap();
     static {
         COLOR_MAP.put(0, Color.WHITE);
@@ -48,14 +53,16 @@ public class Display {
     private Rectangle[][] displayGrid;
 
     private Group root;
+    protected ResourceBundle myResources;
 
     /**
      * Create display based on given background color and Grid Cell length.
      */
-    public Display (Stage myStage, Color background) {
+    public Display (Stage myStage, Color background, String language) {
         this.myStage = myStage;
         root = (Group)myStage.getScene().getRoot();
         myStage.getScene().setFill(background);
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     }
 
     public void initializeGrid(int[][] grid) {
@@ -76,8 +83,11 @@ public class Display {
         updateScene(grid);
     }
 
-    //Removes all elements of the displayGrid from the display.
-    private void resetGrid() {
+    /**
+     * Removes all elements of the displayGrid from the display.
+     */
+
+    public void resetGrid() {
         if (displayGrid != null) {
             for (int i = 0; i < displayGrid.length; i++) {
                 for (int j = 0; j < displayGrid[0].length; j++) {
@@ -102,41 +112,50 @@ public class Display {
         }
     }
 
-    public void addButtons(Button saveButton, Button playButton, Button pauseButton, Button resetButton){
-        saveButton.setLayoutX(BUTTON_OFFSET);
-        saveButton.setLayoutY(BUTTON_OFFSET);
+    public void addButtons(Button saveButton, Button playButton, Button pauseButton, Button resetButton, Button loadButton){
+        loadButton.setLayoutX(BUTTON_OFFSET);
+        loadButton.setLayoutY(BUTTON_OFFSET_TOP);
+        loadButton.setText("Load");
 
         playButton.setLayoutX(BUTTON_OFFSET);
         playButton.setLayoutY(BUTTON_OFFSET_TOP + BUTTON_OFFSET);
+        playButton.setText("Play");
 
         pauseButton.setLayoutX(BUTTON_OFFSET);
         pauseButton.setLayoutY(BUTTON_OFFSET_TOP + BUTTON_OFFSET*2);
+        pauseButton.setText("Pause");
 
         resetButton.setLayoutX(BUTTON_OFFSET);
         resetButton.setLayoutY(BUTTON_OFFSET_TOP + BUTTON_OFFSET*3);
+        resetButton.setText("Reset");
+
+        saveButton.setLayoutX(BUTTON_OFFSET);
+        saveButton.setLayoutY(BUTTON_OFFSET_TOP + BUTTON_OFFSET*4);
+        saveButton.setText("Save");
 
         root.getChildren().add(saveButton);
         root.getChildren().add(playButton);
         root.getChildren().add(pauseButton);
         root.getChildren().add(resetButton);
+        root.getChildren().add(loadButton);
     }
 
-    public void addFileChoser(FilePickerEventHandler fileChosenHandler) {
-        Button fileChooserButton = new Button("Choose a file");
-
-        fileChooserButton.setOnAction(new EventHandler<ActionEvent>() {
-            FileChooser myFileChoser = new FileChooser();
-            @Override
-            public void handle(ActionEvent event) {
-                myFileChoser.setInitialDirectory(new File(Paths.get(".").toAbsolutePath().normalize().toString() + "/data"));
-                File file = myFileChoser.showOpenDialog(myStage);
-                fileChosenHandler.sendFile(file);
-            }
-        });
-
-        fileChooserButton.setLayoutX(BUTTON_OFFSET);
-        fileChooserButton.setLayoutY(0);
-
-        root.getChildren().add(fileChooserButton);
+    public void showError(Exception e) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        String errorTitle = "Error";
+        String errorMessage = "An unexpected error has occurred.";
+        if (e instanceof FileNotFoundError) {
+            errorTitle = "FileNotFoundError";
+            errorMessage = String.format("The following file could not be found: %s", ((FileNotFoundError)e).getFilename());
+        } else if (e instanceof InvalidSimulationTypeError) {
+            errorTitle = "InvalidSimulationTypeError";
+            errorMessage = String.format("The following simulation type was called, but does not currently exist: %s", ((InvalidSimulationTypeError)e).getType());
+        } else if (e instanceof MissingSimulationArgumentError) {
+            errorTitle = "MissingSimulationArgumentError";
+            errorMessage = String.format("The following argument was missing from the simulation initialization file: %s", ((MissingSimulationArgumentError)e).getArgument());
+        }
+        alert.setTitle(errorTitle);
+        alert.setContentText(errorMessage);
+        alert.show();
     }
 }
