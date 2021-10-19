@@ -1,6 +1,7 @@
 package cellsociety.controller;
 
 import cellsociety.display.Display;
+import cellsociety.io.FileHandler;
 import cellsociety.io.FilePickerEventHandler;
 import cellsociety.logic.Grid;
 import java.io.File;
@@ -72,7 +73,7 @@ public class Controller {
   }
 
   public void saveCurrentGrid() {
-
+    FileHandler.saveFile(myLogicController.getActiveGrid(), "user_file.cvs");
   }
 
   public void loadFile(File file) {
@@ -80,7 +81,7 @@ public class Controller {
         myLogicController.initializeFromFile(file);
       } catch (Exception e) {
         e.printStackTrace();
-        //myDisplay.showError(e);
+        myDisplay.showError(e);
       }
   }
 

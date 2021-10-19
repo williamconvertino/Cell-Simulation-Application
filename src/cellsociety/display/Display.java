@@ -1,5 +1,8 @@
 package cellsociety.display;
 
+import cellsociety.errors.FileNotFoundError;
+import cellsociety.errors.InvalidSimulationTypeError;
+import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.io.FilePickerEventHandler;
 import java.io.File;
 import java.util.*;
@@ -137,10 +140,22 @@ public class Display {
         root.getChildren().add(loadButton);
     }
 
-    public void showError(String message) {
+    public void showError(Exception e) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(message);
-        alert.setContentText(message);
+        String errorTitle = "Error";
+        String errorMessage = "An unexpected error has occurred.";
+        if (e instanceof FileNotFoundError) {
+            errorTitle = "FileNotFoundError";
+            errorMessage = String.format("The following file could not be found: %s", ((FileNotFoundError)e).getFilename());
+        } else if (e instanceof InvalidSimulationTypeError) {
+            errorTitle = "InvalidSimulationTypeError";
+            errorMessage = String.format("The following simulation type was called, but does not currently exist: %s", ((InvalidSimulationTypeError)e).getType());
+        } else if (e instanceof MissingSimulationArgumentError) {
+            errorTitle = "MissingSimulationArgumentError";
+            errorMessage = String.format("The following argument was missing from the simulation initialization file: %s", ((MissingSimulationArgumentError)e).getArgument());
+        }
+        alert.setTitle(errorTitle);
+        alert.setContentText(errorMessage);
         alert.show();
     }
 }
