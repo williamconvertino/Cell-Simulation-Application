@@ -66,8 +66,8 @@ public class Display {
         }
         displayGrid = new Rectangle[grid.length][grid[0].length];
 
-        for(int x = 0; x < grid.length; x++) {
-            for (int y = 0; y < grid[0].length; y++) {
+        for(int x = 0; x < grid[0].length; x++) {
+            for (int y = 0; y < grid.length; y++) {
                 Rectangle cell = new Rectangle(x*(CELL_LENGTH + CELL_OFFSET) + LEFT_OFFSET_GRID,
                     y*(CELL_OFFSET + CELL_LENGTH) + TOP_OFFSET_GRID , CELL_LENGTH, CELL_LENGTH);
                 displayGrid[x][y] = cell;
