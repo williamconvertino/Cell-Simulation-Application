@@ -68,7 +68,7 @@ public class Display {
         for(int x = 0; x < grid.length; x++) {
             for (int y = 0; y < grid[0].length; y++) {
                 Rectangle cell = new Rectangle(x*(CELL_LENGTH + CELL_OFFSET) + LEFT_OFFSET_GRID,
-                    y*(CELL_OFFSET + TOP_OFFSET_GRID) + TOP_OFFSET_GRID , CELL_LENGTH, CELL_LENGTH);
+                    y*(CELL_OFFSET + CELL_LENGTH) + TOP_OFFSET_GRID , CELL_LENGTH, CELL_LENGTH);
                 displayGrid[x][y] = cell;
                 root.getChildren().add(cell);
             }
