@@ -42,6 +42,8 @@ public class Display {
     public final static int TOP_OFFSET_GRID = 50;
     public final static double CELL_LENGTH = 29;
     public final static double CELL_OFFSET = 1.5;
+    public final static int BUTTON_OFFSET = 50;
+    public final static int BUTTON_OFFSET_TOP = 30;
     private Stage myStage;
     private Rectangle[][] displayGrid;
 
@@ -89,6 +91,25 @@ public class Display {
         }
     }
 
+    public void addButtons(Button saveButton, Button playButton, Button pauseButton, Button resetButton){
+        saveButton.setLayoutX(BUTTON_OFFSET);
+        saveButton.setLayoutY(BUTTON_OFFSET);
+
+        playButton.setLayoutX(BUTTON_OFFSET);
+        playButton.setLayoutY(BUTTON_OFFSET_TOP + BUTTON_OFFSET);
+
+        pauseButton.setLayoutX(BUTTON_OFFSET);
+        pauseButton.setLayoutY(BUTTON_OFFSET_TOP + BUTTON_OFFSET*2);
+
+        resetButton.setLayoutX(BUTTON_OFFSET);
+        resetButton.setLayoutY(BUTTON_OFFSET_TOP + BUTTON_OFFSET*3);
+
+        root.getChildren().add(saveButton);
+        root.getChildren().add(playButton);
+        root.getChildren().add(pauseButton);
+        root.getChildren().add(resetButton);
+    }
+
     public void addFileChoser(FilePickerEventHandler fileChosenHandler) {
         Button fileChooserButton = new Button("Choose a file");
 
@@ -102,8 +123,9 @@ public class Display {
             }
         });
 
-        fileChooserButton.setLayoutX(0);
+        fileChooserButton.setLayoutX(BUTTON_OFFSET);
         fileChooserButton.setLayoutY(0);
+
         root.getChildren().add(fileChooserButton);
     }
 }

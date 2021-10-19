@@ -7,6 +7,7 @@ import java.io.File;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -30,6 +31,12 @@ public class Controller {
   //The current grid that should be shown by the Display.
   private int[][] myGrid;
 
+
+  private Button saveButton;
+  private Button pauseButton;
+  private Button playButton;
+  private Button resetButton;
+
   /**
    * Creates a Controller to run a new instance of Cell Society,
    * using the passed scene to initialize its display.
@@ -50,8 +57,13 @@ public class Controller {
       @Override
       public void sendFile(File file) {loadFile(file);}
     });
-    //myDisplay.addPlayButton();
-    //myDisplay.addPauseButton();
+
+    saveButton = new Button("Save");
+    playButton = new Button("Play");
+    pauseButton = new Button("Pause");
+    resetButton = new Button("Reset");
+
+    myDisplay.addButtons(saveButton, playButton, pauseButton, resetButton);
   }
 
   public void loadFile(File file) {
