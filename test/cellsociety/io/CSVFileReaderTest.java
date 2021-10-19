@@ -1,5 +1,7 @@
 package cellsociety.io;
 
+import cellsociety.errors.FileNotFoundError;
+import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.logic.Grid;
 import com.opencsv.CSVReader;
 import org.junit.jupiter.api.Test;
@@ -9,9 +11,9 @@ import java.io.FileReader;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CSVFileReaderTest {
-/*
+
     @Test
-    void configurationWithCSVTest() {
+    void configurationWithCSVTest() throws FileNotFoundError, UnhandledExceptionError {
         Grid grid = CSVFileReader.readFile("data/game_of_life/still_life_square.csv");
         assertNotEquals(null, grid);
 
@@ -66,6 +68,6 @@ class CSVFileReaderTest {
         assertEquals(0, grid.getCell(xPos, yPos));
     }
 
-*/
+
 
 }
