@@ -2,5 +2,5 @@ Type=GameOfLife
 Title=Boat
 Author=Alexis
 Description=Example of a boat still life, a configuration that remains static for any number of generations
-InitialStates=game_of_life/boat.csv
+InitialStates=data/game_of_life/boat.csv
 
