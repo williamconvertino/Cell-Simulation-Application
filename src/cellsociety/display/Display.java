@@ -144,10 +144,10 @@ public class Display {
         root.getChildren().add(fileChooserButton);
     }
 
-    public void showError(String message, String command) {
+    public void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(myResources.getString("CommandError"));
-        alert.setContentText(String.format("%s: %s", message, command));
+        alert.setTitle(message);
+        alert.setContentText(message);
         alert.show();
     }
 }
