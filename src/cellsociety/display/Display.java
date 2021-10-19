@@ -58,6 +58,7 @@ public class Display {
     }
 
     public void initializeGrid(int[][] grid) {
+        resetGrid();
         if (grid == null || grid.length == 0 || grid[0].length == 0) {
             return;
         }
@@ -66,12 +67,23 @@ public class Display {
         for(int x = 0; x < grid.length; x++) {
             for (int y = 0; y < grid[0].length; y++) {
                 Rectangle cell = new Rectangle(x*(CELL_LENGTH + CELL_OFFSET) + LEFT_OFFSET_GRID,
-                    y*(CELL_OFFSET + TOP_OFFSET_GRID) + TOP_OFFSET_GRID , CELL_LENGTH, CELL_LENGTH);
+                    y*(CELL_LENGTH + CELL_OFFSET) + TOP_OFFSET_GRID , CELL_LENGTH, CELL_LENGTH);
                 displayGrid[x][y] = cell;
                 root.getChildren().add(cell);
             }
         }
         updateScene(grid);
+    }
+
+    //Removes all elements of the displayGrid from the display.
+    private void resetGrid() {
+        if (displayGrid != null) {
+            for (int i = 0; i < displayGrid.length; i++) {
+                for (int j = 0; j < displayGrid[0].length; j++) {
+                    root.getChildren().remove(displayGrid[i][j]);
+                }
+            }
+        }
     }
 
     /**
