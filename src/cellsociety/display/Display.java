@@ -56,7 +56,6 @@ public class Display {
         this.myStage = myStage;
         root = (Group)myStage.getScene().getRoot();
         myStage.getScene().setFill(background);
-
     }
 
     public void initializeGrid(int[][] grid) {
