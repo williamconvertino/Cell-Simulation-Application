@@ -80,8 +80,11 @@ public class Display {
         updateScene(grid);
     }
 
-    //Removes all elements of the displayGrid from the display.
-    private void resetGrid() {
+    /**
+     * Removes all elements of the displayGrid from the display.
+     */
+
+    public void resetGrid() {
         if (displayGrid != null) {
             for (int i = 0; i < displayGrid.length; i++) {
                 for (int j = 0; j < displayGrid[0].length; j++) {
@@ -106,42 +109,32 @@ public class Display {
         }
     }
 
-    public void addButtons(Button saveButton, Button playButton, Button pauseButton, Button resetButton){
-        saveButton.setLayoutX(BUTTON_OFFSET);
-        saveButton.setLayoutY(BUTTON_OFFSET);
+    public void addButtons(Button saveButton, Button playButton, Button pauseButton, Button resetButton, Button loadButton){
+        loadButton.setLayoutX(BUTTON_OFFSET);
+        loadButton.setLayoutY(BUTTON_OFFSET_TOP);
+        loadButton.setText("Load");
 
         playButton.setLayoutX(BUTTON_OFFSET);
         playButton.setLayoutY(BUTTON_OFFSET_TOP + BUTTON_OFFSET);
+        playButton.setText("Play");
 
         pauseButton.setLayoutX(BUTTON_OFFSET);
         pauseButton.setLayoutY(BUTTON_OFFSET_TOP + BUTTON_OFFSET*2);
+        pauseButton.setText("Pause");
 
         resetButton.setLayoutX(BUTTON_OFFSET);
         resetButton.setLayoutY(BUTTON_OFFSET_TOP + BUTTON_OFFSET*3);
+        resetButton.setText("Reset");
+
+        saveButton.setLayoutX(BUTTON_OFFSET);
+        saveButton.setLayoutY(BUTTON_OFFSET_TOP + BUTTON_OFFSET*4);
+        saveButton.setText("Save");
 
         root.getChildren().add(saveButton);
         root.getChildren().add(playButton);
         root.getChildren().add(pauseButton);
         root.getChildren().add(resetButton);
-    }
-
-    public void addFileChoser(FilePickerEventHandler fileChosenHandler) {
-        Button fileChooserButton = new Button("Choose a file");
-
-        fileChooserButton.setOnAction(new EventHandler<ActionEvent>() {
-            FileChooser myFileChoser = new FileChooser();
-            @Override
-            public void handle(ActionEvent event) {
-                myFileChoser.setInitialDirectory(new File(Paths.get(".").toAbsolutePath().normalize().toString() + "/data"));
-                File file = myFileChoser.showOpenDialog(myStage);
-                fileChosenHandler.sendFile(file);
-            }
-        });
-
-        fileChooserButton.setLayoutX(BUTTON_OFFSET);
-        fileChooserButton.setLayoutY(0);
-
-        root.getChildren().add(fileChooserButton);
+        root.getChildren().add(loadButton);
     }
 
     public void showError(String message) {
