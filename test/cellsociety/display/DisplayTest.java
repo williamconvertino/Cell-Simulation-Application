@@ -1,19 +1,16 @@
-package cellsociety;
+package cellsociety.display;
 
 import cellsociety.controller.Controller;
-import cellsociety.display.Display;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.util.Duration;
 import org.junit.jupiter.api.Test;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
-import java.awt.*;
+import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -54,6 +51,8 @@ public class DisplayTest extends DisplayApplication {
      */
     @Test
     void DisplayUpdateTest () {
-
+        File file = new File("./blinkers.sim");
+        cellSocietyProgram.loadFile(file);
+        cellSocietyProgram.update();
     }
 }

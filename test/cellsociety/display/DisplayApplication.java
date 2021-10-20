@@ -1,4 +1,4 @@
-package cellsociety;
+package cellsociety.display;
 
 import javafx.application.Application;
 import javafx.application.Platform;
