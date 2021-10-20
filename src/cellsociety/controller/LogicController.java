@@ -98,13 +98,12 @@ public class LogicController {
   //Initiates the proper simulation type and loads it into the currentSimulation variable.
   private Simulation loadLogicClass(Grid grid, Map<String, String> metadata)
       throws NoSuchMethodException, MissingSimulationArgumentError, InvocationTargetException, IllegalAccessException {
-    //return (Simulation)getClass().getMethod(metadata.get(TYPE), Grid.class, Map.class).invoke(this,grid, metadata);
-
-    return GameOfLife(grid, metadata);
+    return (Simulation)getClass().getMethod(metadata.get(TYPE), Grid.class, Map.class).invoke(this,grid, metadata);
+    //return GameOfLife(grid, metadata);
   }
 
   //Returns a new GameOfLife simulation.
-  private Simulation GameOfLife(Grid grid, Map<String, String> metadata) {
+  public Simulation GameOfLife(Grid grid, Map<String, String> metadata) {
     return new GameOfLife(grid, metadata);
   }
 
