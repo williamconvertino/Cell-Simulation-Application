@@ -10,6 +10,11 @@ import java.util.List;
 
 public class FileHandler {
 
+    /**
+     * saves a grid configuration to a CSV file based on a file name that is passed in to this method
+     * @param grid the current grid configuration to be saved
+     * @param fileName the name of the file to be saved
+     */
     public static void saveFile(Grid grid, String fileName) {
         List<String[]> csvData = createCsvData(grid);
 
@@ -26,6 +31,11 @@ public class FileHandler {
         }
     }
 
+    /**
+     * creates CSV data based on the grid that will be saved
+     * @param grid the grid configuration to be saved
+     * @return a list of string arrays where each string array will be a row in the CSV file
+     */
     private static List<String[]> createCsvData(Grid grid) {
         List<String[]> list = new ArrayList<>();
         String[] dimensions = {String.valueOf(grid.getWidth()), String.valueOf(grid.getHeight())};
