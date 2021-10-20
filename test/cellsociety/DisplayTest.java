@@ -18,13 +18,14 @@ import java.awt.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DisplayTest extends Application {
+public class DisplayTest extends DisplayApplication {
     //The Cell Society program to run.
     private Controller cellSocietyProgram;
 
     //The JFX scene of the program.
     private Scene cellSocietyScene;
 
+    @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle(String.format("%s %s", "Cell Society Test", "0.0.1"));
         initializeWindow(primaryStage);
