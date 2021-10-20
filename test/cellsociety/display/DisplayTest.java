@@ -1,11 +1,13 @@
 package cellsociety.display;
 
 import cellsociety.controller.Controller;
+import java.nio.file.Paths;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import org.junit.jupiter.api.Test;
 import javafx.stage.Stage;
@@ -24,8 +26,11 @@ public class DisplayTest extends DisplayApplication {
     //The JFX scene of the program.
     private Scene cellSocietyScene;
 
+    private Stage cellSocietyStage;
+
     @Override
     public void start(Stage primaryStage) {
+        cellSocietyStage = primaryStage;
         primaryStage.setTitle(String.format("%s %s", "Cell Society Test", "0.0.1"));
         initializeWindow(primaryStage);
         cellSocietyProgram = new Controller(primaryStage, "English");
@@ -96,11 +101,10 @@ public class DisplayTest extends DisplayApplication {
      */
     @Test
     void SaveTest (){
-        //File file = new File("./data/game_of_life/blinkers.sim");
-        //cellSocietyProgram.loadFile(file);
+
         //cellSocietyProgram.update();
-//        Button button = lookup("Save").query();
-//        clickOn(button);
+        //Button button = lookup("Save").query();
+        //clickOn(button);
 
     }
 }
