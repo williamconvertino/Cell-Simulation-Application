@@ -10,24 +10,7 @@ import javafx.scene.Scene;
 import javafx.util.Duration;
 import org.junit.jupiter.api.Test;
 import javafx.scene.paint.Color;
-
-import java.util.List;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Labeled;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import util.DukeApplicationTest;
 
 
 import java.awt.*;
