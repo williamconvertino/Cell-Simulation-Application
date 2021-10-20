@@ -5,12 +5,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.util.Duration;
 import org.junit.jupiter.api.Test;
 import javafx.stage.Stage;
 
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -48,12 +50,60 @@ public class DisplayTest extends DisplayApplication {
     }
 
     /**
-     * Test a method from Display.
+     * Test loading file from Display.
      */
     @Test
-    void DisplayUpdateTest () {
-        File file = new File("./data/game_of_life/blinkers.sim");
-        cellSocietyProgram.loadFile(file);
-        cellSocietyProgram.update();
+    void SelectSimulationTest () {
+        Button button = lookup("Load").query();
+        clickOn(button);
+    }
+
+    /**
+     * Test play and pause from Display.
+     */
+    @Test
+    void PlayPauseTest () throws InterruptedException {
+        Button button = lookup("Load").query();
+        clickOn(button);
+
+        TimeUnit.SECONDS.sleep(10);
+
+        Button playButton = lookup("Play").query();
+        clickOn(playButton);
+
+        TimeUnit.SECONDS.sleep(5);
+
+        Button pauseButton = lookup("Pause").query();
+        clickOn(pauseButton);
+    }
+
+    /**
+     * Test error message from Display.
+     */
+    @Test
+    void ErrorTest () throws InterruptedException {
+        //String BAD_FILE = "a bad file name"
+        //File file = new File("./data/game_of_life/BAD_FILE");
+        //cellSocietyProgram.loadFile(file);
+
+        Button button = lookup("Load").query();
+        clickOn(button);
+        TimeUnit.SECONDS.sleep(5);
+    }
+
+    /**
+     * Test saving file
+     */
+    @Test
+    void SaveTest (){
+        //File file = new File("./data/game_of_life/blinkers.sim");
+        //cellSocietyProgram.loadFile(file);
+        //cellSocietyProgram.update();
+
+        Button button = lookup("Save").query();
+        clickOn(button);
+
     }
 }
+
+
