@@ -54,6 +54,9 @@ public class Display {
 
     private Group root;
     protected ResourceBundle myResources;
+    protected ResourceBundle propertyResources;
+    private int gridLeftOffset;
+    private int gridTopOffset;
 
     /**
      * Create display based on given background color and Grid Cell length.
@@ -63,6 +66,10 @@ public class Display {
         root = (Group)myStage.getScene().getRoot();
         myStage.getScene().setFill(background);
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+        propertyResources = ResourceBundle.getBundle("cellsociety.display.Display");
+
+        gridLeftOffset = Integer.parseInt(propertyResources.getString("GRID_LEFT_OFFSET"));
+        gridLeftOffset = Integer.parseInt(propertyResources.getString("GRID_TOP_OFFSET"));
     }
 
     public void initializeGrid(int[][] grid) {
@@ -74,7 +81,7 @@ public class Display {
 
         for(int x = 0; x < grid[0].length; x++) {
             for (int y = 0; y < grid.length; y++) {
-                Rectangle cell = new Rectangle(x*(CELL_LENGTH + CELL_OFFSET) + LEFT_OFFSET_GRID,
+                Rectangle cell = new Rectangle(x*(CELL_LENGTH + CELL_OFFSET) + gridLeftOffset,
                     y*(CELL_OFFSET + CELL_LENGTH) + TOP_OFFSET_GRID , CELL_LENGTH, CELL_LENGTH);
                 displayGrid[x][y] = cell;
                 root.getChildren().add(cell);

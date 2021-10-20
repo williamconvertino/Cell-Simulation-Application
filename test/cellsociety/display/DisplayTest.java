@@ -99,6 +99,7 @@ public class DisplayTest extends DisplayApplication {
         //File file = new File("./data/game_of_life/blinkers.sim");
         //cellSocietyProgram.loadFile(file);
         //cellSocietyProgram.update();
+
 //        Button button = lookup("Save").query();
 //        clickOn(button);
 
