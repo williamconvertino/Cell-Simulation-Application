@@ -61,15 +61,15 @@ public class Display {
     /**
      * Create display based on given background color and Grid Cell length.
      */
-    public Display (Stage myStage, Color background, String language) {
+    public Display (Stage myStage, Color background) {
         this.myStage = myStage;
         root = (Group)myStage.getScene().getRoot();
         myStage.getScene().setFill(background);
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + ResourceBundle.getBundle("cellsociety.ProgramSettings").getString("Language"));
         propertyResources = ResourceBundle.getBundle("cellsociety.display.Display");
 
         gridLeftOffset = Integer.parseInt(propertyResources.getString("GRID_LEFT_OFFSET"));
-        gridLeftOffset = Integer.parseInt(propertyResources.getString("GRID_TOP_OFFSET"));
+        gridTopOffset = Integer.parseInt(propertyResources.getString("GRID_TOP_OFFSET"));
     }
 
     public void initializeGrid(int[][] grid) {

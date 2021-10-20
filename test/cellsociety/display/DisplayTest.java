@@ -28,7 +28,7 @@ public class DisplayTest extends DisplayApplication {
     public void start(Stage primaryStage) {
         primaryStage.setTitle(String.format("%s %s", "Cell Society Test", "0.0.1"));
         initializeWindow(primaryStage);
-        cellSocietyProgram = new Controller(primaryStage, "English");
+        cellSocietyProgram = new Controller(primaryStage);
         initializeTimeline();
     }
 
