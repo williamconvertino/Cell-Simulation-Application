@@ -143,16 +143,16 @@ public class Display {
     public void showError(Exception e) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         String errorTitle = "Error";
-        String errorMessage = "An unexpected error has occurred.";
+        String errorMessage = myResources.getString(errorTitle);
         if (e instanceof FileNotFoundError) {
             errorTitle = "FileNotFoundError";
-            errorMessage = String.format("The following file could not be found: %s", ((FileNotFoundError)e).getFilename());
+            errorMessage = String.format("%s %s", myResources.getString(errorTitle), ((FileNotFoundError)e).getFilename());
         } else if (e instanceof InvalidSimulationTypeError) {
             errorTitle = "InvalidSimulationTypeError";
-            errorMessage = String.format("The following simulation type was called, but does not currently exist: %s", ((InvalidSimulationTypeError)e).getType());
+            errorMessage = String.format("%s %s", myResources.getString(errorTitle), ((InvalidSimulationTypeError)e).getType());
         } else if (e instanceof MissingSimulationArgumentError) {
             errorTitle = "MissingSimulationArgumentError";
-            errorMessage = String.format("The following argument was missing from the simulation initialization file: %s", ((MissingSimulationArgumentError)e).getArgument());
+            errorMessage = String.format("%s %s", myResources.getString(errorTitle), ((MissingSimulationArgumentError)e).getArgument());
         }
         alert.setTitle(errorTitle);
         alert.setContentText(errorMessage);

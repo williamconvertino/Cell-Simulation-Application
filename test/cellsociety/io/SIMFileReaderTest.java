@@ -19,7 +19,7 @@ class SIMFileReaderTest {
         assertEquals("Blinkers", test.get("Title"));
         assertEquals("John Conway", test.get("Author"));
         assertEquals("Examples of a blinker, a line of cells 3 wide that switches back and forth from vertical to horizontal", test.get("Description"));
-        assertEquals("game_of_life/blinkers.csv", test.get("InitialStates"));
+        assertEquals("data/game_of_life/blinkers.csv", test.get("InitialStates"));
 
     }
 
