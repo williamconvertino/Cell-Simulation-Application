@@ -29,6 +29,7 @@ public class DisplayTest extends DisplayApplication {
         cellSocietyProgram = new Controller(primaryStage, "English");
         initializeTimeline();
     }
+
     //Creates the JFX Timeline for our program, allowing the cellSocietyProgram to
     //update each tick.
     private void initializeTimeline() {
@@ -51,7 +52,7 @@ public class DisplayTest extends DisplayApplication {
      */
     @Test
     void DisplayUpdateTest () {
-        File file = new File("./blinkers.sim");
+        File file = new File("./data/game_of_life/blinkers.sim");
         cellSocietyProgram.loadFile(file);
         cellSocietyProgram.update();
     }
