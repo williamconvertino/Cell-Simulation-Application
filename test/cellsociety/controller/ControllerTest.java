@@ -49,4 +49,8 @@ class ControllerTest extends DukeApplicationTest {
 
     }
 
+    void testButtons() {
+
+    }
+
 }
