@@ -73,7 +73,7 @@ public class Controller {
   }
 
   public void saveCurrentGrid() {
-    FileHandler.saveFile(myLogicController.getActiveGrid(), "user_file.cvs");
+    FileHandler.saveFile(myLogicController.getActiveGrid(), "data/game_of_life/user_file.csv");
   }
 
   public void loadFile(File file) {
