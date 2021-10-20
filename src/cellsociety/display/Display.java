@@ -72,8 +72,8 @@ public class Display {
         }
         displayGrid = new Rectangle[grid.length][grid[0].length];
 
-        for(int x = 0; x < grid[0].length; x++) {
-            for (int y = 0; y < grid.length; y++) {
+        for(int x = 0; x < grid.length; x++) {
+            for (int y = 0; y < grid[0].length; y++) {
                 Rectangle cell = new Rectangle(x*(CELL_LENGTH + CELL_OFFSET) + LEFT_OFFSET_GRID,
                     y*(CELL_OFFSET + CELL_LENGTH) + TOP_OFFSET_GRID , CELL_LENGTH, CELL_LENGTH);
                 displayGrid[x][y] = cell;
@@ -106,7 +106,7 @@ public class Display {
             return;
         }
         for(int i = 0; i < grid.length; i++){
-            for(int j = 0; j < grid.length; j++){
+            for(int j = 0; j < grid[0].length; j++){
                 displayGrid[i][j].setFill(COLOR_MAP.get(grid[i][j]));
             }
         }
