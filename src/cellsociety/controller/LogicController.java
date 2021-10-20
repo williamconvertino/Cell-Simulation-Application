@@ -15,6 +15,7 @@ import cellsociety.logic.WaTorWorld;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -29,8 +30,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class LogicController {
 
-  public static final String TYPE = "Type";
-  public static final String INITIAL_STATE = "InitialStates";
+  public static final ResourceBundle FILE_ARGUMENT_PROPERTIES = ResourceBundle.getBundle("cellsociety.controller.FileArguments");
+  public static final String TYPE = FILE_ARGUMENT_PROPERTIES.getString("Type");
+  public static final String INITIAL_STATE =FILE_ARGUMENT_PROPERTIES.getString("InitialStates");
   public static final int CYCLE_DELAY = 1;
 
   private Runnable cycleRunnable;
