@@ -2,14 +2,8 @@ package cellsociety.controller;
 
 import cellsociety.display.Display;
 import cellsociety.io.FileHandler;
-import cellsociety.io.FilePickerEventHandler;
-import cellsociety.logic.Grid;
 import java.io.File;
 import java.nio.file.Paths;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -55,6 +49,7 @@ public class Controller {
     initializeButtons(myDisplay);
   }
 
+  //Initializes all the buttons in the display.
   private void initializeButtons(Display myDisplay) {
     Button saveButton = new Button();
     saveButton.setOnAction(e->saveCurrentGrid());
@@ -72,10 +67,18 @@ public class Controller {
     myDisplay.addButtons(saveButton, playButton, pauseButton, resetButton, loadButton);
   }
 
+  /**
+   * Saves the display's grid to a CVS file.
+   */
   public void saveCurrentGrid() {
     FileHandler.saveFile(myLogicController.getActiveGrid(), "data/game_of_life/user_file.csv");
   }
 
+  /**
+   * Loads a new simulation using the specified file.
+   *
+   * @param file the SIM file with the simulation's information.
+   */
   public void loadFile(File file) {
       try {
         myLogicController.initializeFromFile(file);
