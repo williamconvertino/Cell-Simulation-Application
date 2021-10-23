@@ -1,0 +1,5 @@
+Type=GameOfLife
+Title=Blinkers
+Author=John Conway
+Description=A single piece of fire at the center of the map
+InitialStates=data/game_of_life/blinkers.csv

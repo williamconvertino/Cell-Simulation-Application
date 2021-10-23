@@ -118,8 +118,8 @@ public class LogicController {
   }
 
   //Returns a new FireSpreading simulation.
-  public Simulation FireSpreading(Grid grid, Map<String, String> metadata) {
-    return new FireSpreading(grid, metadata);
+  public Simulation FireSpreading(Grid grid, Map<String, String> metadata, double probCatch) {
+    return new FireSpreading(grid, metadata, probCatch);
   }
 
   //Returns a new WaTorWorld simulation.
