@@ -6,12 +6,8 @@ import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.io.CSVFileReader;
 import cellsociety.io.SIMFileReader;
-import cellsociety.logic.simulations.FireSpreading;
-import cellsociety.logic.simulations.GameOfLife;
-import cellsociety.logic.grid.Grid;
-import cellsociety.logic.simulations.Percolation;
-import cellsociety.logic.simulations.Simulation;
-import cellsociety.logic.simulations.WaTorWorld;
+import cellsociety.logic.*;
+
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -110,6 +106,11 @@ public class LogicController {
   //Returns a new GameOfLife simulation.
   public Simulation GameOfLife(Grid grid, Map<String, String> metadata) {
     return new GameOfLife(grid, metadata);
+  }
+
+  //Returns a new ModelOfSegregation simulation.
+  public Simulation ModelOfSegregation(Grid grid, Map<String, String> metadata) {
+    return new ModelOfSegregation(grid, metadata);
   }
 
   //Returns a new Percolation simulation.
