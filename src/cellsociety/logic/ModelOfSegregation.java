@@ -2,11 +2,14 @@ package cellsociety.logic;
 
 import cellsociety.errors.MissingSimulationArgumentError;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class ModelOfSegregation extends Simulation{
 
+  private List<int[]> empty;
   private double satisfactionRate;
   /**
    * Constructs a new Simulation with a specified starting Grid and a Map of simulation-specific data
@@ -21,6 +24,22 @@ public class ModelOfSegregation extends Simulation{
       throws MissingSimulationArgumentError {
     super(grid, metadata);
     satisfactionRate = Double.parseDouble(metadata.get("SatisfactionRate"));
+    empty = findEmptyCells(grid);
+  }
+
+  private List findEmptyCells(Grid grid){
+    List<int[]> empty = new ArrayList<>();
+    for (int i = 0; i < grid.getWidth(); i++) {
+      for (int j = 0; j < grid.getHeight(); j++) {
+        if(grid.getCell(i, j) == 0){
+          int[] entry = new int[2];
+          entry[0] = i;
+          entry[1] = j;
+          empty.add(entry);
+        }
+      }
+    }
+    return empty;
   }
 
   private void relocateToEmptyCell(int x, int y){
