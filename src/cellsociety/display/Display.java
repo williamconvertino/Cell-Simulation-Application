@@ -1,19 +1,18 @@
 package cellsociety.display;
 
-import cellsociety.errors.UnhandledExceptionError;
+import cellsociety.errors.FileNotFoundError;
+import cellsociety.errors.InvalidSimulationTypeError;
+import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.io.FilePickerEventHandler;
 import java.io.File;
-import java.lang.reflect.Method;
+import java.util.*;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
@@ -34,20 +33,33 @@ import org.w3c.dom.css.Rect;
 
 public class Display {
 
+    public static final String DEFAULT_RESOURCE_PACKAGE = "cellsociety.resources.";
+    public static final String DEFAULT_RESOURCE_FOLDER =
+            "/" + DEFAULT_RESOURCE_PACKAGE.replace(".", "/");
+
     public static Map<Integer, Color> COLOR_MAP = new HashMap();
     static {
         COLOR_MAP.put(0, Color.WHITE);
         COLOR_MAP.put(1, Color.BLUE);
         COLOR_MAP.put(2, Color.RED);
     }
-    public final static int LEFT_OFFSET_GRID = 100;
     public final static int TOP_OFFSET_GRID = 50;
     public final static double CELL_LENGTH = 29;
     public final static double CELL_OFFSET = 1.5;
+    public final static int BUTTON_OFFSET = 50;
+    public final static int BUTTON_OFFSET_TOP = 30;
     private Stage myStage;
     private Rectangle[][] displayGrid;
 
     private Group root;
+    protected ResourceBundle myResources;
+    protected ResourceBundle propertyResources;
+    private int gridLeftOffset;
+    private int gridTopOffset;
+    private int cellLength;
+    private double cellOffset;
+    private int buttonOffset;
+    private int buttonOffsetTop;
 
     /**
      * Create display based on given background color and Grid Cell length.
@@ -56,7 +68,15 @@ public class Display {
         this.myStage = myStage;
         root = (Group)myStage.getScene().getRoot();
         myStage.getScene().setFill(background);
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + ResourceBundle.getBundle("cellsociety.ProgramSettings").getString("Language"));
+        propertyResources = ResourceBundle.getBundle("cellsociety.display.Display");
 
+        gridLeftOffset = Integer.parseInt(propertyResources.getString("GRID_LEFT_OFFSET"));
+        gridTopOffset = Integer.parseInt(propertyResources.getString("GRID_TOP_OFFSET"));
+        cellLength = Integer.parseInt(propertyResources.getString("CELL_LENGTH"));
+        cellOffset = Double.parseDouble(propertyResources.getString("CELL_OFFSET"));
+        buttonOffset = Integer.parseInt(propertyResources.getString("BUTTON_OFFSET"));
+        buttonOffsetTop = Integer.parseInt(propertyResources.getString("BUTTON_OFFSET_TOP"));
     }
 
     public void initializeGrid(int[][] grid) {
@@ -66,10 +86,10 @@ public class Display {
         }
         displayGrid = new Rectangle[grid.length][grid[0].length];
 
-        for(int x = 0; x < grid.length; x++) {
-            for (int y = 0; y < grid[0].length; y++) {
-                Rectangle cell = new Rectangle(x*(CELL_LENGTH + CELL_OFFSET) + LEFT_OFFSET_GRID,
-                    y*(CELL_LENGTH + CELL_OFFSET) + TOP_OFFSET_GRID , CELL_LENGTH, CELL_LENGTH);
+        for(int x = 0; x < grid[0].length; x++) {
+            for (int y = 0; y < grid.length; y++) {
+                Rectangle cell = new Rectangle(x*(cellLength + cellOffset) + gridLeftOffset,
+                    y*(cellOffset + cellLength) + gridTopOffset, cellLength, cellLength);
                 displayGrid[x][y] = cell;
                 root.getChildren().add(cell);
             }
@@ -77,8 +97,11 @@ public class Display {
         updateScene(grid);
     }
 
-    //Removes all elements of the displayGrid from the display.
-    private void resetGrid() {
+    /**
+     * Removes all elements of the displayGrid from the display.
+     */
+
+    public void resetGrid() {
         if (displayGrid != null) {
             for (int i = 0; i < displayGrid.length; i++) {
                 for (int j = 0; j < displayGrid[0].length; j++) {
@@ -103,58 +126,50 @@ public class Display {
         }
     }
 
-    //Adds a new button to the screen with the passed method as its event.
-    private Button addButton(Method myMethod, Object instance, int xpos, int ypos) {
-        Button myButton = new Button();
-        myButton.setLayoutX(xpos);
-        myButton.setLayoutY(ypos);
-        myButton.setOnAction(e -> {try {myMethod.invoke(instance);} catch (Exception exception) {}});
-        root.getChildren().add(myButton);
-        return myButton;
+    public void addButtons(Button saveButton, Button playButton, Button pauseButton, Button resetButton, Button loadButton){
+        loadButton.setLayoutX(buttonOffset);
+        loadButton.setLayoutY(buttonOffsetTop);
+        loadButton.setText("Load");
+
+        playButton.setLayoutX(buttonOffset);
+        playButton.setLayoutY(buttonOffsetTop + buttonOffset);
+        playButton.setText("Play");
+
+        pauseButton.setLayoutX(buttonOffset);
+        pauseButton.setLayoutY(buttonOffsetTop + buttonOffset*2);
+        pauseButton.setText("Pause");
+
+        resetButton.setLayoutX(buttonOffset);
+        resetButton.setLayoutY(buttonOffsetTop + buttonOffset*3);
+        resetButton.setText("Reset");
+
+        saveButton.setLayoutX(buttonOffset);
+        saveButton.setLayoutY(buttonOffsetTop + buttonOffset*4);
+        saveButton.setText("Save");
+
+        root.getChildren().add(saveButton);
+        root.getChildren().add(playButton);
+        root.getChildren().add(pauseButton);
+        root.getChildren().add(resetButton);
+        root.getChildren().add(loadButton);
     }
 
-    /**
-     * Adds a button to the display that allows the user to pick a
-     * sim file to run.
-     *
-     * @param loadFile the method that initiates the file loading.
-     * @param instance the instance of the class that is calling the method (Usually will be the 'this' keyword).
-     */
-    public void addFileChoserButton(Method loadFile, Object instance) {
-
-        Button fileChooserButton = addButton(loadFile, instance, 0, 0);
-        fileChooserButton.setOnAction(e-> {
-            try {
-                FileChooser myFileChoser = new FileChooser();
-                myFileChoser.setInitialDirectory(
-                    new File(Paths.get(".").toAbsolutePath().normalize().toString() + "/data"));
-                loadFile.invoke(instance, myFileChoser.showOpenDialog(myStage));
-            } catch (Exception exception) {}
-        } );
-        fileChooserButton.setText("Choose File"); //TODO: Format button and fix language
+    public void showError(Exception e) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        String errorTitle = "Error";
+        String errorMessage = myResources.getString(errorTitle);
+        if (e instanceof FileNotFoundError) {
+            errorTitle = "FileNotFoundError";
+            errorMessage = String.format("%s %s", myResources.getString(errorTitle), ((FileNotFoundError)e).getFilename());
+        } else if (e instanceof InvalidSimulationTypeError) {
+            errorTitle = "InvalidSimulationTypeError";
+            errorMessage = String.format("%s %s", myResources.getString(errorTitle), ((InvalidSimulationTypeError)e).getType());
+        } else if (e instanceof MissingSimulationArgumentError) {
+            errorTitle = "MissingSimulationArgumentError";
+            errorMessage = String.format("%s %s", myResources.getString(errorTitle), ((MissingSimulationArgumentError)e).getArgument());
+        }
+        alert.setTitle(errorTitle);
+        alert.setContentText(errorMessage);
+        alert.show();
     }
-
-    /**
-     * Adds a button to pause the current simulation.
-     *
-     * @param pauseSimulation the method to pause the simulation.
-     * @param instance the instance of the class that is calling the method (Usually will be the 'this' keyword).
-     */
-    public void addPauseButton(Method pauseSimulation, Object instance) {
-        Button myButton = addButton(pauseSimulation, instance, 100, 0);
-        myButton.setText("Pause");
-    }
-
-    /**
-     * Adds a button to play the current simulation.
-     *
-     * @param playSimulation the method to play the simulation.
-     * @param instance the instance of the class that is calling the method (Usually will be the 'this' keyword).
-     */
-    public void addPlayButton(Method playSimulation, Object instance) {
-        Button myButton = addButton(playSimulation, instance, 200, 0);
-        myButton.setText("Play");
-    }
-
-
 }

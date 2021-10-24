@@ -22,7 +22,7 @@ public class CSVFileReader {
     try{
       // Create an object of filereader
       // class with CSV file as a parameter.
-      FileReader filereader = new FileReader("data/" + fileName);
+      FileReader filereader = new FileReader(fileName);
 
       // create csvReader object passing
       // file reader as a parameter

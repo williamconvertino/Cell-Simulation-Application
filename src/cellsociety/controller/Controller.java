@@ -1,14 +1,10 @@
 package cellsociety.controller;
 
 import cellsociety.display.Display;
-import cellsociety.errors.UnhandledExceptionError;
-import cellsociety.io.FilePickerEventHandler;
-import cellsociety.logic.Grid;
+import cellsociety.io.FileHandler;
 import java.io.File;
-import java.lang.reflect.Method;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
+import java.nio.file.Paths;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -22,6 +18,9 @@ import javafx.stage.Stage;
  * @since 0.0.1
  */
 public class Controller {
+
+  //The stage of the JFX application.
+  private Stage myStage;
 
   //The current display class of our program.
   private Display myDisplay;
@@ -40,42 +39,53 @@ public class Controller {
    */
   public Controller(Stage myStage) {
     this.myLogicController = new LogicController();
+    this.myStage = myStage;
     initializeDisplay(myStage);
   }
 
   //Initializes the display components.
   private void initializeDisplay (Stage myStage) {
     myDisplay = new Display(myStage, Color.color(.50,.50,.80));
-    try {
-      myDisplay.addFileChoserButton(getClass().getMethod("loadFile", File.class), this);
-      myDisplay.addPlayButton(getClass().getMethod("playSimulation"), this);
-      myDisplay.addPauseButton(getClass().getMethod("pauseSimulation"), this);
-    } catch (Exception e) {
-      //myDisplay.showError(new UnhandledExceptionError());
-    }
+    initializeButtons(myDisplay);
+  }
+
+  //Initializes all the buttons in the display.
+  private void initializeButtons(Display myDisplay) {
+    Button saveButton = new Button();
+    saveButton.setOnAction(e->saveCurrentGrid());
+    Button playButton = new Button();
+    playButton.setOnAction(e->myLogicController.playSimulation());
+    Button pauseButton = new Button();
+    pauseButton.setOnAction(e->myLogicController.pauseSimulation());
+    Button resetButton = new Button();
+    resetButton.setOnAction(e->myDisplay.resetGrid());
+    Button loadButton = new Button();
+    loadButton.setOnAction(e->{ try{FileChooser myFileChoser = new FileChooser();
+      myFileChoser.setInitialDirectory(new File(Paths.get(".").toAbsolutePath().normalize() + "/data"));
+          loadFile(myFileChoser.showOpenDialog(myStage));} catch(Exception exception) {}});
+
+    myDisplay.addButtons(saveButton, playButton, pauseButton, resetButton, loadButton);
   }
 
   /**
-   * Loads a new simulation from a file.
+   * Saves the display's grid to a CVS file.
+   */
+  public void saveCurrentGrid() {
+    FileHandler.saveFile(myLogicController.getActiveGrid(), "data/game_of_life/user_file.csv");
+  }
+
+  /**
+   * Loads a new simulation using the specified file.
    *
-   * @param file the file from which the simulation should be initialized.
+   * @param file the SIM file with the simulation's information.
    */
   public void loadFile(File file) {
       try {
         myLogicController.initializeFromFile(file);
       } catch (Exception e) {
         e.printStackTrace();
-        //myDisplay.showError(e);
+        myDisplay.showError(e);
       }
-  }
-
-  public void pauseSimulation () {
-    myLogicController.pauseSimulation();
-  }
-
-
-  public void playSimulation () {
-    myLogicController.playSimulation();
   }
 
   /**

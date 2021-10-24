@@ -1,0 +1,6 @@
+Type=FireSpreading
+Title=Diagonal Fire
+Author=Alexis
+Description=A line of burning trees along the diagonal
+InitialStates=data/fire_spreading/diagonal_fire.csv
+ProbCatch=0.3

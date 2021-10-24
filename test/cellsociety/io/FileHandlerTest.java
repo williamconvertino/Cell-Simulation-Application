@@ -1,5 +1,6 @@
 package cellsociety.io;
 
+import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.logic.Grid;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -15,21 +16,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FileHandlerTest {
 
-    /*
     @Test
-    void saveGridToCsv() throws IOException {
+    void saveGridToCsv() throws IOException, UnhandledExceptionError {
         Grid grid = CSVFileReader.readFile("./data/game_of_life/still_life_square.csv");
         assertNotEquals(null, grid);
-        for (int i = 0; i < grid.getWidth(); i++) {
-            for (int j = 0; j < grid.getHeight(); j++) {
-                System.out.print(grid.getCell(i,j));
-            }
-            System.out.println("");
-        }
 
-        String fileName = "testExample";
+        String fileName = "testExample.csv";
         FileHandler.saveFile(grid, fileName);
 
         assertTrue(new File("./data/game_of_life/testExample.csv").isFile());
-    }*/
+    }
 }

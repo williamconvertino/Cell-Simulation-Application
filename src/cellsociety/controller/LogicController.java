@@ -6,12 +6,12 @@ import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.io.CSVFileReader;
 import cellsociety.io.SIMFileReader;
-import cellsociety.logic.GameOfLife;
-import cellsociety.logic.Grid;
-import cellsociety.logic.Simulation;
+import cellsociety.logic.*;
+
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -26,8 +26,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class LogicController {
 
-  public static final String TYPE = "Type";
-  public static final String INITIAL_STATE = "InitialStates";
+  public static final ResourceBundle FILE_ARGUMENT_PROPERTIES = ResourceBundle.getBundle("cellsociety.controller.FileArguments");
+  public static final String TYPE = FILE_ARGUMENT_PROPERTIES.getString("Type");
+  public static final String INITIAL_STATE =FILE_ARGUMENT_PROPERTIES.getString("InitialStates");
   public static final int CYCLE_DELAY = 1;
 
   private Runnable cycleRunnable;
@@ -39,7 +40,7 @@ public class LogicController {
   //The current program grid to display to the user.
   private Grid gridToDisplay;
 
-  //Keeps track of whether or not the simulation is paused.
+  //Keeps track of whether the simulation is paused.
   private boolean isPaused;
 
   /**
@@ -51,7 +52,7 @@ public class LogicController {
 
   //Initializes a cycle executor to run the simulation's update method at a specified interval.
   private void initializeCycles(int delay) {
-    this.isPaused = false; //TODO: Set isPaused to true by default.
+    this.isPaused = true;
     this.cycleRunnable = new Runnable() {
       @Override
       public void run() {
@@ -98,15 +99,34 @@ public class LogicController {
   //Initiates the proper simulation type and loads it into the currentSimulation variable.
   private Simulation loadLogicClass(Grid grid, Map<String, String> metadata)
       throws NoSuchMethodException, MissingSimulationArgumentError, InvocationTargetException, IllegalAccessException {
-    //return (Simulation)getClass().getMethod(metadata.get(TYPE), Grid.class, Map.class).invoke(this,grid, metadata);
-
-    return GameOfLife(grid, metadata);
+    return (Simulation)getClass().getMethod(metadata.get(TYPE), Grid.class, Map.class).invoke(this,grid, metadata);
+    //return GameOfLife(grid, metadata);
   }
 
-  private Simulation GameOfLife(Grid grid, Map<String, String> metadata) {
+  //Returns a new GameOfLife simulation.
+  public Simulation GameOfLife(Grid grid, Map<String, String> metadata) {
     return new GameOfLife(grid, metadata);
   }
 
+  //Returns a new ModelOfSegregation simulation.
+  public Simulation ModelOfSegregation(Grid grid, Map<String, String> metadata) {
+    return new ModelOfSegregation(grid, metadata);
+  }
+
+  //Returns a new Percolation simulation.
+  public Simulation Percolation(Grid grid, Map<String, String> metadata) {
+    return new Percolation(grid, metadata);
+  }
+
+  //Returns a new FireSpreading simulation.
+  public Simulation FireSpreading(Grid grid, Map<String, String> metadata) {
+    return new FireSpreading(grid, metadata);
+  }
+
+  //Returns a new WaTorWorld simulation.
+  public Simulation Wator(Grid grid, Map<String, String> metadata) {
+    return new WaTorWorld(grid, metadata);
+  }
   /**
    * Returns the current grid state of the currently loaded
    * algorithm.
