@@ -89,7 +89,7 @@ public class Grid {
         if (c.getRow() <= 0 || c.getRow() > height - 1) {
             return null;
         }
-        return cells[c.getRow()-1][c.getCollumn()];
+        return cells[c.getRow()-1][c.getColumn()];
     }
 
     /**
@@ -104,7 +104,7 @@ public class Grid {
         if (c.getRow() < 0 || c.getRow() > height - 2) {
             return null;
         }
-        return cells[c.getRow()+1][c.getCollumn()];
+        return cells[c.getRow()+1][c.getColumn()];
     }
 
     /**
@@ -116,10 +116,10 @@ public class Grid {
      * it does not exist.
      */
     public Cell getNeighborLeft(Cell c) {
-        if (c.getCollumn() <= 0 || c.getCollumn() > width - 1) {
+        if (c.getColumn() <= 0 || c.getColumn() > width - 1) {
             return null;
         }
-        return cells[c.getRow()][c.getCollumn()-1];
+        return cells[c.getRow()][c.getColumn()-1];
     }
 
     /**
@@ -131,10 +131,10 @@ public class Grid {
      * it does not exist.
      */
     public Cell getNeighborRight(Cell c) {
-        if (c.getCollumn() < 0 || c.getCollumn() > width - 2) {
+        if (c.getColumn() < 0 || c.getColumn() > width - 2) {
             return null;
         }
-        return cells[c.getRow()][c.getCollumn()+1];
+        return cells[c.getRow()][c.getColumn()+1];
     }
 
     /**
@@ -149,7 +149,7 @@ public class Grid {
         if (getNeighborLeft(c) == null || getNeighborUp(c) == null) {
             return null;
         }
-        return cells[c.getRow()-1][c.getCollumn()-1];
+        return cells[c.getRow()-1][c.getColumn()-1];
     }
 
     /**
@@ -164,7 +164,7 @@ public class Grid {
         if (getNeighborRight(c) == null || getNeighborUp(c) == null) {
             return null;
         }
-        return cells[c.getRow()-1][c.getCollumn()+1];
+        return cells[c.getRow()-1][c.getColumn()+1];
     }
 
     /**
@@ -179,7 +179,7 @@ public class Grid {
         if (getNeighborLeft(c) == null || getNeighborDown(c) == null) {
             return null;
         }
-        return cells[c.getRow()+1][c.getCollumn()-1];
+        return cells[c.getRow()+1][c.getColumn()-1];
     }
 
     /**
@@ -194,7 +194,7 @@ public class Grid {
         if (getNeighborRight(c) == null || getNeighborDown(c) == null) {
             return null;
         }
-        return cells[c.getRow()+1][c.getCollumn()+1];
+        return cells[c.getRow()+1][c.getColumn()+1];
     }
 
     /**
