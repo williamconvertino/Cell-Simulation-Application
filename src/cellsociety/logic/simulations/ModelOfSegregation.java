@@ -45,27 +45,26 @@ public class ModelOfSegregation extends Simulation {
   }
 
   private void relocateToEmptyCell(int x, int y){
-<<<<<<< Updated upstream:src/cellsociety/logic/ModelOfSegregation.java
+/*
     getGrid().setCell(empty.get(0)[0], empty.get(0)[1], getGrid().getCell(x, y));
-=======
     int[] entry = findEmptyCells(getGrid());
     getGrid().setCellState(entry[0], entry[1], getGrid().getCellState(x,y));
->>>>>>> Stashed changes:src/cellsociety/logic/simulations/ModelOfSegregation.java
 //    empty.remove(0);
     getGrid().setCellState(x, y, 0);
 //    int[] entry = new int[2];
 //    entry[0] = x;
 //    entry[1] = y;
 //    empty.add(entry);
+
+ */
   }
 
   @Override
   public void update() {
-<<<<<<< Updated upstream:src/cellsociety/logic/ModelOfSegregation.java
-    empty = findEmptyCells(getGrid());
-=======
 /*
->>>>>>> Stashed changes:src/cellsociety/logic/simulations/ModelOfSegregation.java
+    empty = findEmptyCells(getGrid());
+
+
     for (int x = 0; x < getGrid().getWidth(); x++) {
       for (int y = 0; y < getGrid().getHeight(); y++) {
         if (Collections.frequency(getGrid().getAllNeighbors(x, y), getGrid().getCell(x, y))/8 < satisfactionRate

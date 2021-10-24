@@ -13,99 +13,48 @@ class GridTest {
 
     @BeforeEach
     void setUp() {
-        grid = new Grid(50, 50);
+        grid = new Grid(10, 10);
     }
 
     @Test
     void defaultCellValueTest() {
-        for (int i = 0; i < 50 * 50; i++) {
+        for (int i = 0; i < 10 * 10; i++) {
             assertEquals(0, grid.getCell(0, 0), "The cells do not contain their default value of 0");
         }
     }
 
     @Test
     void setInitialCellValueTest() {
-        grid = new Grid(50, 50, 1);
-        for (int i = 0; i < 50 * 50; i++) {
+        grid = new Grid(10, 10, 1);
+        for (int i = 0; i < 10 * 10; i++) {
             assertEquals(1, grid.getCell(0, 0), "The cells do not contain their specified initial value of 1");
         }
     }
 
-    @Test
-    void getAllNeighborsBoundsChecking() {
-        int xPos = 0;
-        int yPos = 0;
-        assertEquals(5, Collections.frequency(grid.getAllNeighbors(xPos, yPos), -1));
-        assertEquals(3, Collections.frequency(grid.getAllNeighbors(xPos, yPos), 0));
+    void setCorners() {
+        grid.setCellState(0,0,1);
+        grid.setCellState(0,1,2);
+        grid.setCellState(1,0,3);
 
-        xPos = grid.getWidth() - 1;
-        yPos = grid.getHeight() - 1;
-        assertEquals(5, Collections.frequency(grid.getAllNeighbors(xPos, yPos), -1));
-        assertEquals(3, Collections.frequency(grid.getAllNeighbors(xPos, yPos), 0));
+        grid.setCellState(grid.getHeight()-1,0,1);
+        grid.setCellState(grid.getHeight() -2,1,2);
+        grid.setCellState(grid.getHeight() -2,0,3);
 
-        xPos = grid.getWidth() / 2;
-        yPos = grid.getHeight() / 2;
-        assertEquals(0, Collections.frequency(grid.getAllNeighbors(xPos, yPos), -1));
-        assertEquals(8, Collections.frequency(grid.getAllNeighbors(xPos, yPos), 0));
+        grid.setCellState(grid.getHeight()-1,grid.getWidth() -1,1);
+        grid.setCellState(grid.getHeight() -2,grid.getWidth() -2,2);
+        grid.setCellState(grid.getHeight() -2,grid.getWidth() -1,3);
+
+        grid.setCellState(0,grid.getWidth() -1,1);
+        grid.setCellState(0,grid.getWidth() -2,2);
+        grid.setCellState(1,grid.getWidth() -1,3);
     }
 
-    @Test
-    void getFourNeighborsBoundsChecking() {
-        int xPos = 0;
-        int yPos = 0;
-        assertEquals(2, Collections.frequency(grid.getFourNeighbors(xPos, yPos), -1));
-        assertEquals(2, Collections.frequency(grid.getFourNeighbors(xPos, yPos), 0));
-
-        xPos = grid.getWidth() - 1;
-        yPos = grid.getHeight() - 1;
-        assertEquals(2, Collections.frequency(grid.getFourNeighbors(xPos, yPos), -1));
-        assertEquals(2, Collections.frequency(grid.getFourNeighbors(xPos, yPos), 0));
-
-        xPos = grid.getWidth() / 2;
-        yPos = grid.getHeight() / 2;
-        assertEquals(0, Collections.frequency(grid.getFourNeighbors(xPos, yPos), -1));
-        assertEquals(4, Collections.frequency(grid.getFourNeighbors(xPos, yPos), 0));
-    }
 
     @Test
-    void updateGrid() {
-        for (int i = 0; i < grid.getWidth(); i++){
-            for(int j = 0; j < grid.getHeight(); j++){
-                grid.setCell(i, j, (j%2 == 0) ? 0 : 1);
-            }
-        }
-        grid.updateGrid();
+    void getNeighborsTest() {
 
-        for (int i = 0; i < grid.getWidth(); i++){
-            for(int j = 0; j < grid.getHeight(); j++){
-                assertEquals(grid.getCell(i, j), (j%2 == 0) ? 0 : 1);
-            }
-        }
-
-        for (int i = 0; i < grid.getWidth(); i++){
-            for(int j = 0; j < grid.getHeight(); j++){
-                grid.setCell(i, j, 0);
-            }
-        }
-        grid.updateGrid();
-
-        for (int i = 0; i < grid.getWidth(); i++){
-            for(int j = 0; j < grid.getHeight(); j++){
-                assertEquals(grid.getCell(i, j), 0);
-            }
-        }
-
-        for (int i = 0; i < grid.getWidth(); i++){
-            for(int j = 0; j < grid.getHeight(); j++){
-                grid.setCell(i, j, 1);
-            }
-        }
-
-        for (int i = 0; i < grid.getWidth(); i++){
-            for(int j = 0; j < grid.getHeight(); j++){
-                assertNotEquals(grid.getCell(i, j), 1);
-            }
-        }
+        setCorners();
+        System.out.println(grid);
     }
 
     @Test

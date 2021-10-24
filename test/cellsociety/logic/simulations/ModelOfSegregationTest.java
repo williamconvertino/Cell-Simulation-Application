@@ -3,11 +3,9 @@ package cellsociety.logic.simulations;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ModelOfSegregationTest {
-<<<<<<< Updated upstream:test/cellsociety/logic/ModelOfSegregationTest.java
-
-=======
-    private ModelOfSegregation mos;
 /*
+    private ModelOfSegregation mos;
+
     @Test
     void updateTest(){
         try {
@@ -36,5 +34,4 @@ class ModelOfSegregationTest {
 
     }
 */
->>>>>>> Stashed changes:test/cellsociety/logic/simulations/ModelOfSegregationTest.java
 }
