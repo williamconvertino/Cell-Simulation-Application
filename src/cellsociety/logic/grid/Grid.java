@@ -118,7 +118,7 @@ public class Grid {
         return cells[c.getRow()+1][c.getCollumn()-1];
     }
     public Cell getNeighborDownRight(Cell c) {
-        if (getNeighborLeft(c) == null || getNeighborUp(c) == null) {
+        if (getNeighborRight(c) == null || getNeighborDown(c) == null) {
             return null;
         }
         return cells[c.getRow()+1][c.getCollumn()+1];
