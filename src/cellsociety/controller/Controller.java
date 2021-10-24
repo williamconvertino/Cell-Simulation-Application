@@ -58,9 +58,10 @@ public class Controller {
     Button pauseButton = new Button();
     pauseButton.setOnAction(e->myLogicController.pauseSimulation());
     Button resetButton = new Button();
-    resetButton.setOnAction(e->myDisplay.resetGrid());
+    resetButton.setOnAction(e->reset());
     Button loadButton = new Button();
-    loadButton.setOnAction(e->{ try{FileChooser myFileChoser = new FileChooser();
+    loadButton.setOnAction(e->{ myLogicController.pauseSimulation();
+      try{FileChooser myFileChoser = new FileChooser();
       myFileChoser.setInitialDirectory(new File(Paths.get(".").toAbsolutePath().normalize() + "/data"));
           loadFile(myFileChoser.showOpenDialog(myStage));} catch(Exception exception) {}});
 
@@ -72,6 +73,14 @@ public class Controller {
    */
   public void saveCurrentGrid() {
     FileHandler.saveFile(myLogicController.getActiveGrid(), "data/game_of_life/user_file.csv");
+  }
+
+  /**
+   * Resets the current simulation.
+   */
+  public void reset() {
+    myLogicController.reset();
+    myDisplay.resetGrid();
   }
 
   /**
