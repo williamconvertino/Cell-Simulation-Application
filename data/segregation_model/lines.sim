@@ -1,0 +1,6 @@
+Type=ModelOfSegregation
+Title=Lines
+Author=Alexis
+Description=Two lines of 1's and 2's (different agents)
+InitialStates=data/segregation_model/lines.csv
+ProbCatch=0.3
