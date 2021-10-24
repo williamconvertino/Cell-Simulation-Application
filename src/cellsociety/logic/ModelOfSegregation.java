@@ -24,26 +24,25 @@ public class ModelOfSegregation extends Simulation{
       throws MissingSimulationArgumentError {
     super(grid, metadata);
     satisfactionRate = Double.parseDouble(metadata.get("SatisfactionRate"));
-    empty = findEmptyCells(grid);
   }
 
-  private List findEmptyCells(Grid grid){
-    List<int[]> empty = new ArrayList<>();
+  private int[] findEmptyCells(Grid grid){
     for (int i = 0; i < grid.getWidth(); i++) {
       for (int j = 0; j < grid.getHeight(); j++) {
         if(grid.getCell(i, j) == 0){
           int[] entry = new int[2];
           entry[0] = i;
           entry[1] = j;
-          empty.add(entry);
+          return entry;
         }
       }
     }
-    return empty;
+    return null;
   }
 
   private void relocateToEmptyCell(int x, int y){
-    getGrid().setCell(empty.get(0)[0], empty.get(0)[1], getGrid().getCell(x, y));
+    int[] entry = findEmptyCells(getGrid());
+    getGrid().setCell(entry[0], entry[1], getGrid().getCell(x, y));
 //    empty.remove(0);
     getGrid().setCell(x, y, 0);
 //    int[] entry = new int[2];
@@ -54,14 +53,13 @@ public class ModelOfSegregation extends Simulation{
 
   @Override
   public void update() {
-    empty = findEmptyCells(getGrid());
+
     for (int x = 0; x < getGrid().getWidth(); x++) {
       for (int y = 0; y < getGrid().getHeight(); y++) {
         if (Collections.frequency(getGrid().getAllNeighbors(x, y), getGrid().getCell(x, y))/8 < satisfactionRate
                 && getGrid().getCell(x, y) != 0) {
           relocateToEmptyCell(x, y);
-        } else {
-          getGrid().setCell(x, y, getGrid().getCell(x, y));
+          getGrid().updateGrid();
         }
       }
     }
