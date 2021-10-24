@@ -1,6 +1,7 @@
-package cellsociety.logic;
+package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
+import cellsociety.logic.grid.Grid;
 import java.util.Map;
 
 public class Percolation extends Simulation {

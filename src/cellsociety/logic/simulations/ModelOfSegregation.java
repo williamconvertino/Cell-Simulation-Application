@@ -1,9 +1,12 @@
-package cellsociety.logic;
+package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
+import cellsociety.logic.grid.Grid;
 import java.util.Map;
 
 public class ModelOfSegregation extends Simulation{
+
+  private double threshold;
 
   /**
    * Constructs a new Simulation with a specified starting Grid and a Map of simulation-specific data
@@ -17,10 +20,14 @@ public class ModelOfSegregation extends Simulation{
   public ModelOfSegregation(Grid grid, Map<String, String> metadata)
       throws MissingSimulationArgumentError {
     super(grid, metadata);
+    try {
+      this.threshold = Double.parseDouble(metadata.get("Threshold"));
+    } catch (Exception e) {
+      throw new MissingSimulationArgumentError("Threshold");
+    }
   }
 
   @Override
   public void update() {
-
   }
 }
