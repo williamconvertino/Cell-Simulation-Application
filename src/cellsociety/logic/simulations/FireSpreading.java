@@ -1,7 +1,8 @@
-package cellsociety.logic;
+package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
 
+import cellsociety.logic.grid.Grid;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Random;

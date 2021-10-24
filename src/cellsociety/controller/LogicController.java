@@ -8,6 +8,13 @@ import cellsociety.io.CSVFileReader;
 import cellsociety.io.SIMFileReader;
 import cellsociety.logic.*;
 
+import cellsociety.logic.grid.Grid;
+import cellsociety.logic.simulations.FireSpreading;
+import cellsociety.logic.simulations.GameOfLife;
+import cellsociety.logic.simulations.ModelOfSegregation;
+import cellsociety.logic.simulations.Percolation;
+import cellsociety.logic.simulations.Simulation;
+import cellsociety.logic.simulations.WaTorWorld;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;

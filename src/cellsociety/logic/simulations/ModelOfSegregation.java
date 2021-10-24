@@ -1,13 +1,15 @@
-package cellsociety.logic;
+package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
 
+import cellsociety.logic.grid.Grid;
+import cellsociety.logic.simulations.Simulation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class ModelOfSegregation extends Simulation{
+public class ModelOfSegregation extends Simulation {
 
   private List<int[]> empty;
   private double satisfactionRate;
