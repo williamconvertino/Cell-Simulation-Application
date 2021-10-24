@@ -43,21 +43,22 @@ public class ModelOfSegregation extends Simulation{
   }
 
   private void relocateToEmptyCell(int x, int y){
-    for (int i = 0; i < getGrid().getWidth(); i++) {
-      for (int j = 0; j < getGrid().getHeight(); j++) {
-        if(getGrid().getCell(i, j) == 0){
-          getGrid().setCell(x, y, getGrid().getCell(x, y));
-        }
-      }
-    }
+    getGrid().setCell(empty.get(0)[0], empty.get(0)[1], getGrid().getCell(x, y));
+//    empty.remove(0);
     getGrid().setCell(x, y, 0);
+//    int[] entry = new int[2];
+//    entry[0] = x;
+//    entry[1] = y;
+//    empty.add(entry);
   }
 
   @Override
   public void update() {
+    empty = findEmptyCells(getGrid());
     for (int x = 0; x < getGrid().getWidth(); x++) {
       for (int y = 0; y < getGrid().getHeight(); y++) {
-        if (Collections.frequency(getGrid().getAllNeighbors(x, y), 2)/8 < satisfactionRate) {
+        if (Collections.frequency(getGrid().getAllNeighbors(x, y), getGrid().getCell(x, y))/8 < satisfactionRate
+                && getGrid().getCell(x, y) != 0) {
           relocateToEmptyCell(x, y);
         } else {
           getGrid().setCell(x, y, getGrid().getCell(x, y));
