@@ -92,13 +92,13 @@ public class Controller {
    *  Executes every program tick to allow the Simulation and Display to update.
    */
   public void update() {
-
+/*
     myLogicController.update();
     if (myLogicController.getActiveGrid() != null &&
         (myGrid = myLogicController.getActiveGrid().getCurrentGrid()) != null) {
       myDisplay.updateScene(myGrid);
     }
-
+*/
   }
 
 }

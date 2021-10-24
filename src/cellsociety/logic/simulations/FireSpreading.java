@@ -1,8 +1,8 @@
-package cellsociety.logic;
+package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
 
-import java.util.Collections;
+import cellsociety.logic.grid.Grid;
 import java.util.Map;
 import java.util.Random;
 
@@ -30,18 +30,19 @@ public class FireSpreading extends Simulation {
 
     @Override
     public void update() {
+        /*
         for (int x = 0; x < getGrid().getWidth(); x++) {
             for (int y = 0; y < getGrid().getHeight(); y++) {
                 if (rand.nextDouble() < probCatch * Collections.frequency(getGrid().getFourNeighbors(x, y), 2)
-                        && getGrid().getCell(x, y) == 1) {
-                    getGrid().setCell(x, y, 2);
-                } else if(getGrid().getCell(x, y) == 2) {
-                    getGrid().setCell(x, y, 0);
+                        && getGrid().getCellState(x, y) == 1) {
+                    getGrid().setCellState(x, y, 2);
+                } else if(getGrid().getCellState(x, y) == 2) {
+                    getGrid().setCellState(x, y, 0);
                 }else {
-                    getGrid().setCell(x, y, getGrid().getCell(x, y));
+                    getGrid().setCellState(x, y, getGrid().getCellState(x, y));
                 }
             }
         }
-        getGrid().updateGrid();
+        getGrid().updateGrid();*/
     }
 }

@@ -1,13 +1,15 @@
-package cellsociety.logic;
+package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
 
+import cellsociety.logic.grid.Grid;
+import cellsociety.logic.simulations.Simulation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class ModelOfSegregation extends Simulation{
+public class ModelOfSegregation extends Simulation {
 
   private List<int[]> empty;
   private double satisfactionRate;
@@ -31,7 +33,7 @@ public class ModelOfSegregation extends Simulation{
     List<int[]> empty = new ArrayList<>();
     for (int i = 0; i < grid.getWidth(); i++) {
       for (int j = 0; j < grid.getHeight(); j++) {
-        if(grid.getCell(i, j) == 0){
+        if(grid.getCellState(i, j) == 0){
           int[] entry = new int[2];
           entry[0] = i;
           entry[1] = j;
@@ -43,9 +45,14 @@ public class ModelOfSegregation extends Simulation{
   }
 
   private void relocateToEmptyCell(int x, int y){
+<<<<<<< Updated upstream:src/cellsociety/logic/ModelOfSegregation.java
     getGrid().setCell(empty.get(0)[0], empty.get(0)[1], getGrid().getCell(x, y));
+=======
+    int[] entry = findEmptyCells(getGrid());
+    getGrid().setCellState(entry[0], entry[1], getGrid().getCellState(x,y));
+>>>>>>> Stashed changes:src/cellsociety/logic/simulations/ModelOfSegregation.java
 //    empty.remove(0);
-    getGrid().setCell(x, y, 0);
+    getGrid().setCellState(x, y, 0);
 //    int[] entry = new int[2];
 //    entry[0] = x;
 //    entry[1] = y;
@@ -54,7 +61,11 @@ public class ModelOfSegregation extends Simulation{
 
   @Override
   public void update() {
+<<<<<<< Updated upstream:src/cellsociety/logic/ModelOfSegregation.java
     empty = findEmptyCells(getGrid());
+=======
+/*
+>>>>>>> Stashed changes:src/cellsociety/logic/simulations/ModelOfSegregation.java
     for (int x = 0; x < getGrid().getWidth(); x++) {
       for (int y = 0; y < getGrid().getHeight(); y++) {
         if (Collections.frequency(getGrid().getAllNeighbors(x, y), getGrid().getCell(x, y))/8 < satisfactionRate
@@ -65,6 +76,6 @@ public class ModelOfSegregation extends Simulation{
         }
       }
     }
-    getGrid().updateGrid();
+    getGrid().updateGrid();*/
   }
 }

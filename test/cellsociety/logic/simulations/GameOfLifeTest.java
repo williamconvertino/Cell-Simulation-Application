@@ -1,4 +1,4 @@
-package cellsociety.logic;
+package cellsociety.logic.simulations;
 
 import cellsociety.errors.FileNotFoundError;
 import cellsociety.errors.UnhandledExceptionError;
