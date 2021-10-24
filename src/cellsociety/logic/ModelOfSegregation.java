@@ -23,15 +23,24 @@ public class ModelOfSegregation extends Simulation{
     satisfactionRate = Double.parseDouble(metadata.get("SatisfactionRate"));
   }
 
+  private void relocateToEmptyCell(int x, int y){
+    for (int i = 0; i < getGrid().getWidth(); i++) {
+      for (int j = 0; j < getGrid().getHeight(); j++) {
+        if(getGrid().getCell(i, j) == 0){
+          getGrid().setCell(x, y, getGrid().getCell(x, y));
+        }
+      }
+    }
+    getGrid().setCell(x, y, 0);
+  }
+
   @Override
   public void update() {
     for (int x = 0; x < getGrid().getWidth(); x++) {
       for (int y = 0; y < getGrid().getHeight(); y++) {
-        if (Collections.frequency(getGrid().getFourNeighbors(x, y), 2)/4 < satisfactionRate) {
-          getGrid().setCell(x, y, 2);
-        } else if(getGrid().getCell(x, y) == 2) {
-          getGrid().setCell(x, y, 0);
-        }else {
+        if (Collections.frequency(getGrid().getAllNeighbors(x, y), 2)/8 < satisfactionRate) {
+          relocateToEmptyCell(x, y);
+        } else {
           getGrid().setCell(x, y, getGrid().getCell(x, y));
         }
       }
