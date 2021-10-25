@@ -43,6 +43,18 @@ public class Grid {
         initializeCells(height, width, initialValue);
     }
 
+    /**
+     *
+     */
+    public Grid(Integer[][] initialValues) {
+        initializeCells(initialValues.length, initialValues[0].length, 0);
+        for (int r= 0; r < initialValues.length; r++) {
+            for (int c = 0; c < initialValues[0].length; c++) {
+                this.cells[r][c] = new Cell(r,c,initialValues[r][c]);
+            }
+        }
+    }
+
     //Creates the cells array and initializes each of them to the specified value.
     protected void initializeCells(int height, int width, int value) {
         this.cells = new Cell[width][height];
