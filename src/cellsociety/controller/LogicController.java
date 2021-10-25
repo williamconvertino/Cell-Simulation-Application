@@ -56,6 +56,10 @@ public class LogicController {
    */
   public LogicController () {
     initializeCycles(CYCLE_DELAY);
+    metadata = SIMFileReader.getMetadataFromFile(file);
+    grid = CSVFileReader.readFile(metadata.get(INITIAL_STATE));
+    currentSimulation = loadLogicClass(grid, metadata);
+    gridToDisplay = currentSimulation.getGrid();
   }
 
   /**
@@ -83,6 +87,7 @@ public class LogicController {
     this.isPaused = true;
     this.delay = delay;
     cycleExecutor = Executors.newScheduledThreadPool(1);
+
     makeRunnable(cycleExecutor);
     }
 
