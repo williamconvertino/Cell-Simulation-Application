@@ -22,22 +22,19 @@ public class ModelOfSegregation extends Simulation {
    * @throws MissingSimulationArgumentError if the metadata is missing a required argument for the
    *                                        simulation.
    */
-  public ModelOfSegregation(Grid grid, Map<String, String> metadata)
+  public ModelOfSegregation(Integer[][] grid, Map<String, String> metadata)
       throws MissingSimulationArgumentError {
     super(grid, metadata);
     satisfactionRate = Double.parseDouble(metadata.get("SatisfactionRate"));
-    empty = findEmptyCells(grid);
+    empty = findEmptyCells(this.grid);
   }
 
   private List findEmptyCells(Grid grid){
-    List<int[]> empty = new ArrayList<>();
+    empty = new ArrayList<>();
     for (int i = 0; i < grid.getWidth(); i++) {
       for (int j = 0; j < grid.getHeight(); j++) {
         if(grid.getCellState(i, j) == 0){
-          int[] entry = new int[2];
-          entry[0] = i;
-          entry[1] = j;
-          empty.add(entry);
+          empty.add(new int[]{i, j});
         }
       }
     }
@@ -61,6 +58,7 @@ public class ModelOfSegregation extends Simulation {
 
   @Override
   public void update() {
+    empty = findEmptyCells(getGrid());
 /*
     empty = findEmptyCells(getGrid());
 

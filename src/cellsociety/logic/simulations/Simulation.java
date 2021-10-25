@@ -15,7 +15,7 @@ import java.util.Map;
 public abstract class Simulation {
 
     //The current grid state of the simulation.
-    private Grid grid;
+    protected Grid grid;
 
     //A map containing the simulation's data collected from the simulation's sim files.
     private Map<String, String> metadata;
@@ -28,9 +28,18 @@ public abstract class Simulation {
      * @param metadata the user-specified values used by the simulation.
      * @throws MissingSimulationArgumentError if the metadata is missing a required argument for the simulation.
      */
-    public Simulation(Grid grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
-        this.grid = grid;
+    public Simulation(Integer[][] grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
+        makeGrid(grid);
         this.metadata = metadata;
+    }
+
+    /**
+     * Initializes the grids values using a 2d integer array.
+     *
+     * @param myGridArray the array of values to initialize with.
+     */
+    protected void makeGrid(Integer[][] myGridArray) {
+        this.grid = new Grid(myGridArray);
     }
 
     /**

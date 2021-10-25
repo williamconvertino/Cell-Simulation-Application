@@ -12,7 +12,7 @@ import cellsociety.logic.grid.Grid;
  */
 public class CSVFileReader {
 
-  public static Grid readFile(String fileName) throws FileNotFoundError, UnhandledExceptionError { //TODO: Refactor this
+  public static Integer[][] readFile(String fileName) throws FileNotFoundError, UnhandledExceptionError { //TODO: Refactor this
     /*
     try{
       // Create an object of filereader

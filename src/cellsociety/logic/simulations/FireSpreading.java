@@ -20,7 +20,7 @@ public class FireSpreading extends Simulation {
      * @throws MissingSimulationArgumentError if the metadata is missing a required argument for the
      *                                        simulation.
      */
-    public FireSpreading(Grid grid, Map<String, String> metadata)
+    public FireSpreading(Integer[][] grid, Map<String, String> metadata)
             throws MissingSimulationArgumentError {
         super(grid, metadata);
         this.probCatch = Double.parseDouble(metadata.get("ProbCatch"));

@@ -12,13 +12,13 @@ package cellsociety.logic.grid;
 public class Grid {
 
     //An array of all the cells in the grid.
-    private Cell[][] cells;
+    protected Cell[][] cells;
 
     //The height of the grid.
-    private int height;
+    protected int height;
 
     //The width of the grid.
-    private int width;
+    protected int width;
 
     /**
      * Constructs a grid with the specified height and width, and
@@ -43,8 +43,20 @@ public class Grid {
         initializeCells(height, width, initialValue);
     }
 
+    /**
+     *
+     */
+    public Grid(Integer[][] initialValues) {
+        initializeCells(initialValues.length, initialValues[0].length, 0);
+        for (int r= 0; r < initialValues.length; r++) {
+            for (int c = 0; c < initialValues[0].length; c++) {
+                this.cells[r][c] = new Cell(r,c,initialValues[r][c]);
+            }
+        }
+    }
+
     //Creates the cells array and initializes each of them to the specified value.
-    private void initializeCells(int height, int width, int value) {
+    protected void initializeCells(int height, int width, int value) {
         this.cells = new Cell[width][height];
         this.width = width;
         this.height = height;
