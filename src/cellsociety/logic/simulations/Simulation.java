@@ -1,6 +1,7 @@
 package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
+import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
 import java.util.Map;
 
@@ -53,6 +54,18 @@ public abstract class Simulation {
     /**
      * The update function to be run every tick of the game.
      */
-    public abstract void update();
+    public void update(){
+        for (int x = 0; x < getGrid().getWidth(); x++) {
+            for (int y = 0; y < getGrid().getHeight(); y++) {
+                updateCell(getGrid().getCell(x, y));
+            }
+        }
+    }
+
+    /**
+     * The update function to be run every tick of the game.
+     * @param cell
+     */
+    public abstract void updateCell(Cell cell);
 
 }

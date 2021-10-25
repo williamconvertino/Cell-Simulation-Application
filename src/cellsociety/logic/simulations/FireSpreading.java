@@ -30,19 +30,11 @@ public class FireSpreading extends Simulation {
 
     @Override
     public void update() {
-        /*
         for (int x = 0; x < getGrid().getWidth(); x++) {
             for (int y = 0; y < getGrid().getHeight(); y++) {
-                if (rand.nextDouble() < probCatch * Collections.frequency(getGrid().getFourNeighbors(x, y), 2)
-                        && getGrid().getCellState(x, y) == 1) {
-                    getGrid().setCellState(x, y, 2);
-                } else if(getGrid().getCellState(x, y) == 2) {
-                    getGrid().setCellState(x, y, 0);
-                }else {
-                    getGrid().setCellState(x, y, getGrid().getCellState(x, y));
-                }
+                updateCell(getGrid().getCell(x, y));
             }
         }
-        getGrid().updateGrid();*/
+        getGrid().updateGrid();
     }
 }
