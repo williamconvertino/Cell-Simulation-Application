@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -126,7 +127,7 @@ public class Display {
         }
     }
 
-    public void addButtons(Button saveButton, Button playButton, Button pauseButton, Button resetButton, Button loadButton){
+    public void addButtons(Button saveButton, Button playButton, Button pauseButton, Button resetButton, Button loadButton, Slider speedSlider){
         loadButton.setLayoutX(buttonOffset);
         loadButton.setLayoutY(buttonOffsetTop);
         loadButton.setText("Load");
@@ -147,11 +148,16 @@ public class Display {
         saveButton.setLayoutY(buttonOffsetTop + buttonOffset*4);
         saveButton.setText("Save");
 
+        speedSlider.setLayoutX(buttonOffset);
+        speedSlider.setLayoutY(buttonOffsetTop + buttonOffset*5);
+        speedSlider.setShowTickLabels(true);
+
         root.getChildren().add(saveButton);
         root.getChildren().add(playButton);
         root.getChildren().add(pauseButton);
         root.getChildren().add(resetButton);
         root.getChildren().add(loadButton);
+        root.getChildren().add(speedSlider);
     }
 
     public void showError(Exception e) {
