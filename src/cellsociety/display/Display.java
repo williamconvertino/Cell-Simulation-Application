@@ -72,7 +72,7 @@ public class Display {
         gridTopOffset = Integer.parseInt(propertyResources.getString("GRID_TOP_OFFSET"));
     }
 
-    public void initializeGrid(int[][] grid) {
+    public void initializeGrid(Integer[][] grid) {
         resetGrid();
         if (grid == null || grid.length == 0 || grid[0].length == 0) {
             return;
@@ -107,7 +107,7 @@ public class Display {
     /**
      * Update Scene
      */
-    public void updateScene (int[][] grid) {
+    public void updateScene (Integer[][] grid) {
         if (displayGrid == null || grid.length != displayGrid.length) {
             initializeGrid(grid);
             return;

@@ -15,7 +15,10 @@ import java.util.Map;
 public abstract class Simulation {
 
     //The current grid state of the simulation.
-    protected Grid grid;
+    protected Grid currentGrid;
+
+    //The grid to be set next in the simulation.
+    protected Grid nextGrid;
 
     //A map containing the simulation's data collected from the simulation's sim files.
     private Map<String, String> metadata;
@@ -39,7 +42,7 @@ public abstract class Simulation {
      * @param myGridArray the array of values to initialize with.
      */
     protected void makeGrid(Integer[][] myGridArray) {
-        this.grid = new Grid(myGridArray);
+        this.currentGrid = new Grid(myGridArray);
     }
 
     /**
@@ -48,7 +51,17 @@ public abstract class Simulation {
      * @return the current grid state of the simulation.
      */
     public Grid getGrid() {
-        return grid;
+        return currentGrid;
+    }
+
+    /**
+     * Returns a 2D array of integers representing the
+     * current states of the cells.
+     *
+     * @return
+     */
+    public Integer[][] getStateArray() {
+        return currentGrid.getCellStates();
     }
 
     /**
@@ -61,20 +74,23 @@ public abstract class Simulation {
     }
 
     /**
-     * The update function to be run every tick of the game.
+     *  Updates the nextGrid based on the current cell passed.
+     *
+     * @param cell the cell to update with.
      */
-    public void update(){
-        for (int x = 0; x < getGrid().getWidth(); x++) {
-            for (int y = 0; y < getGrid().getHeight(); y++) {
-                updateCell(getGrid().getCell(x, y));
-            }
-        }
-    }
+    protected abstract void updateNextGridFromCell (Cell cell);
 
     /**
-     * The update function to be run every tick of the game.
-     * @param cell
+     *  Updates each cell in the grid using the updateCell method.
      */
-    public abstract void updateCell(Cell cell);
+    public void update() {
+        this.nextGrid = new Grid(currentGrid.getHeight(), currentGrid.getWidth());
+        for (int r = 0; r < currentGrid.getHeight(); r++) {
+            for (int c = 0; c < currentGrid.getWidth(); c++) {
+                updateNextGridFromCell(currentGrid.getCell(r,c));
+            }
+        }
+        this.currentGrid = this.nextGrid;
+    }
 
 }
