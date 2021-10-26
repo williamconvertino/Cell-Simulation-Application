@@ -5,6 +5,7 @@ import cellsociety.io.FileHandler;
 import java.io.File;
 import java.nio.file.Paths;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -71,7 +72,11 @@ public class Controller {
       System.out.println(mouseEvent.getY());
     });
 
-    myDisplay.addButtons(saveButton, playButton, pauseButton, resetButton, loadButton);
+    Slider speedSlider = new Slider();
+
+
+
+    myDisplay.addButtons(saveButton, playButton, pauseButton, resetButton, loadButton, speedSlider);
   }
 
   /**
