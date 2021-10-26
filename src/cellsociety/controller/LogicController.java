@@ -54,6 +54,7 @@ public class LogicController {
    */
   public LogicController () {
     setSpeed(DEFAULT_SPEED);
+    pauseSimulation();
   }
 
   //Initializes a cycle executor to run the simulation's update method at a specified interval.

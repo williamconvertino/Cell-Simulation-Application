@@ -61,10 +61,10 @@ public class Grid {
 
     //Creates the cells array and initializes each of them to the specified value.
     protected void initializeCells(int height, int width, int value) {
-        this.cells = new Cell[width][height];
+        this.cells = new Cell[height][width];
         this.width = width;
         this.height = height;
-        for (int r = 0; r < width; r++) {
+        for (int r = 0; r < height; r++) {
             for (int c = 0; c < width; c++) {
                 cells[r][c] = new Cell(r,c,value);
             }

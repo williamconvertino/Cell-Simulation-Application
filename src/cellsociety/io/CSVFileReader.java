@@ -37,10 +37,10 @@ public class CSVFileReader {
 
       int[] dimensions = toIntArray(csvReader.readNext());
 
-      int[][] myGrid = new int[dimensions[0]][dimensions[1]];
+      int[][] myGrid = new int[dimensions[1]][dimensions[0]];
 
       int[] fileRow;
-      for (int r = 0; r < dimensions[0]; r++) {
+      for (int r = 0; r < dimensions[1]; r++) {
         fileRow = toIntArray(csvReader.readNext());
         myGrid[r] = fileRow;
       }
@@ -52,6 +52,12 @@ public class CSVFileReader {
     }
   }
 
+  /**
+   * Converts an array of strings to an array of integers.
+   *
+   * @param myArray the array to convert.
+   * @return an array of integers that have the same values as those in the string array.
+   */
   public static int[] toIntArray(String[] myArray) {
     int[] myIntArray = new int[myArray.length];
     for (int i = 0; i < myArray.length; i++) {
