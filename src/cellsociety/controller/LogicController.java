@@ -1,12 +1,12 @@
 package cellsociety.controller;
 
 import cellsociety.errors.FileNotFoundError;
+import cellsociety.errors.InvalidFileFormatError;
 import cellsociety.errors.InvalidSimulationTypeError;
 import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.io.CSVFileReader;
 import cellsociety.io.SIMFileReader;
-import cellsociety.logic.grid.Grid;
 
 import cellsociety.logic.simulations.FireSpreading;
 import cellsociety.logic.simulations.GameOfLife;
@@ -35,7 +35,7 @@ public class LogicController {
 
   public static final ResourceBundle FILE_ARGUMENT_PROPERTIES = ResourceBundle.getBundle("cellsociety.controller.FileArguments");
   public static final String TYPE = FILE_ARGUMENT_PROPERTIES.getString("Type");
-  public static final String INITIAL_STATE =FILE_ARGUMENT_PROPERTIES.getString("InitialStates");
+  public static final String INITIAL_STATE_FILE =FILE_ARGUMENT_PROPERTIES.getString("InitialStates");
   public static final int DEFAULT_SPEED = 1;
 
   private Runnable cycleRunnable;
@@ -79,15 +79,14 @@ public class LogicController {
    * @param file the SIM file with the initialization configuration data.
    * @throws Exception if the file cannot be found or is improperly formatted.
    */
-  public void initializeFromFile (File file) throws FileNotFoundError, InvalidSimulationTypeError, MissingSimulationArgumentError, UnhandledExceptionError {
+  public void initializeFromFile (File file)
+      throws FileNotFoundError, InvalidSimulationTypeError, MissingSimulationArgumentError, UnhandledExceptionError, InvalidFileFormatError {
     Map<String, String> metadata;
     int[][] grid;
     try {
       metadata = SIMFileReader.getMetadataFromFile(file);
-      grid = CSVFileReader.readFile(metadata.get(INITIAL_STATE));
-    } catch (FileNotFoundError e) {
-      throw e;
-    } catch (UnhandledExceptionError e) {
+      grid = CSVFileReader.readFile(new File(metadata.get(INITIAL_STATE_FILE)));
+    } catch (FileNotFoundError | UnhandledExceptionError | InvalidFileFormatError e) {
       throw e;
     }
     try {
