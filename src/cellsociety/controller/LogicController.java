@@ -36,7 +36,7 @@ public class LogicController {
   public static final ResourceBundle FILE_ARGUMENT_PROPERTIES = ResourceBundle.getBundle("cellsociety.controller.FileArguments");
   public static final String TYPE = FILE_ARGUMENT_PROPERTIES.getString("Type");
   public static final String INITIAL_STATE =FILE_ARGUMENT_PROPERTIES.getString("InitialStates");
-  public static final int DEFAULT_CYCLE_DELAY = 1;
+  public static final int DEFAULT_SPEED = 1;
 
   private Runnable cycleRunnable;
   private ScheduledExecutorService cycleExecutor;
@@ -53,20 +53,23 @@ public class LogicController {
    * Constructs a new LogicController.
    */
   public LogicController () {
-    initializeCycles(DEFAULT_CYCLE_DELAY);
+    setSpeed(DEFAULT_SPEED);
   }
 
   //Initializes a cycle executor to run the simulation's update method at a specified interval.
   private void initializeCycles(int delay) {
     boolean oldPauseState = isPaused;
     this.isPaused = true;
+    if (cycleExecutor != null) {
+      cycleExecutor.shutdownNow();
+    }
     this.cycleRunnable = () -> {
       if (currentSimulation!=null && !isPaused) {
         currentSimulation.update();
       }
     };
     cycleExecutor = Executors.newScheduledThreadPool(1);
-    cycleExecutor.scheduleAtFixedRate(cycleRunnable, delay, delay, TimeUnit.SECONDS);
+    cycleExecutor.scheduleAtFixedRate(cycleRunnable, delay, delay, TimeUnit.MILLISECONDS);
     this.isPaused = oldPauseState;
   }
 
@@ -159,7 +162,8 @@ public class LogicController {
 
   public void setSpeed(int speed) {
     if (currentSpeed != speed) {
-      initializeCycles(5-speed);
+      currentSpeed = speed;
+      initializeCycles((5-speed) * 200);
     }
 
   }
