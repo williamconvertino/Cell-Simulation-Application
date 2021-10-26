@@ -29,7 +29,7 @@ public class Controller {
   private LogicController myLogicController;
 
   //The current grid that should be shown by the Display.
-  private Integer[][] myGrid;
+  private int[][] myGrid;
 
   /**
    * Creates a Controller to run a new instance of Cell Society,
@@ -63,6 +63,13 @@ public class Controller {
     loadButton.setOnAction(e->{ try{FileChooser myFileChoser = new FileChooser();
       myFileChoser.setInitialDirectory(new File(Paths.get(".").toAbsolutePath().normalize() + "/data"));
           loadFile(myFileChoser.showOpenDialog(myStage));} catch(Exception exception) {}});
+
+    myStage.getScene().setOnMouseClicked(mouseEvent -> {
+      int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myGrid);
+      myGrid[s[0]][s[1]] = myLogicController.getSimulationDefaultValue();
+      System.out.println(mouseEvent.getX());
+      System.out.println(mouseEvent.getY());
+    });
 
     myDisplay.addButtons(saveButton, playButton, pauseButton, resetButton, loadButton);
   }

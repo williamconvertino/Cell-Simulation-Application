@@ -16,7 +16,7 @@ public abstract class Simulation {
 
     //The current grid state of the simulation.
     protected Grid currentGrid;
-
+    private int defaultValue;
     //The grid to be set next in the simulation.
     protected Grid nextGrid;
 
@@ -91,6 +91,16 @@ public abstract class Simulation {
             }
         }
         this.currentGrid = this.nextGrid;
+    }
+
+
+
+    public int getDefaultValue(){
+        return defaultValue;
+    }
+
+    protected void setDefaultValue(int newDefault){
+        defaultValue = newDefault;
     }
 
 }

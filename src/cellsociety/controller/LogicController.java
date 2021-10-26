@@ -154,4 +154,9 @@ public class LogicController {
 
   }
 
+
+  public int getSimulationDefaultValue(){
+    return currentSimulation.getDefaultValue();
+  }
+
 }

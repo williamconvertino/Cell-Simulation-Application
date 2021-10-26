@@ -119,6 +119,24 @@ public class Display {
         }
     }
 
+    public int[] changeCell(double mouseX, double mouseY, int[][] grid) {
+        for (int x = 0; x < grid.length; x++) {
+            for (int y = 0; y < grid[0].length; y++) {
+                double corrX = x * (CELL_LENGTH + CELL_OFFSET) + gridLeftOffset;
+                double corrY = y * (CELL_OFFSET + CELL_LENGTH) + gridTopOffset;
+                if(((corrX + CELL_LENGTH) >= mouseX
+                        && (corrY + CELL_LENGTH) >= mouseY
+                        && corrX <= mouseX + CELL_LENGTH
+                        && (corrY <= (mouseY + CELL_LENGTH)))){
+                    int[] s = new int[]{x, y};
+                    return s;
+                }
+            }
+        }
+        return null;
+    }
+
+
     public void addButtons(Button saveButton, Button playButton, Button pauseButton, Button resetButton, Button loadButton){
         loadButton.setLayoutX(BUTTON_OFFSET);
         loadButton.setLayoutY(BUTTON_OFFSET_TOP);
