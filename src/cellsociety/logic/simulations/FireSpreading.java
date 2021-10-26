@@ -2,7 +2,7 @@ package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
 
-import cellsociety.logic.grid.Grid;
+import cellsociety.logic.grid.Cell;
 import java.util.Map;
 import java.util.Random;
 
@@ -28,21 +28,37 @@ public class FireSpreading extends Simulation {
 
     }
 
+    /**
+     * @see Simulation#updateNextGridFromCell(Cell)
+     */
     @Override
-    public void update() {
-        /*
-        for (int x = 0; x < getGrid().getWidth(); x++) {
-            for (int y = 0; y < getGrid().getHeight(); y++) {
-                if (rand.nextDouble() < probCatch * Collections.frequency(getGrid().getFourNeighbors(x, y), 2)
-                        && getGrid().getCellState(x, y) == 1) {
-                    getGrid().setCellState(x, y, 2);
-                } else if(getGrid().getCellState(x, y) == 2) {
-                    getGrid().setCellState(x, y, 0);
-                }else {
-                    getGrid().setCellState(x, y, getGrid().getCellState(x, y));
-                }
-            }
+    protected void updateNextGridFromCell(Cell cell) {
+        if (rand.nextDouble() < probCatch * getNumAdjacentFires(cell) && cell.getState() == 1) {
+            nextGrid.setCellState(cell.getRow(), cell.getColumn(), 2);
+        } else if (cell.getState() == 2) {
+            nextGrid.setCellState(cell.getRow(), cell.getColumn(), 0);
+        } else {
+            nextGrid.setCellState(cell.getRow(), cell.getColumn(), cell.getState());
         }
-        getGrid().updateGrid();*/
+
     }
+
+    //Returns the number of adjacent fires to a cell.
+    private int getNumAdjacentFires(Cell cell) {
+        int total = 0;
+        if (currentGrid.getNeighborUp(cell) != null && currentGrid.getNeighborUp(cell).getState() == 2) {
+            total ++;
+        }
+        if (currentGrid.getNeighborDown(cell) != null && currentGrid.getNeighborDown(cell).getState() == 2) {
+            total ++;
+        }
+        if (currentGrid.getNeighborLeft(cell) != null && currentGrid.getNeighborLeft(cell).getState() == 2) {
+            total ++;
+        }
+        if (currentGrid.getNeighborRight(cell) != null && currentGrid.getNeighborRight(cell).getState() == 2) {
+            total ++;
+        }
+        return total;
+    }
+
 }

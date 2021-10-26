@@ -1,5 +1,8 @@
 package cellsociety.logic.grid;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A class that keeps a grid of cells and is able to track their
  * states and positions. Also has the ability to find neighboring cells.
@@ -207,6 +210,42 @@ public class Grid {
             return null;
         }
         return cells[c.getRow()+1][c.getColumn()+1];
+    }
+
+    /**
+     * Returns a list of the 4 directly adjacent cells, with
+     * any null neighbors removed.
+     *
+     * @param c the cell whose neighbors this method returns.
+     * @return a list of the 4 directly adjacent cells, with
+     * any null neighbors removed.
+     */
+    public List<Cell> getNeighbors_Four(Cell c) {
+        List<Cell> myNeighbors = new ArrayList<>();
+        myNeighbors.add(getNeighborUp(c));
+        myNeighbors.add(getNeighborDown(c));
+        myNeighbors.add(getNeighborLeft(c));
+        myNeighbors.add(getNeighborRight(c));
+        myNeighbors.removeIf(e -> e==null);
+        return myNeighbors;
+    }
+
+    /**
+     * Returns a list of the 8 directly adjacent cells, with
+     * any null neighbors removed.
+     *
+     * @param c the cell whose neighbors this method returns.
+     * @return a list of the 8 directly adjacent cells, with
+     * any null neighbors removed.
+     */
+    public List<Cell> getNeighbors_Eight(Cell c) {
+        List<Cell> myNeighbors = getNeighbors_Four(c);
+        myNeighbors.add(getNeighborUpLeft(c));
+        myNeighbors.add(getNeighborDownLeft(c));
+        myNeighbors.add(getNeighborUpRight(c));
+        myNeighbors.add(getNeighborDownRight(c));
+        myNeighbors.removeIf(e -> e==null);
+        return myNeighbors;
     }
 
     /**
