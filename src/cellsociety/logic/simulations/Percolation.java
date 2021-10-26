@@ -1,9 +1,10 @@
 package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
+import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class Percolation extends Simulation {
@@ -17,25 +18,23 @@ public class Percolation extends Simulation {
    * @throws MissingSimulationArgumentError if the metadata is missing a required argument for the
    *                                        simulation.
    */
-  public Percolation(Grid grid, Map<String, String> metadata)
-      throws MissingSimulationArgumentError {
+  public Percolation(int[][] grid, Map<String, String> metadata)
+          throws MissingSimulationArgumentError {
     super(grid, metadata);
     setDefaultValue(0);
   }
 
   @Override
-  public void update() {
-    for (int x = 0; x < getGrid().getWidth(); x++) {
-      for (int y = 0; y < getGrid().getHeight(); y++) {
-        if (getGrid().getFourNeighbors(x, y).get(0) == 1 && getGrid().getCell(x, y) == 0) {
-          getGrid().setCell(x, y, 1);
-        } else if (getGrid().getFourNeighbors(x, y).get(0) == -1 && getGrid().getCell(x, y) == 0) {
-          getGrid().setCell(x, y, 1);
-        } else {
-          getGrid().setCell(x, y, getGrid().getCell(x, y));
-        }
-      }
+  protected void updateNextGridFromCell(Cell cell) {
+
+    List<Cell> neighbors = currentGrid.getNeighbors_Four(cell);
+
+    if ((neighbors.get(0).getState() == 1 || neighbors.get(0).getState() == -1) && cell.getState() == 0) {
+      nextGrid.setCellState(cell.getRow(), cell.getColumn(), 1);
+    } else {
+      nextGrid.setCellState(cell.getRow(), cell.getColumn(), cell.getState());
     }
-    getGrid().updateGrid();
+
   }
+
 }

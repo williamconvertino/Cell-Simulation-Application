@@ -1,12 +1,12 @@
 package cellsociety.controller;
 
 import cellsociety.errors.FileNotFoundError;
+import cellsociety.errors.InvalidFileFormatError;
 import cellsociety.errors.InvalidSimulationTypeError;
 import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.io.CSVFileReader;
 import cellsociety.io.SIMFileReader;
-import cellsociety.logic.grid.Grid;
 import cellsociety.logic.simulations.FireSpreading;
 import cellsociety.logic.simulations.GameOfLife;
 import cellsociety.logic.simulations.ModelOfSegregation;
@@ -14,6 +14,7 @@ import cellsociety.logic.simulations.Percolation;
 import cellsociety.logic.simulations.Simulation;
 import cellsociety.logic.simulations.WaTorWorld;
 import java.io.File;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -33,8 +34,8 @@ public class LogicController {
 
   public static final ResourceBundle FILE_ARGUMENT_PROPERTIES = ResourceBundle.getBundle("cellsociety.controller.FileArguments");
   public static final String TYPE = FILE_ARGUMENT_PROPERTIES.getString("Type");
-  public static final String INITIAL_STATE =FILE_ARGUMENT_PROPERTIES.getString("InitialStates");
-  public static final int CYCLE_DELAY = 1;
+  public static final String INITIAL_STATE_FILE =FILE_ARGUMENT_PROPERTIES.getString("InitialStates");
+  public static final int DEFAULT_SPEED = 1;
 
   private Runnable cycleRunnable;
   private ScheduledExecutorService cycleExecutor;
@@ -42,49 +43,43 @@ public class LogicController {
   //The current algorithm with which the grid should be updated.
   private Simulation currentSimulation;
 
-  //The current program grid to display to the user.
-  private Grid gridToDisplay;
-
   //Keeps track of whether the simulation is paused.
   private boolean isPaused;
 
-  //The delay between cycles.
-  private int delay;
+  private int currentSpeed = -1;
 
   /**
    * Constructs a new LogicController.
    */
   public LogicController () {
-    initializeCycles(CYCLE_DELAY);
-  }
-
-  /**
-   * Resets the simulation controller and reinitialize the cycles.
-   */
-  public void reset() {
-    this.currentSimulation = null;
-    this.makeRunnable(cycleExecutor);
-  }
-
-  private void makeRunnable(ScheduledExecutorService e) {
-    this.cycleRunnable = new Runnable() {
-      @Override
-      public synchronized void run() {
-        if (currentSimulation!=null && !isPaused) {
-          currentSimulation.update();
-        }
-      }
-    };
-    cycleExecutor.scheduleAtFixedRate(cycleRunnable, delay, delay, TimeUnit.SECONDS);
+    setSpeed(DEFAULT_SPEED);
+    pauseSimulation();
   }
 
   //Initializes a cycle executor to run the simulation's update method at a specified interval.
   private void initializeCycles(int delay) {
+    boolean oldPauseState = isPaused;
     this.isPaused = true;
-    this.delay = delay;
-    cycleExecutor = Executors.newScheduledThreadPool(1);
-    makeRunnable(cycleExecutor);
+    if (cycleExecutor != null) {
+      cycleExecutor.shutdownNow();
     }
+    this.cycleRunnable = () -> {
+      if (currentSimulation!=null && !isPaused) {
+        currentSimulation.update();
+      }
+    };
+    cycleExecutor = Executors.newScheduledThreadPool(1);
+    cycleExecutor.scheduleAtFixedRate(cycleRunnable, delay, delay, TimeUnit.MILLISECONDS);
+    this.isPaused = oldPauseState;
+  }
+
+//  //Initializes a cycle executor to run the simulation's update method at a specified interval.
+//  private void initializeCycles(int delay) {
+//    this.isPaused = true;
+//    this.delay = delay;
+//    cycleExecutor = Executors.newScheduledThreadPool(1);
+//    makeRunnable(cycleExecutor);
+//    }
 
   /**
    * Initializes a new simulation based on a SIM file input.
@@ -92,60 +87,59 @@ public class LogicController {
    * @param file the SIM file with the initialization configuration data.
    * @throws Exception if the file cannot be found or is improperly formatted.
    */
-  public void initializeFromFile (File file) throws FileNotFoundError, InvalidSimulationTypeError, MissingSimulationArgumentError, UnhandledExceptionError {
+  public void initializeFromFile (File file)
+      throws FileNotFoundError, InvalidSimulationTypeError, MissingSimulationArgumentError, UnhandledExceptionError, InvalidFileFormatError {
     Map<String, String> metadata;
-    Grid grid;
+    int[][] grid;
     try {
       metadata = SIMFileReader.getMetadataFromFile(file);
-      grid = CSVFileReader.readFile(metadata.get(INITIAL_STATE));
-    } catch (FileNotFoundError e) {
-      throw e;
-    } catch (UnhandledExceptionError e) {
+      grid = CSVFileReader.readFile(new File(metadata.get(INITIAL_STATE_FILE)));
+    } catch (FileNotFoundError | UnhandledExceptionError | InvalidFileFormatError e) {
       throw e;
     }
     try {
       currentSimulation = loadLogicClass(grid, metadata);
 
-      gridToDisplay = currentSimulation.getGrid();
     } catch (NoSuchMethodException e) {
       throw new InvalidSimulationTypeError(metadata.get(TYPE));
     } catch (MissingSimulationArgumentError e) {
       throw e;
     } catch (InvocationTargetException|IllegalAccessException e){
-      throw new UnhandledExceptionError();
+      e.printStackTrace();
+     // throw new UnhandledExceptionError();
     }
 
   }
 
   //Initiates the proper simulation type and loads it into the currentSimulation variable.
-  private Simulation loadLogicClass(Grid grid, Map<String, String> metadata)
+  private Simulation loadLogicClass(int[][] grid, Map<String, String> metadata)
       throws NoSuchMethodException, MissingSimulationArgumentError, InvocationTargetException, IllegalAccessException {
-    return (Simulation)getClass().getMethod(metadata.get(TYPE), Grid.class, Map.class).invoke(this,grid, metadata);
+    return (Simulation)getClass().getMethod(metadata.get(TYPE), int[][].class, Map.class).invoke(this,grid, metadata);
     //return GameOfLife(grid, metadata);
   }
 
   //Returns a new GameOfLife simulation.
-  public Simulation GameOfLife(Grid grid, Map<String, String> metadata) {
+  public Simulation GameOfLife(int[][] grid, Map<String, String> metadata) {
     return new GameOfLife(grid, metadata);
   }
 
   //Returns a new ModelOfSegregation simulation.
-  public Simulation ModelOfSegregation(Grid grid, Map<String, String> metadata) {
+  public Simulation ModelOfSegregation(int[][] grid, Map<String, String> metadata) {
     return new ModelOfSegregation(grid, metadata);
   }
 
   //Returns a new Percolation simulation.
-  public Simulation Percolation(Grid grid, Map<String, String> metadata) {
+  public Simulation Percolation(int[][] grid, Map<String, String> metadata) {
     return new Percolation(grid, metadata);
   }
 
   //Returns a new FireSpreading simulation.
-  public Simulation FireSpreading(Grid grid, Map<String, String> metadata) {
+  public Simulation FireSpreading(int[][] grid, Map<String, String> metadata) {
     return new FireSpreading(grid, metadata);
   }
 
   //Returns a new WaTorWorld simulation.
-  public Simulation Wator(Grid grid, Map<String, String> metadata) {
+  public Simulation Wator(int[][] grid, Map<String, String> metadata) {
     return new WaTorWorld(grid, metadata);
   }
   /**
@@ -154,8 +148,11 @@ public class LogicController {
    *
    * @return the grid state of  the currently loaded algorithm.
    */
-  public Grid getActiveGrid() {
-    return gridToDisplay;
+  public int[][] getActiveGrid() {
+    if (currentSimulation != null) {
+      return currentSimulation.getStateArray();
+    }
+    return null;
   }
 
   public void pauseSimulation() {
@@ -166,12 +163,24 @@ public class LogicController {
     this.isPaused = false;
   }
 
-  public int getSimulationDefaultValue(){
-    return currentSimulation.getDefaultValue();
+  public Simulation getCurrentSimulation(){
+    return currentSimulation;
   }
 
   public void update() {
 
+  }
+
+  public void setSpeed(int speed) {
+    if (currentSpeed != speed) {
+      currentSpeed = speed;
+      initializeCycles((5-speed) * 200);
+    }
+
+  }
+
+  public int getSimulationDefaultValue(){
+    return currentSimulation.getDefaultValue();
   }
 
 }

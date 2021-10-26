@@ -107,9 +107,9 @@ public class Display {
             initializeGrid(grid);
             return;
         }
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid.length; j++) {
-                displayGrid[i][j].setFill(COLOR_MAP.get(grid[i][j]));
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                displayGrid[r][c].setFill(COLOR_MAP.get(grid[r][c]));
             }
         }
     }

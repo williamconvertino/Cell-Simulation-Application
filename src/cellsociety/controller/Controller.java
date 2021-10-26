@@ -29,9 +29,6 @@ public class Controller {
   //The current algorithm with which the grid should be updated.
   private LogicController myLogicController;
 
-  //The current grid that should be shown by the Display.
-  private int[][] myGrid;
-
   /**
    * Creates a Controller to run a new instance of Cell Society,
    * using the passed scene to initialize its display.
@@ -59,23 +56,27 @@ public class Controller {
     Button pauseButton = new Button();
     pauseButton.setOnAction(e->myLogicController.pauseSimulation());
     Button resetButton = new Button();
-    resetButton.setOnAction(e->reset());
+    resetButton.setOnAction(e->myDisplay.resetGrid());
     Button loadButton = new Button();
-
-    loadButton.setOnAction(e->{ myLogicController.pauseSimulation();
-      try{FileChooser myFileChoser = new FileChooser();
+    loadButton.setOnAction(e->{ try{FileChooser myFileChoser = new FileChooser();
       myFileChoser.setInitialDirectory(new File(Paths.get(".").toAbsolutePath().normalize() + "/data"));
-          loadFile(myFileChoser.showOpenDialog(myStage));} catch(Exception exception) {}});
+      loadFile(myFileChoser.showOpenDialog(myStage));} catch(Exception exception) {}});
 
-    Slider speedSlider = new Slider();
+    myStage.getScene().setOnMouseClicked(mouseEvent -> {
+      if (myLogicController.getActiveGrid()!=null) {
+        int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid());
+        myLogicController.getCurrentSimulation().getGrid().setCellState(s[0], s[1], myLogicController.getSimulationDefaultValue());
+      }
+    });
+
+    Slider speedSlider = new Slider(1.0,4.0,1.0);
+    speedSlider.setMajorTickUnit(1);
+    speedSlider.setMinorTickCount(0);
+    speedSlider.snapToTicksProperty().set(true);
+    speedSlider.showTickLabelsProperty().set(true);
+    speedSlider.valueProperty().addListener(e->myLogicController.setSpeed((int)speedSlider.getValue()));
 
     myDisplay.addButtons(saveButton, playButton, pauseButton, resetButton, loadButton, speedSlider);
-    myStage.getScene().setOnMouseClicked(mouseEvent -> {
-      int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myGrid);
-      myGrid[s[0]][s[1]] = myLogicController.getSimulationDefaultValue();
-      System.out.println(mouseEvent.getX());
-      System.out.println(mouseEvent.getY());
-    });
   }
 
   /**
@@ -86,25 +87,17 @@ public class Controller {
   }
 
   /**
-   * Resets the current simulation.
-   */
-  public void reset() {
-    myLogicController.reset();
-    myDisplay.resetGrid();
-  }
-
-  /**
    * Loads a new simulation using the specified file.
    *
    * @param file the SIM file with the simulation's information.
    */
   public void loadFile(File file) {
-      try {
-        myLogicController.initializeFromFile(file);
-      } catch (Exception e) {
-        e.printStackTrace();
-        myDisplay.showError(e);
-      }
+    try {
+      myLogicController.initializeFromFile(file);
+    } catch (Exception e) {
+      e.printStackTrace();
+      myDisplay.showError(e);
+    }
   }
 
   /**
@@ -113,15 +106,9 @@ public class Controller {
   public void update() {
 
     myLogicController.update();
-    if (myLogicController.getActiveGrid() != null &&
-        (myGrid = myLogicController.getActiveGrid().getCurrentGrid()) != null) {
-
-      myDisplay.updateScene(myGrid);
+    if (myLogicController.getActiveGrid() != null && myLogicController.getActiveGrid() != null) {
+      myDisplay.updateScene(myLogicController.getActiveGrid());
     }
-
   }
-
-
-
 
 }
