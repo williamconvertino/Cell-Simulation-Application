@@ -72,8 +72,7 @@ public class Controller {
     myDisplay.addButtons(saveButton, playButton, pauseButton, resetButton, loadButton, speedSlider);
     myStage.getScene().setOnMouseClicked(mouseEvent -> {
       int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myGrid);
-      myGrid[s[0]][s[1]] = 1;
-
+      myGrid[s[0]][s[1]] = myLogicController.getSimulationDefaultValue();
       System.out.println(mouseEvent.getX());
       System.out.println(mouseEvent.getY());
     });

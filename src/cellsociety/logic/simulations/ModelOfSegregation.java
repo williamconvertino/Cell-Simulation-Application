@@ -26,6 +26,7 @@ public class ModelOfSegregation extends Simulation {
     super(grid, metadata);
     satisfactionRate = Double.parseDouble(metadata.get("SatisfactionRate"));
     empty = findEmptyCells(grid);
+    setDefaultValue(1);
   }
 
   private List findEmptyCells(Grid grid){

@@ -20,6 +20,7 @@ public class Percolation extends Simulation {
   public Percolation(Grid grid, Map<String, String> metadata)
       throws MissingSimulationArgumentError {
     super(grid, metadata);
+    setDefaultValue(0);
   }
 
   @Override

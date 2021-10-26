@@ -166,8 +166,8 @@ public class LogicController {
     this.isPaused = false;
   }
 
-  public Simulation getSimulation(){
-    return currentSimulation;
+  public int getSimulationDefaultValue(){
+    return currentSimulation.getDefaultValue();
   }
 
   public void update() {

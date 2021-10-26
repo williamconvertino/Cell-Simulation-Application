@@ -26,6 +26,7 @@ public class FireSpreading extends Simulation {
         super(grid, metadata);
         this.probCatch = Double.parseDouble(metadata.get("ProbCatch"));
         rand = new Random();
+        setDefaultValue(2);
 
     }
 

@@ -51,6 +51,13 @@ public abstract class Simulation {
         return metadata;
     }
 
+    public int getDefaultValue(){
+        return defaultValue;
+    }
+
+    protected void setDefaultValue(int newDefault){
+        defaultValue = newDefault;
+    }
     /**
      * The update function to be run every tick of the game.
      */
