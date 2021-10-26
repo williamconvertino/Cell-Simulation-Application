@@ -61,6 +61,7 @@ public class Controller {
     Button resetButton = new Button();
     resetButton.setOnAction(e->reset());
     Button loadButton = new Button();
+
     loadButton.setOnAction(e->{ myLogicController.pauseSimulation();
       try{FileChooser myFileChoser = new FileChooser();
       myFileChoser.setInitialDirectory(new File(Paths.get(".").toAbsolutePath().normalize() + "/data"));
@@ -69,6 +70,12 @@ public class Controller {
     Slider speedSlider = new Slider();
 
     myDisplay.addButtons(saveButton, playButton, pauseButton, resetButton, loadButton, speedSlider);
+    myStage.getScene().setOnMouseClicked(mouseEvent -> {
+      int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myGrid);
+      myGrid[s[0]][s[1]] = 1;
+      System.out.println(mouseEvent.getX());
+      System.out.println(mouseEvent.getY());
+    });
   }
 
   /**
@@ -108,9 +115,13 @@ public class Controller {
     myLogicController.update();
     if (myLogicController.getActiveGrid() != null &&
         (myGrid = myLogicController.getActiveGrid().getCurrentGrid()) != null) {
+
       myDisplay.updateScene(myGrid);
     }
 
   }
+
+
+
 
 }
