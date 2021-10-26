@@ -36,7 +36,7 @@ public class LogicController {
   public static final ResourceBundle FILE_ARGUMENT_PROPERTIES = ResourceBundle.getBundle("cellsociety.controller.FileArguments");
   public static final String TYPE = FILE_ARGUMENT_PROPERTIES.getString("Type");
   public static final String INITIAL_STATE =FILE_ARGUMENT_PROPERTIES.getString("InitialStates");
-  public static final int CYCLE_DELAY = 1;
+  public static final int DEFAULT_CYCLE_DELAY = 1;
 
   private Runnable cycleRunnable;
   private ScheduledExecutorService cycleExecutor;
@@ -44,21 +44,21 @@ public class LogicController {
   //The current algorithm with which the grid should be updated.
   private Simulation currentSimulation;
 
-  //The current program grid to display to the user.
-  private Grid gridToDisplay;
-
   //Keeps track of whether the simulation is paused.
   private boolean isPaused;
+
+  private int currentSpeed = -1;
 
   /**
    * Constructs a new LogicController.
    */
   public LogicController () {
-    initializeCycles(CYCLE_DELAY);
+    initializeCycles(DEFAULT_CYCLE_DELAY);
   }
 
   //Initializes a cycle executor to run the simulation's update method at a specified interval.
   private void initializeCycles(int delay) {
+    boolean oldPauseState = isPaused;
     this.isPaused = true;
     this.cycleRunnable = () -> {
       if (currentSimulation!=null && !isPaused) {
@@ -67,6 +67,7 @@ public class LogicController {
     };
     cycleExecutor = Executors.newScheduledThreadPool(1);
     cycleExecutor.scheduleAtFixedRate(cycleRunnable, delay, delay, TimeUnit.SECONDS);
+    this.isPaused = oldPauseState;
   }
 
   /**
@@ -89,7 +90,6 @@ public class LogicController {
     try {
       currentSimulation = loadLogicClass(grid, metadata);
 
-      gridToDisplay = currentSimulation.getGrid();
     } catch (NoSuchMethodException e) {
       throw new InvalidSimulationTypeError(metadata.get(TYPE));
     } catch (MissingSimulationArgumentError e) {
@@ -138,8 +138,11 @@ public class LogicController {
    *
    * @return the grid state of  the currently loaded algorithm.
    */
-  public Grid getActiveGrid() {
-    return gridToDisplay;
+  public int[][] getActiveGrid() {
+    if (currentSimulation != null) {
+      return currentSimulation.getStateArray();
+    }
+    return null;
   }
 
   public void pauseSimulation() {
@@ -154,6 +157,12 @@ public class LogicController {
 
   }
 
+  public void setSpeed(int speed) {
+    if (currentSpeed != speed) {
+      initializeCycles(5-speed);
+    }
+
+  }
 
   public int getSimulationDefaultValue(){
     return currentSimulation.getDefaultValue();

@@ -29,9 +29,6 @@ public class Controller {
   //The current algorithm with which the grid should be updated.
   private LogicController myLogicController;
 
-  //The current grid that should be shown by the Display.
-  private int[][] myGrid;
-
   /**
    * Creates a Controller to run a new instance of Cell Society,
    * using the passed scene to initialize its display.
@@ -66,15 +63,21 @@ public class Controller {
           loadFile(myFileChoser.showOpenDialog(myStage));} catch(Exception exception) {}});
 
     myStage.getScene().setOnMouseClicked(mouseEvent -> {
-      int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myGrid);
-      myGrid[s[0]][s[1]] = myLogicController.getSimulationDefaultValue();
-      System.out.println(mouseEvent.getX());
-      System.out.println(mouseEvent.getY());
+      /*
+      if (myGrid!=null) {
+        int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myGrid);
+        myGrid[s[0]][s[1]] = myLogicController.getSimulationDefaultValue();
+        System.out.println(mouseEvent.getX());
+        System.out.println(mouseEvent.getY());
+      }*/
     });
 
-    Slider speedSlider = new Slider();
-
-
+    Slider speedSlider = new Slider(1.0,4.0,1.0);
+    speedSlider.setMajorTickUnit(1);
+    speedSlider.setMinorTickCount(0);
+    speedSlider.snapToTicksProperty().set(true);
+    speedSlider.showTickLabelsProperty().set(true);
+    speedSlider.valueProperty().addListener(e->myLogicController.setSpeed((int)speedSlider.getValue()));
 
     myDisplay.addButtons(saveButton, playButton, pauseButton, resetButton, loadButton, speedSlider);
   }
@@ -106,9 +109,8 @@ public class Controller {
   public void update() {
 
     myLogicController.update();
-    if (myLogicController.getActiveGrid() != null &&
-        (myGrid = myLogicController.getActiveGrid().getCellStates()) != null) {
-      myDisplay.updateScene(myGrid);
+    if (myLogicController.getActiveGrid() != null && myLogicController.getActiveGrid() != null) {
+      myDisplay.updateScene(myLogicController.getActiveGrid());
     }
   }
 
