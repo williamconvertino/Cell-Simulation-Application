@@ -3,11 +3,18 @@ package cellsociety.logic.simulations;
 import cellsociety.errors.MissingSimulationArgumentError;
 
 import cellsociety.logic.grid.Cell;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class simulates Schelling's Model of Segregation. For each cell, it will attempt to move
+ * to an adjacent empty cell if the ratio of similar to different states among its neighbors is less
+ * than the satisfaction rate set by the user.
+ *
+ * @author William Convertino
+ * @since 0.0.2
+ */
 public class ModelOfSegregation extends Simulation {
 
   //The ratio at which a cell will not attempt to move.
@@ -29,7 +36,7 @@ public class ModelOfSegregation extends Simulation {
   }
 
   /**
-   * @see Simulation#updateNextGridFromCell(Cell) 
+   * @see Simulation#updateNextGridFromCell(Cell)
    */
   @Override
   protected void updateNextGridFromCell(Cell cell) {

@@ -6,9 +6,20 @@ import cellsociety.logic.grid.Cell;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * This class implements the FireSpreading simulation. For each cell of state 1, it will
+ * "catch on fire" (change to state 2) with a probability set by the user for each fire
+ * adjacent to it. Each fire will burn out (to state 0) after the cycle is completed.
+ *
+ * @author William Convertino
+ * @since 0.0.2
+ */
 public class FireSpreading extends Simulation {
 
+    //The probability of a fire catching.
     private double probCatch;
+
+    //Our random instance.
     private Random rand;
 
     /**
