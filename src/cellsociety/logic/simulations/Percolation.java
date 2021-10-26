@@ -3,6 +3,8 @@ package cellsociety.logic.simulations;
 import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
+
+import java.util.List;
 import java.util.Map;
 
 public class Percolation extends Simulation {
@@ -23,6 +25,14 @@ public class Percolation extends Simulation {
 
   @Override
   protected void updateNextGridFromCell(Cell cell) {
+
+    List<Cell> neighbors = currentGrid.getNeighbors_Four(cell);
+
+    if ((neighbors.get(0).getState() == 1 || neighbors.get(0).getState() == -1) && cell.getState() == 0) {
+      nextGrid.setCellState(cell.getRow(), cell.getColumn(), 1);
+    } else {
+      nextGrid.setCellState(cell.getRow(), cell.getColumn(), cell.getState());
+    }
 
   }
 
