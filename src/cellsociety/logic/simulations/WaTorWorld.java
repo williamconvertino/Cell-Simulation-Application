@@ -10,11 +10,8 @@ import java.util.Random;
 
 public class WaTorWorld extends Simulation {
 
-    private Random rand;
-
     public WaTorWorld(Integer[][] grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
         super(grid, metadata);
-        rand = new Random();
     }
 
     /**
