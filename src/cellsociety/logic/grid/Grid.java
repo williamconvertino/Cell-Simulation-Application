@@ -291,8 +291,8 @@ public class Grid {
         return cells;
     }
 
-    public Integer[][] getCellStates() {
-        Integer[][] states = new Integer[height][width];
+    public int[][] getCellStates() {
+        int[][] states = new int[height][width];
         for (int r = 0; r < height; r++) {
             for (int c = 0; c < width; c++) {
                 states[r][c] = cells[r][c].getState();

@@ -3,32 +3,19 @@ package cellsociety.display;
 import cellsociety.errors.FileNotFoundError;
 import cellsociety.errors.InvalidSimulationTypeError;
 import cellsociety.errors.MissingSimulationArgumentError;
-import cellsociety.io.FilePickerEventHandler;
-import java.io.File;
-import java.util.*;
-import java.nio.file.Paths;
 
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.Parent;
+import java.util.*;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
+
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+
 import javafx.scene.Group;
-import javafx.scene.Scene;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import org.w3c.dom.css.Rect;
+
 
 
 public class Display {
@@ -72,7 +59,7 @@ public class Display {
         gridTopOffset = Integer.parseInt(propertyResources.getString("GRID_TOP_OFFSET"));
     }
 
-    public void initializeGrid(Integer[][] grid) {
+    public void initializeGrid(int[][] grid) {
         resetGrid();
         if (grid == null || grid.length == 0 || grid[0].length == 0) {
             return;
@@ -107,7 +94,7 @@ public class Display {
     /**
      * Update Scene
      */
-    public void updateScene (Integer[][] grid) {
+    public void updateScene (int[][] grid) {
         if (displayGrid == null || grid.length != displayGrid.length) {
             initializeGrid(grid);
             return;

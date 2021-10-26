@@ -60,7 +60,7 @@ public abstract class Simulation {
      *
      * @return
      */
-    public Integer[][] getStateArray() {
+    public int[][] getStateArray() {
         return currentGrid.getCellStates();
     }
 
