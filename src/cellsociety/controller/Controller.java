@@ -63,13 +63,14 @@ public class Controller {
           loadFile(myFileChoser.showOpenDialog(myStage));} catch(Exception exception) {}});
 
     myStage.getScene().setOnMouseClicked(mouseEvent -> {
-      /*
-      if (myGrid!=null) {
-        int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myGrid);
-        myGrid[s[0]][s[1]] = myLogicController.getSimulationDefaultValue();
+      if (myLogicController.getActiveGrid()!=null) {
+        int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid());
+        myLogicController.getCurrentSimulation().getGrid().setCellState(s[0], s[1], myLogicController.getSimulationDefaultValue());
+        //myDisplay.changeCell(s[0],s[1],myLogicController.getSimulationDefaultValue());
         System.out.println(mouseEvent.getX());
         System.out.println(mouseEvent.getY());
-      }*/
+        System.out.println(myLogicController.getActiveGrid()[s[0]][s[1]]);
+      }
     });
 
     Slider speedSlider = new Slider(1.0,4.0,1.0);

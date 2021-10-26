@@ -20,6 +20,7 @@ public class GameOfLife extends Simulation {
 
     public GameOfLife(int[][] grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
         super(grid, metadata);
+        setDefaultValue(1);
     }
 
     /**
