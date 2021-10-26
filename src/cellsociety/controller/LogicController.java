@@ -60,12 +60,9 @@ public class LogicController {
   //Initializes a cycle executor to run the simulation's update method at a specified interval.
   private void initializeCycles(int delay) {
     this.isPaused = true;
-    this.cycleRunnable = new Runnable() {
-      @Override
-      public void run() {
-        if (currentSimulation!=null && !isPaused) {
-          currentSimulation.update();
-        }
+    this.cycleRunnable = () -> {
+      if (currentSimulation!=null && !isPaused) {
+        currentSimulation.update();
       }
     };
     cycleExecutor = Executors.newScheduledThreadPool(1);
@@ -80,7 +77,7 @@ public class LogicController {
    */
   public void initializeFromFile (File file) throws FileNotFoundError, InvalidSimulationTypeError, MissingSimulationArgumentError, UnhandledExceptionError {
     Map<String, String> metadata;
-    Integer[][] grid;
+    int[][] grid;
     try {
       metadata = SIMFileReader.getMetadataFromFile(file);
       grid = CSVFileReader.readFile(metadata.get(INITIAL_STATE));
@@ -98,40 +95,41 @@ public class LogicController {
     } catch (MissingSimulationArgumentError e) {
       throw e;
     } catch (InvocationTargetException|IllegalAccessException e){
-      throw new UnhandledExceptionError();
+      e.printStackTrace();
+     // throw new UnhandledExceptionError();
     }
 
   }
 
   //Initiates the proper simulation type and loads it into the currentSimulation variable.
-  private Simulation loadLogicClass(Integer[][] grid, Map<String, String> metadata)
+  private Simulation loadLogicClass(int[][] grid, Map<String, String> metadata)
       throws NoSuchMethodException, MissingSimulationArgumentError, InvocationTargetException, IllegalAccessException {
-    return (Simulation)getClass().getMethod(metadata.get(TYPE), Integer[][].class, Map.class).invoke(this,grid, metadata);
+    return (Simulation)getClass().getMethod(metadata.get(TYPE), int[][].class, Map.class).invoke(this,grid, metadata);
     //return GameOfLife(grid, metadata);
   }
 
   //Returns a new GameOfLife simulation.
-  public Simulation GameOfLife(Integer[][] grid, Map<String, String> metadata) {
+  public Simulation GameOfLife(int[][] grid, Map<String, String> metadata) {
     return new GameOfLife(grid, metadata);
   }
 
   //Returns a new ModelOfSegregation simulation.
-  public Simulation ModelOfSegregation(Integer[][] grid, Map<String, String> metadata) {
+  public Simulation ModelOfSegregation(int[][] grid, Map<String, String> metadata) {
     return new ModelOfSegregation(grid, metadata);
   }
 
   //Returns a new Percolation simulation.
-  public Simulation Percolation(Integer[][] grid, Map<String, String> metadata) {
+  public Simulation Percolation(int[][] grid, Map<String, String> metadata) {
     return new Percolation(grid, metadata);
   }
 
   //Returns a new FireSpreading simulation.
-  public Simulation FireSpreading(Integer[][] grid, Map<String, String> metadata) {
+  public Simulation FireSpreading(int[][] grid, Map<String, String> metadata) {
     return new FireSpreading(grid, metadata);
   }
 
   //Returns a new WaTorWorld simulation.
-  public Simulation Wator(Integer[][] grid, Map<String, String> metadata) {
+  public Simulation Wator(int[][] grid, Map<String, String> metadata) {
     return new WaTorWorld(grid, metadata);
   }
   /**

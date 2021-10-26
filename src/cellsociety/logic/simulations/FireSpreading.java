@@ -31,7 +31,7 @@ public class FireSpreading extends Simulation {
      * @throws MissingSimulationArgumentError if the metadata is missing a required argument for the
      *                                        simulation.
      */
-    public FireSpreading(Integer[][] grid, Map<String, String> metadata)
+    public FireSpreading(int[][] grid, Map<String, String> metadata)
             throws MissingSimulationArgumentError {
         super(grid, metadata);
         this.probCatch = Double.parseDouble(metadata.get("ProbCatch"));
@@ -51,7 +51,6 @@ public class FireSpreading extends Simulation {
         } else {
             nextGrid.setCellState(cell.getRow(), cell.getColumn(), cell.getState());
         }
-
     }
 
     //Returns the number of adjacent fires to a cell.

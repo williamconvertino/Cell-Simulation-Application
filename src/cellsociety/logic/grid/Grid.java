@@ -49,7 +49,7 @@ public class Grid {
     /**
      *
      */
-    public Grid(Integer[][] initialValues) {
+    public Grid(int[][] initialValues) {
         initializeCells(initialValues.length, initialValues[0].length, 0);
         for (int r= 0; r < initialValues.length; r++) {
             for (int c = 0; c < initialValues[0].length; c++) {
@@ -57,6 +57,7 @@ public class Grid {
             }
         }
     }
+
 
     //Creates the cells array and initializes each of them to the specified value.
     protected void initializeCells(int height, int width, int value) {
@@ -310,5 +311,7 @@ public class Grid {
     public Cell getCell(int r, int c) {
         return cells[r][c];
     }
+
+
 
 }

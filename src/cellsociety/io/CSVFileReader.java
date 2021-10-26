@@ -3,6 +3,10 @@ package cellsociety.io;
 import cellsociety.errors.FileNotFoundError;
 import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.logic.grid.Grid;
+import com.opencsv.CSVReader;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 
 /**
@@ -12,8 +16,7 @@ import cellsociety.logic.grid.Grid;
  */
 public class CSVFileReader {
 
-  public static Integer[][] readFile(String fileName) throws FileNotFoundError, UnhandledExceptionError { //TODO: Refactor this
-    /*
+  public static int[][] readFile(String fileName) throws FileNotFoundError, UnhandledExceptionError { //TODO: Refactor this
     try{
       // Create an object of filereader
       // class with CSV file as a parameter.
@@ -34,23 +37,22 @@ public class CSVFileReader {
       //set i =0 because we'll be using it to iterate
       i = 0;
       //dimensions[0] is width and dimensions[1] is height
-      Grid grid = new Grid(dimensions[0], dimensions[1]);
+      int[][] grid = new int[dimensions[0]][dimensions[1]];
+
       while ((nextRecord = csvReader.readNext()) != null) {
         for (String cell : nextRecord) {
-          grid.setCell(i% grid.getWidth(), j% grid.getHeight(), Integer.parseInt(cell));
+          grid[i% dimensions[0]][j% dimensions[1]]  = Integer.parseInt(cell);
           j++;
         }
         i++;
       }
-      grid.updateGrid();
       return grid;
     } catch (FileNotFoundException e){
       throw new FileNotFoundError(fileName);
     } catch (Exception e) {
       throw new UnhandledExceptionError();
     }
-    */
-    return null; //TODO: Remove this
+    //TODO: Remove this
   }
 
 }
