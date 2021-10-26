@@ -12,6 +12,7 @@ import java.util.Random;
 public class WaTorWorld extends Simulation {
 
     private int energy;
+    private int reproductionTime;
 
     public WaTorWorld(int[][] grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
         super(grid, metadata);
@@ -23,6 +24,7 @@ public class WaTorWorld extends Simulation {
             }
         }
         energy = Integer.parseInt(metadata.get("Energy"));
+        reproductionTime = Integer.parseInt(metadata.get("ReproductionTime"));
     }
 
     @Override
