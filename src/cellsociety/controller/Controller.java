@@ -66,10 +66,6 @@ public class Controller {
       if (myLogicController.getActiveGrid()!=null) {
         int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid());
         myLogicController.getCurrentSimulation().getGrid().setCellState(s[0], s[1], myLogicController.getSimulationDefaultValue());
-        //myDisplay.changeCell(s[0],s[1],myLogicController.getSimulationDefaultValue());
-        System.out.println(mouseEvent.getX());
-        System.out.println(mouseEvent.getY());
-        System.out.println(myLogicController.getActiveGrid()[s[0]][s[1]]);
       }
     });
 
