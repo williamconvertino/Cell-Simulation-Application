@@ -166,6 +166,10 @@ public class LogicController {
     this.isPaused = false;
   }
 
+  public Simulation getSimulation(){
+    return currentSimulation;
+  }
+
   public void update() {
 
   }

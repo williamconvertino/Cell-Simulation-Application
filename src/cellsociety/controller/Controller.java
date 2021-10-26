@@ -73,6 +73,7 @@ public class Controller {
     myStage.getScene().setOnMouseClicked(mouseEvent -> {
       int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myGrid);
       myGrid[s[0]][s[1]] = 1;
+
       System.out.println(mouseEvent.getX());
       System.out.println(mouseEvent.getY());
     });

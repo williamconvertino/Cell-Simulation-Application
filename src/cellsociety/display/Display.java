@@ -123,7 +123,6 @@ public class Display {
                         && (corrY + cellLength) >= mouseY
                         && corrX <= mouseX + cellLength
                         && (corrY <= (mouseY + cellLength)))){
-                    displayGrid[x][y].setFill(COLOR_MAP.get(0));
                     int[] s = new int[]{x, y};
                     return s;
                 }
