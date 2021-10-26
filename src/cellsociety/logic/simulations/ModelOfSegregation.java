@@ -3,12 +3,16 @@ package cellsociety.logic.simulations;
 import cellsociety.errors.MissingSimulationArgumentError;
 
 import cellsociety.logic.grid.Cell;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class ModelOfSegregation extends Simulation {
 
-
+  //The ratio at which a cell will not attempt to move.
   private double satisfactionRate;
+
   /**
    * Constructs a new Simulation with a specified starting Grid and a Map of simulation-specific data
    * values.
@@ -24,9 +28,28 @@ public class ModelOfSegregation extends Simulation {
     satisfactionRate = Double.parseDouble(metadata.get("SatisfactionRate"));
   }
 
+  /**
+   * @see Simulation#updateNextGridFromCell(Cell) 
+   */
   @Override
   protected void updateNextGridFromCell(Cell cell) {
-
+    List<Cell> myNeighbors = currentGrid.getNeighbors_Four(cell);
+    double similar = 0;
+    double different = 0;
+    for (Cell c: myNeighbors) {
+      if (c.getState() != 0 && c.getState() == cell.getState()) {
+        similar++;
+      } else if (c.getState()!=0) {
+        different++;
+      }
+    }
+    //Given the neighbor list, remove all non-zero entries in either this or the next iterations, and pick
+    //a new location from there.
+    myNeighbors.removeIf(e->e.getState()!=0 || nextGrid.getCellState(e.getRow(), e.getColumn()) != 0);
+    if (different != 0 && (similar/different) < satisfactionRate && myNeighbors.size() > 0) {
+      Collections.shuffle(myNeighbors);
+      nextGrid.setCellState(myNeighbors.get(0).getRow(),myNeighbors.get(0).getColumn(), cell.getState());
+    }
   }
 
 }
