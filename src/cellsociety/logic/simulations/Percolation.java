@@ -1,6 +1,7 @@
 package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
+import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
 import java.util.Map;
 
@@ -21,7 +22,8 @@ public class Percolation extends Simulation {
   }
 
   @Override
-  public void update() {
+  protected void updateNextGridFromCell(Cell cell) {
 
   }
+
 }

@@ -2,17 +2,24 @@ package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
 
-import cellsociety.logic.grid.Grid;
-import cellsociety.logic.simulations.Simulation;
-import java.util.ArrayList;
+import cellsociety.logic.grid.Cell;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class simulates Schelling's Model of Segregation. For each cell, it will attempt to move
+ * to an adjacent empty cell if the ratio of similar to different states among its neighbors is less
+ * than the satisfaction rate set by the user.
+ *
+ * @author William Convertino
+ * @since 0.0.2
+ */
 public class ModelOfSegregation extends Simulation {
 
-  private List<int[]> empty;
+  //The ratio at which a cell will not attempt to move.
   private double satisfactionRate;
+
   /**
    * Constructs a new Simulation with a specified starting Grid and a Map of simulation-specific data
    * values.
@@ -26,55 +33,30 @@ public class ModelOfSegregation extends Simulation {
       throws MissingSimulationArgumentError {
     super(grid, metadata);
     satisfactionRate = Double.parseDouble(metadata.get("SatisfactionRate"));
-    empty = findEmptyCells(this.grid);
   }
 
-  private List findEmptyCells(Grid grid){
-    List<int[]> empty = new ArrayList<>();
-    for (int i = 0; i < grid.getWidth(); i++) {
-      for (int j = 0; j < grid.getHeight(); j++) {
-        if(grid.getCellState(i, j) == 0){
-          int[] entry = new int[2];
-          entry[0] = i;
-          entry[1] = j;
-          empty.add(entry);
-        }
-      }
-    }
-    return empty;
-  }
-
-  private void relocateToEmptyCell(int x, int y){
-/*
-    getGrid().setCell(empty.get(0)[0], empty.get(0)[1], getGrid().getCell(x, y));
-    int[] entry = findEmptyCells(getGrid());
-    getGrid().setCellState(entry[0], entry[1], getGrid().getCellState(x,y));
-//    empty.remove(0);
-    getGrid().setCellState(x, y, 0);
-//    int[] entry = new int[2];
-//    entry[0] = x;
-//    entry[1] = y;
-//    empty.add(entry);
-
- */
-  }
-
+  /**
+   * @see Simulation#updateNextGridFromCell(Cell)
+   */
   @Override
-  public void update() {
-/*
-    empty = findEmptyCells(getGrid());
-
-
-    for (int x = 0; x < getGrid().getWidth(); x++) {
-      for (int y = 0; y < getGrid().getHeight(); y++) {
-        if (Collections.frequency(getGrid().getAllNeighbors(x, y), getGrid().getCell(x, y))/8 < satisfactionRate
-                && getGrid().getCell(x, y) != 0) {
-          relocateToEmptyCell(x, y);
-        } else {
-          getGrid().setCell(x, y, getGrid().getCell(x, y));
-        }
+  protected void updateNextGridFromCell(Cell cell) {
+    List<Cell> myNeighbors = currentGrid.getNeighbors_Four(cell);
+    double similar = 0;
+    double different = 0;
+    for (Cell c: myNeighbors) {
+      if (c.getState() != 0 && c.getState() == cell.getState()) {
+        similar++;
+      } else if (c.getState()!=0) {
+        different++;
       }
     }
-    getGrid().updateGrid();*/
+    //Given the neighbor list, remove all non-zero entries in either this or the next iterations, and pick
+    //a new location from there.
+    myNeighbors.removeIf(e->e.getState()!=0 || nextGrid.getCellState(e.getRow(), e.getColumn()) != 0);
+    if (different != 0 && (similar/different) < satisfactionRate && myNeighbors.size() > 0) {
+      Collections.shuffle(myNeighbors);
+      nextGrid.setCellState(myNeighbors.get(0).getRow(),myNeighbors.get(0).getColumn(), cell.getState());
+    }
   }
+
 }
