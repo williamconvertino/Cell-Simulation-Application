@@ -2,5 +2,5 @@ Type=Percolation
 Title=Volcano
 Author=Former Student
 Description=An erupting volcano
-InitialStates=percolation/volcano.csv
+InitialStates=data/percolation/volcano.csv
 StateColors=A9A9A9,FF0000,654321
