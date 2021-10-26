@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class GameOfLife extends Simulation {
 
-    public GameOfLife(Integer[][] grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
+    public GameOfLife(int[][] grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
         super(grid, metadata);
     }
 

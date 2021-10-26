@@ -13,7 +13,7 @@ public class WaTorWorld extends Simulation {
 
     private Random rand;
 
-    public WaTorWorld(Integer[][] grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
+    public WaTorWorld(int[][] grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
         super(grid, metadata);
         rand = new Random();
     }

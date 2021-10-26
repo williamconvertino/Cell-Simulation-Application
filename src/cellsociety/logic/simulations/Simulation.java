@@ -31,7 +31,7 @@ public abstract class Simulation {
      * @param metadata the user-specified values used by the simulation.
      * @throws MissingSimulationArgumentError if the metadata is missing a required argument for the simulation.
      */
-    public Simulation(Integer[][] grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
+    public Simulation(int[][] grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
         makeGrid(grid);
         this.metadata = metadata;
     }
@@ -41,7 +41,7 @@ public abstract class Simulation {
      *
      * @param myGridArray the array of values to initialize with.
      */
-    protected void makeGrid(Integer[][] myGridArray) {
+    protected void makeGrid(int[][] myGridArray) {
         this.currentGrid = new Grid(myGridArray);
     }
 

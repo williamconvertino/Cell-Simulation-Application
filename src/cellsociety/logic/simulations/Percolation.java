@@ -16,7 +16,7 @@ public class Percolation extends Simulation {
    * @throws MissingSimulationArgumentError if the metadata is missing a required argument for the
    *                                        simulation.
    */
-  public Percolation(Integer[][] grid, Map<String, String> metadata)
+  public Percolation(int[][] grid, Map<String, String> metadata)
       throws MissingSimulationArgumentError {
     super(grid, metadata);
   }

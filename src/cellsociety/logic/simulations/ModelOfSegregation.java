@@ -29,7 +29,7 @@ public class ModelOfSegregation extends Simulation {
    * @throws MissingSimulationArgumentError if the metadata is missing a required argument for the
    *                                        simulation.
    */
-  public ModelOfSegregation(Integer[][] grid, Map<String, String> metadata)
+  public ModelOfSegregation(int[][] grid, Map<String, String> metadata)
       throws MissingSimulationArgumentError {
     super(grid, metadata);
     satisfactionRate = Double.parseDouble(metadata.get("SatisfactionRate"));
