@@ -22,13 +22,13 @@ class WaTorWorldTest {
             int x = 0;
             int y = 0;
             System.out.println(grid);
-//            assertEquals(2, ww.getGrid().getCell(x, y).getState());
-//            x = 0;
-//            y = 2;
-//            assertEquals(1, ww.getGrid().getCell(x, y).getState());
-//            x = 1;
-//            y = 2;
-//            assertEquals(1, ww.getGrid().getCell(x, y).getState());
+            assertEquals(2, ww.getGrid().getCell(x, y).getState());
+            x = 0;
+            y = 2;
+            assertEquals(1, ww.getGrid().getCell(x, y).getState());
+            x = 1;
+            y = 2;
+            assertEquals(1, ww.getGrid().getCell(x, y).getState());
         } catch (Exception e) {
             fail("File Not Found");
         }

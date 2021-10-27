@@ -1,6 +1,5 @@
 package cellsociety.logic.grid;
 
-import java.util.Random;
 
 public class Animal {
 

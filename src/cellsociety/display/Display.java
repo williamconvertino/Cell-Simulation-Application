@@ -4,14 +4,11 @@ import cellsociety.errors.FileNotFoundError;
 import cellsociety.errors.InvalidSimulationTypeError;
 import cellsociety.errors.MissingSimulationArgumentError;
 
-import java.beans.EventHandler;
 import java.util.*;
 
-import javafx.event.Event;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -91,9 +88,9 @@ public class Display {
 
     public void resetGrid() {
         if (displayGrid != null) {
-            for (int i = 0; i < displayGrid.length; i++) {
+            for (Rectangle[] rectangles : displayGrid) {
                 for (int j = 0; j < displayGrid[0].length; j++) {
-                    root.getChildren().remove(displayGrid[i][j]);
+                    root.getChildren().remove(rectangles[j]);
                 }
             }
         }

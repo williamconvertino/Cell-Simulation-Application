@@ -2,7 +2,7 @@ package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.logic.grid.Cell;
-import cellsociety.logic.grid.Grid;
+
 
 import java.util.List;
 import java.util.Map;
