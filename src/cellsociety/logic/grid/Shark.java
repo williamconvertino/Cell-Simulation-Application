@@ -4,9 +4,9 @@ public class Shark extends Animal {
 
     private int energy;
 
-    public Shark() {
+    public Shark(int energy) {
         super();
-        energy = 0;
+        this.energy = energy;
     }
 
     public int getEnergy() {
