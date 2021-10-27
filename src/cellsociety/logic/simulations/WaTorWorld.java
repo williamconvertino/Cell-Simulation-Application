@@ -4,10 +4,7 @@ import cellsociety.errors.MissingSimulationArgumentError;
 
 import cellsociety.logic.grid.*;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class WaTorWorld extends Simulation {
 
@@ -18,6 +15,8 @@ public class WaTorWorld extends Simulation {
     public WaTorWorld(int[][] grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
         super(grid, metadata);
         originalGrid = grid;
+        energy = Integer.parseInt(metadata.get("Energy"));
+        reproductionTime = Integer.parseInt(metadata.get("ReproductionTime"));
         // setting the cells with '1' to a WaTorCell w/ a Fish object and the cells with '2' to a WaTorCell w/ a Shark object
         for (int r = 0; r < getGrid().getHeight(); r++) {
             for (int c = 0; c < getGrid().getWidth(); c++) {
@@ -25,13 +24,10 @@ public class WaTorWorld extends Simulation {
                     getGrid().setCell(r, c, new WaTorCell(r,c,getGrid().getCellState(r,c), new Fish()));
                 }
                 else if (getGrid().getCell(r,c).getState() == 2) { // if the cell's state is a 2 (meaning it's a shark)
-                    getGrid().setCell(r, c, new WaTorCell(r,c,getGrid().getCellState(r,c), new Shark()));
+                    getGrid().setCell(r, c, new WaTorCell(r,c,getGrid().getCellState(r,c), new Shark(energy)));
                 }
             }
         }
-
-        energy = Integer.parseInt(metadata.get("Energy"));
-        reproductionTime = Integer.parseInt(metadata.get("ReproductionTime"));
     }
 
     @Override
@@ -112,7 +108,7 @@ public class WaTorWorld extends Simulation {
                 if (((WaTorCell) cell).getAnimal().getTimeSurvived() == reproductionTime) {
                     currentGrid.setCell(cell.getRow(), cell.getColumn(),
                             new WaTorCell(cell.getRow(),cell.getColumn(),
-                                    getGrid().getCellState(cell.getRow(),cell.getColumn()), new Shark()));
+                                    getGrid().getCellState(cell.getRow(),cell.getColumn()), new Shark(energy)));
                 }
             }
         }

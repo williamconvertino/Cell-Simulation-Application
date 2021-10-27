@@ -1,0 +1,7 @@
+Type=Wator
+Title=Random Assortment of Animals
+Author=Quentin MacFarlane
+Description=The fish and sharks are in random positions in the grid
+InitialStates=data/wator/random_assortment.csv
+Energy=3
+ReproductionTime=2
