@@ -91,6 +91,7 @@ public abstract class Simulation {
             }
         }
         this.currentGrid = this.nextGrid;
+        currentGrid.getCurrentEmptyCells();
     }
 
 

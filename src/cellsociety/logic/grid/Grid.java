@@ -2,6 +2,7 @@ package cellsociety.logic.grid;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * A class that keeps a grid of cells and is able to track their
@@ -23,6 +24,8 @@ public class Grid {
     //The width of the grid.
     private int width;
 
+    Stack<Cell> emptyCells = new Stack<>();
+
     /**
      * Constructs a grid with the specified height and width, and
      * initializes all the states to 0.
@@ -32,6 +35,7 @@ public class Grid {
      */
     public Grid(int height, int width) {
         initializeCells(height, width, 0);
+        getCurrentEmptyCells();
     }
 
     /**
@@ -43,19 +47,23 @@ public class Grid {
      * @param initialValue the state to which the cells should be initialized.
      */
     public Grid(int height, int width, int initialValue) {
+
         initializeCells(height, width, initialValue);
+        getCurrentEmptyCells();
     }
 
     /**
      *
      */
     public Grid(int[][] initialValues) {
+
         initializeCells(initialValues.length, initialValues[0].length, 0);
         for (int r= 0; r < initialValues.length; r++) {
             for (int c = 0; c < initialValues[0].length; c++) {
                 this.cells[r][c] = new Cell(r,c,initialValues[r][c]);
             }
         }
+        getCurrentEmptyCells();
     }
 
 
@@ -316,6 +324,17 @@ public class Grid {
         return cells[r][c];
     }
 
+    public Stack<Cell> getCurrentEmptyCells(){
+        for (int r = 0; r < height; r++) {
+            for (int c = 0; c < width; c++) {
+                if(cells[r][c].getState() == 0)
+                    emptyCells.add(cells[r][c]);
+            }
+        }
+        return emptyCells;
+    }
 
-
+    public Cell getNextEmptyCell(){
+        return emptyCells.peek();
+    }
 }
