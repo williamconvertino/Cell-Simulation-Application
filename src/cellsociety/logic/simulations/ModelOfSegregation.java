@@ -13,6 +13,7 @@ import java.util.Map;
  * than the satisfaction rate set by the user.
  *
  * @author William Convertino
+ *
  * @since 0.0.2
  */
 public class ModelOfSegregation extends Simulation {

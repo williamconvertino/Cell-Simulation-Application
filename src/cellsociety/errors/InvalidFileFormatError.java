@@ -4,6 +4,7 @@ package cellsociety.errors;
  * Signals that the user passed a file that was improperly formatted.
  *
  * @author William Convertino
+ * @since 0.0.2
  */
 public class InvalidFileFormatError extends Exception {
 

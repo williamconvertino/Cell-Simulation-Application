@@ -10,6 +10,11 @@ import cellsociety.logic.grid.*;
 
 import java.util.*;
 
+/**
+ * @author Quentin MacFarlane
+ *
+ * @since 0.0.2
+ */
 public class WaTorWorld extends Simulation {
 
     private int initEnergy;

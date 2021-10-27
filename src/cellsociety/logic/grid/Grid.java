@@ -53,7 +53,9 @@ public class Grid {
     }
 
     /**
+     *  Constructs a grid using the size and values provided by a 2D integer array.
      *
+     * @param initialValues a 2D array containing the values of the desired grid.
      */
     public Grid(int[][] initialValues) {
 

@@ -14,7 +14,12 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-
+/**
+ * @author Tim Jang
+ * @author William Convertino
+ * @author Quentin MacFarlane
+ * @author Alexis Cruz-Ayala
+ */
 public class Display {
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "cellsociety.resources.";

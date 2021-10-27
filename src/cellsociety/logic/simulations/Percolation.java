@@ -7,6 +7,11 @@ import cellsociety.logic.grid.Cell;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Alexis Cruz-Ayala
+ *
+ * @since 0.0.2
+ */
 public class Percolation extends Simulation {
 
   /**

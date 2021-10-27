@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Quentin MacFarlane
+ * @since 0.0.2
+ */
 public class FileHandler {
 
     /**
