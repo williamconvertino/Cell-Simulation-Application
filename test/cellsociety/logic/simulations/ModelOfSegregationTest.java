@@ -23,19 +23,19 @@ class ModelOfSegregationTest {
             mos.update();
             int x = 0;
             int y = 0;
-            assertEquals(1, mos.getGrid().getCell(x, y).getState());
+            assertEquals(2, mos.getGrid().getCell(x, y).getState());
             x = 0;
             y = 1;
             assertEquals(1, mos.getGrid().getCell(x, y).getState());
             x = 1;
             y = 0;
-            assertEquals(1, mos.getGrid().getCell(x, y).getState());
+            assertEquals(2, mos.getGrid().getCell(x, y).getState());
             x = 2;
             y = 1;
             assertEquals(1, mos.getGrid().getCell(x, y).getState());
             x = 1;
             y = 2;
-            assertEquals(1, mos.getGrid().getCell(x, y).getState());
+            assertEquals(2, mos.getGrid().getCell(x, y).getState());
         } catch (Exception e) {
             fail("File Not Found");
         }
