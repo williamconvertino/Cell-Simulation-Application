@@ -94,11 +94,17 @@ public class WaTorWorld extends Simulation {
             }
             Shark currentShark = ((Shark) ((WaTorCell) cell).getAnimal());
             // shark loses one unit of energy every tick of the program
-            currentShark.setEnergy(currentShark.getEnergy() -1);
+            currentShark.setEnergy(currentShark.getEnergy() - 1);
 
-            if (currentShark.getEnergy() == 0) { // if the shark ran out of energy, set it to empty water space
+            // if the shark ran out of energy and moved, set it to empty water space
+            if (currentShark.getEnergy() == 0 && neighborsEmpty.size() > 0) {
                 currentGrid.setCellState(neighborsEmpty.get(0).getRow(), neighborsEmpty.get(0).getColumn(), 0);
-            } else { // if shark didn't run out of energy, increase the time survived by 1
+            }
+            // else if the shark ran out of energy but didn't move, set it to empty water space
+            else if (currentShark.getEnergy() == 0 && neighborsEmpty.isEmpty()) {
+                currentGrid.setCellState(cell.getRow(), cell.getColumn(), 0);
+            }
+            else { // if shark didn't run out of energy, increase the time survived by 1
                 // increase the time survived for the shark by 1
                 ((WaTorCell) cell).getAnimal().setTimeSurvived(((WaTorCell) cell).getAnimal().getTimeSurvived() + 1);
 
