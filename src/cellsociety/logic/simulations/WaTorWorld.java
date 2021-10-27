@@ -40,6 +40,10 @@ public class WaTorWorld extends Simulation {
 
     @Override
     protected void updateNextGridFromCell(Cell cell) {
+        List<Cell> neighbors = currentGrid.getNeighbors_Four(cell);
+        List<Cell> neighborsFish = currentGrid.getNeighbors_Four(cell);
+        List<Cell> neighborsEmpty = currentGrid.getNeighbors_Four(cell);
+
         // if the cell right now is just water, or if the original cell was just water, do nothing
         if (cell.getState() == 0) {
             return;
@@ -47,18 +51,19 @@ public class WaTorWorld extends Simulation {
             // increase the time survived for the fish by 1
             ((WaTorCell) cell).getAnimal().setTimeSurvived(((WaTorCell) cell).getAnimal().getTimeSurvived() + 1);
 
-            List<Cell> neighbors = currentGrid.getNeighbors_Four(cell);
             neighbors.removeIf(e->e.getState() == 1 || e.getState() == 2); // find only the empty water around the fish
+            System.out.println("NEIGHBORS");
+            for (Cell c : neighbors) {
+                System.out.println("row: "+c.getRow()+" col: "+c.getColumn());
+            }
 
             // moves the fish if it can move
             moveFish(neighbors, cell);
 
         } else if (cell.getState() == 2) { // if the cell is a shark
-            List<Cell> neighborsFish = currentGrid.getNeighbors_Four(cell);
             neighborsFish.removeIf(e->e.getState() == 0 || e.getState() == 2); // find only the fish around the shark
 
             // if there are no fish around the shark, look for empty water
-            List<Cell> neighborsEmpty = currentGrid.getNeighbors_Four(cell);
             neighborsEmpty.removeIf(e->e.getState() == 1 || e.getState() == 2); // find the empty water around the shark
 
             // eats a fish, if it can, or moves to empty water spot
@@ -82,12 +87,17 @@ public class WaTorWorld extends Simulation {
             // check to see if the nextGrid has an empty water spot for the cell we want to move to
             if (nextGrid.getCell(neighbors.get(0).getRow(), neighbors.get(0).getColumn()).getState() == 0) {
                 // move the fish to the spot identified
+                System.out.println("next row: "+neighbors.get(0).getRow());
+                System.out.println("next col: "+neighbors.get(0).getColumn());
                 nextGrid.setCell(neighbors.get(0).getRow(), neighbors.get(0).getColumn(), ((WaTorCell) cell));
                 // sets the previous spot where the fish just was to empty water
 //                nextGrid.setCellState(cell.getRow(), cell.getColumn(), 0);
 
                 // reproduce a new fish if the fish has survived for "reproductionTime" amount of time
                 if (((WaTorCell) cell).getAnimal().getTimeSurvived() == reproductionTime) {
+                    System.out.println("row of new fish: "+cell.getRow());
+                    System.out.println("col of new fish: "+cell.getColumn());
+
                     nextGrid.setCell(cell.getRow(), cell.getColumn(),
                             new WaTorCell(cell.getRow(),cell.getColumn(),
                                     getGrid().getCellState(cell.getRow(),cell.getColumn()), new Fish()));
