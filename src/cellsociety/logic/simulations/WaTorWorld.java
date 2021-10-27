@@ -4,6 +4,7 @@ import cellsociety.errors.MissingSimulationArgumentError;
 
 import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
+import cellsociety.logic.grid.WaTorCell;
 
 import java.util.Collections;
 import java.util.Map;
@@ -18,9 +19,7 @@ public class WaTorWorld extends Simulation {
         super(grid, metadata);
         for (int r = 0; r < getGrid().getHeight(); r++) {
             for (int c = 0; c < getGrid().getWidth(); c++) {
-                if (getGrid().getCell(r,c).getState() == 1) { // if the cell's state is a 1 (meaning it's a fish)
-
-                }
+                //getGrid().setCell(new WaTorCell());
             }
         }
         energy = Integer.parseInt(metadata.get("Energy"));
