@@ -53,7 +53,7 @@ public class ModelOfSegregation extends Simulation {
     }
     //Given the neighbor list, remove all non-zero entries in either this or the next iterations, and pick
     //a new location from there.
-    myNeighbors.removeIf(e->e.getState()!=0 );//|| nextGrid.getCellState(e.getRow(), e.getColumn()) != 0);
+    myNeighbors.removeIf(e->e.getState() !=0 );//|| nextGrid.getCellState(e.getRow(), e.getColumn()) != 0);
     myNeighbors.removeIf(e->nextGrid.getCellState(e.getRow(), e.getColumn())!=0);
     if (different != 0 && (similar/different) < satisfactionRate && myNeighbors.size() > 0) {
       Collections.shuffle(myNeighbors);
