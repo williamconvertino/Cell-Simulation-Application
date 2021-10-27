@@ -67,4 +67,16 @@ public class Cell {
     return column;
   }
 
+  /**
+   * Sets the row and column of the cell to the
+   * specified values.
+   *
+   * @param r the new row of the cell.
+   * @param c the new column of the cell.
+   */
+  public void setPosition(int r, int c) {
+    this.row = r;
+    this.column = c;
+  }
+
 }

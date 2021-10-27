@@ -14,7 +14,6 @@ import cellsociety.logic.simulations.Percolation;
 import cellsociety.logic.simulations.Simulation;
 import cellsociety.logic.simulations.WaTorWorld;
 import java.io.File;
-import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -72,14 +71,6 @@ public class LogicController {
     cycleExecutor.scheduleAtFixedRate(cycleRunnable, delay, delay, TimeUnit.MILLISECONDS);
     this.isPaused = oldPauseState;
   }
-
-//  //Initializes a cycle executor to run the simulation's update method at a specified interval.
-//  private void initializeCycles(int delay) {
-//    this.isPaused = true;
-//    this.delay = delay;
-//    cycleExecutor = Executors.newScheduledThreadPool(1);
-//    makeRunnable(cycleExecutor);
-//    }
 
   /**
    * Initializes a new simulation based on a SIM file input.

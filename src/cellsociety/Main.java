@@ -42,12 +42,12 @@ public class Main extends Application {
 
     /**
      * Starts our program as a JFX Application, giving the window a title
-     * that contains our program name and the current version. Also initializes
-     * our CellSociety program with a default language of {@value #INIT_LANGUAGE},
-     * running at {@value #FPS} frames per second.
+     * that contains our program name and the current version.
+     *
+     * Runs at {@value #FPS} frames per second.
      *
      * @param primaryStage the JFX stage of our application.
-     * @throws Exception if there is some error during start-up.
+ * @throws Exception if there is some error during start-up.
      */
     @Override
     public void start(Stage primaryStage) throws Exception {

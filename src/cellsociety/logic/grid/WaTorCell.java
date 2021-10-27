@@ -1,5 +1,10 @@
 package cellsociety.logic.grid;
 
+/**
+ * @author Quentin MacFarlane
+ *
+ * @since 0.0.2
+ */
 public class WaTorCell extends Cell {
     //The animal of the cell.
     private Animal animal;

@@ -53,7 +53,9 @@ public class Grid {
     }
 
     /**
+     *  Constructs a grid using the size and values provided by a 2D integer array.
      *
+     * @param initialValues a 2D array containing the values of the desired grid.
      */
     public Grid(int[][] initialValues) {
 
@@ -79,8 +81,16 @@ public class Grid {
         }
     }
 
-    public void setCell(int r, int c, WaTorCell waTorCell) {
-        this.cells[r][c] = waTorCell;
+    /**
+     * Replaces the specified cell location in the grid with the specified cell.
+     *
+     * @param r the row of the replaced cell.
+     * @param c the column of the replaced cell.
+     * @param cell the cell to replace.
+     */
+    public void setCell(int r, int c, Cell cell) {
+        cell.setPosition(r,c);
+        cells[r][c] = cell;
     }
 
     /**

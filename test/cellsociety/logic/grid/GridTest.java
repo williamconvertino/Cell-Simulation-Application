@@ -19,16 +19,20 @@ class GridTest {
 
     @Test
     void defaultCellValueTest() {
-        for (int i = 0; i < 10 * 10; i++) {
-            assertEquals(0, grid.getCell(0, 0), "The cells do not contain their default value of 0");
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                assertEquals(0, grid.getCell(i, j).getState(), "The cells do not contain their specified initial value of 1");
+            }
         }
     }
 
     @Test
     void setInitialCellValueTest() {
         grid = new Grid(10, 10, 1);
-        for (int i = 0; i < 10 * 10; i++) {
-            assertEquals(1, grid.getCell(0, 0), "The cells do not contain their specified initial value of 1");
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                assertEquals(1, grid.getCell(i, j).getState(), "The cells do not contain their specified initial value of 1");
+            }
         }
     }
 
@@ -77,11 +81,11 @@ class GridTest {
 
     @Test
     void getWidth() {
-        assertEquals(50, grid.getWidth());
+        assertEquals(10, grid.getWidth());
     }
 
     @Test
     void getHeight() {
-        assertEquals(50, grid.getHeight());
+        assertEquals(10, grid.getHeight());
     }
 }

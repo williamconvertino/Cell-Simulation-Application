@@ -1,7 +1,10 @@
 package cellsociety.logic.grid;
 
-import java.util.Random;
-
+/**
+ * @author Quentin MacFarlane
+ *
+ * @since 0.0.2
+ */
 public class Animal {
 
     // amount of ticks that the animal has survived for

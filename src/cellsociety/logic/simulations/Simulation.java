@@ -11,6 +11,8 @@ import java.util.Map;
  *
  * @author Alexis Cruz
  * @author William Convertino
+ *
+ * @since 0.0.1
  */
 public abstract class Simulation {
 
