@@ -15,13 +15,13 @@ import java.util.List;
 public class Grid {
 
     //An array of all the cells in the grid.
-    protected Cell[][] cells;
+    private Cell[][] cells;
 
     //The height of the grid.
-    protected int height;
+    private int height;
 
     //The width of the grid.
-    protected int width;
+    private int width;
 
     /**
      * Constructs a grid with the specified height and width, and
@@ -60,7 +60,7 @@ public class Grid {
 
 
     //Creates the cells array and initializes each of them to the specified value.
-    protected void initializeCells(int height, int width, int value) {
+    private void initializeCells(int height, int width, int value) {
         this.cells = new Cell[height][width];
         this.width = width;
         this.height = height;
@@ -69,6 +69,10 @@ public class Grid {
                 cells[r][c] = new Cell(r,c,value);
             }
         }
+    }
+
+    public void setCell(int r, int c, WaTorCell waTorCell) {
+        this.cells[r][c] = waTorCell;
     }
 
     /**
