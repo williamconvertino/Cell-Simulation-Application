@@ -67,7 +67,7 @@ public class WaTorWorld extends Simulation {
             Shark currentShark = ((Shark) ((WaTorCell) cell).getAnimal());
 
             // shark loses one unit of energy every tick of the program
-            currentShark.setEnergy(currentShark.getEnergy() - 1);
+            currentShark.setEnergy(currentShark.getEnergy() - energy);
 
             // updates the shark based on how much energy it has
             checkEnergy(currentShark, neighborsEmpty, cell);
