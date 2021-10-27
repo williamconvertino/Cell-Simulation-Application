@@ -35,6 +35,7 @@ public class Main extends Application {
 
     //The Cell Society program to run.
     private Controller cellSocietyProgram;
+    private Controller cellSocietyProgram2;
 
     //The JFX scene of the program.
     private Scene cellSocietyScene;
