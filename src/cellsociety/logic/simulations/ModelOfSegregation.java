@@ -57,6 +57,8 @@ public class ModelOfSegregation extends Simulation {
     if (different != 0 && (similar/different) < satisfactionRate && myNeighbors.size() > 0) {
       Collections.shuffle(myNeighbors);
       nextGrid.setCellState(myNeighbors.get(0).getRow(),myNeighbors.get(0).getColumn(), cell.getState());
+    } else {
+      nextGrid.setCellState(cell.getRow(), cell.getColumn(), cell.getState());
     }
   }
 
