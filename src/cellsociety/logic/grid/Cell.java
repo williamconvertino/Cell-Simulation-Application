@@ -11,10 +11,10 @@ package cellsociety.logic.grid;
 public class Cell {
 
   //The state of the cell.
-  private int state;
+  protected int state;
 
   //The row and column of this cell in the grid.
-  private int row,column;
+  protected int row,column;
 
   /**
    * Constructs a cell at the specified position with the
