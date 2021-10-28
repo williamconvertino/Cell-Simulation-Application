@@ -2,7 +2,6 @@ package cellsociety.io;
 
 import cellsociety.errors.FileNotFoundError;
 import cellsociety.errors.InvalidFileFormatError;
-import cellsociety.errors.UnhandledExceptionError;
 
 import cellsociety.logic.grid.Grid;
 import com.opencsv.CSVReader;

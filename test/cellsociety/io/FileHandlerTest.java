@@ -1,7 +1,6 @@
 package cellsociety.io;
 
 import cellsociety.errors.InvalidFileFormatError;
-import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.logic.grid.Grid;
 import org.junit.jupiter.api.Test;
 

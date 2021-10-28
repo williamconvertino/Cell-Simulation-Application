@@ -6,7 +6,6 @@ import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.io.CSVFileReader;
 import cellsociety.io.SIMFileReader;
 import cellsociety.logic.grid.Grid;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

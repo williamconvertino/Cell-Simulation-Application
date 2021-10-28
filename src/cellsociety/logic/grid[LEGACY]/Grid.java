@@ -16,7 +16,7 @@ import java.util.Stack;
 public class Grid {
 
     //An array of all the cells in the grid.
-    private Cell[][] cells;
+    private cellsociety.logic.grid.Cell[][] cells;
 
     //The height of the grid.
     private int height;
@@ -24,7 +24,7 @@ public class Grid {
     //The width of the grid.
     private int width;
 
-    Stack<Cell> emptyCells = new Stack<>();
+    Stack<cellsociety.logic.grid.Cell> emptyCells = new Stack<>();
 
     /**
      * Constructs a grid with the specified height and width, and
@@ -53,7 +53,7 @@ public class Grid {
     }
 
     /**
-     *  Constructs a grid using the size and values provided by a 2D integer array.
+     * Constructs a grid using the size and values provided by a 2D integer array.
      *
      * @param initialValues a 2D array containing the values of the desired grid.
      */
@@ -62,7 +62,7 @@ public class Grid {
         initializeCells(initialValues.length, initialValues[0].length, 0);
         for (int r= 0; r < initialValues.length; r++) {
             for (int c = 0; c < initialValues[0].length; c++) {
-                this.cells[r][c] = new Cell(r,c,initialValues[r][c]);
+                this.cells[r][c] = new cellsociety.logic.grid.Cell(r,c,initialValues[r][c]);
             }
         }
         getCurrentEmptyCells();
@@ -71,12 +71,12 @@ public class Grid {
 
     //Creates the cells array and initializes each of them to the specified value.
     private void initializeCells(int height, int width, int value) {
-        this.cells = new Cell[height][width];
+        this.cells = new cellsociety.logic.grid.Cell[height][width];
         this.width = width;
         this.height = height;
         for (int r = 0; r < height; r++) {
             for (int c = 0; c < width; c++) {
-                cells[r][c] = new Cell(r,c,value);
+                cells[r][c] = new cellsociety.logic.grid.Cell(r,c,value);
             }
         }
     }
@@ -88,7 +88,7 @@ public class Grid {
      * @param c the column of the replaced cell.
      * @param cell the cell to replace.
      */
-    public void setCell(int r, int c, Cell cell) {
+    public void setCell(int r, int c, cellsociety.logic.grid.Cell cell) {
         cell.setPosition(r,c);
         cells[r][c] = cell;
     }
@@ -123,7 +123,7 @@ public class Grid {
      * @return the neighbor above the specified cell, or null if
      * it does not exist.
      */
-    public Cell getNeighborUp(Cell c) {
+    public cellsociety.logic.grid.Cell getNeighborUp(cellsociety.logic.grid.Cell c) {
         if (c.getRow() <= 0 || c.getRow() > height - 1) {
             return null;
         }
@@ -138,7 +138,7 @@ public class Grid {
      * @return the neighbor below the specified cell, or null if
      * it does not exist.
      */
-    public Cell getNeighborDown(Cell c) {
+    public cellsociety.logic.grid.Cell getNeighborDown(cellsociety.logic.grid.Cell c) {
         if (c.getRow() < 0 || c.getRow() > height - 2) {
             return null;
         }
@@ -153,7 +153,7 @@ public class Grid {
      * @return the neighbor to the left of the specified cell, or null if
      * it does not exist.
      */
-    public Cell getNeighborLeft(Cell c) {
+    public cellsociety.logic.grid.Cell getNeighborLeft(cellsociety.logic.grid.Cell c) {
         if (c.getColumn() <= 0 || c.getColumn() > width - 1) {
             return null;
         }
@@ -168,7 +168,7 @@ public class Grid {
      * @return the neighbor to the right of the specified cell, or null if
      * it does not exist.
      */
-    public Cell getNeighborRight(Cell c) {
+    public cellsociety.logic.grid.Cell getNeighborRight(cellsociety.logic.grid.Cell c) {
         if (c.getColumn() < 0 || c.getColumn() > width - 2) {
             return null;
         }
@@ -183,7 +183,7 @@ public class Grid {
      * @return the neighbor up and to the left of the specified cell, or null if
      * it does not exist.
      */
-    public Cell getNeighborUpLeft(Cell c) {
+    public cellsociety.logic.grid.Cell getNeighborUpLeft(cellsociety.logic.grid.Cell c) {
         if (getNeighborLeft(c) == null || getNeighborUp(c) == null) {
             return null;
         }
@@ -198,7 +198,7 @@ public class Grid {
      * @return the neighbor up and to the right of the specified cell, or null if
      * it does not exist.
      */
-    public Cell getNeighborUpRight(Cell c) {
+    public cellsociety.logic.grid.Cell getNeighborUpRight(cellsociety.logic.grid.Cell c) {
         if (getNeighborRight(c) == null || getNeighborUp(c) == null) {
             return null;
         }
@@ -213,7 +213,7 @@ public class Grid {
      * @return the neighbor down and to the left of the specified cell, or null if
      * it does not exist.
      */
-    public Cell getNeighborDownLeft(Cell c) {
+    public cellsociety.logic.grid.Cell getNeighborDownLeft(cellsociety.logic.grid.Cell c) {
         if (getNeighborLeft(c) == null || getNeighborDown(c) == null) {
             return null;
         }
@@ -228,7 +228,7 @@ public class Grid {
      * @return the neighbor down and to the right of the specified cell, or null if
      * it does not exist.
      */
-    public Cell getNeighborDownRight(Cell c) {
+    public cellsociety.logic.grid.Cell getNeighborDownRight(cellsociety.logic.grid.Cell c) {
         if (getNeighborRight(c) == null || getNeighborDown(c) == null) {
             return null;
         }
@@ -243,8 +243,8 @@ public class Grid {
      * @return a list of the 4 directly adjacent cells, with
      * any null neighbors removed.
      */
-    public List<Cell> getNeighbors_Four(Cell c) {
-        List<Cell> myNeighbors = new ArrayList<>();
+    public List<cellsociety.logic.grid.Cell> getNeighbors_Four(cellsociety.logic.grid.Cell c) {
+        List<cellsociety.logic.grid.Cell> myNeighbors = new ArrayList<>();
         myNeighbors.add(getNeighborUp(c));
         myNeighbors.add(getNeighborDown(c));
         myNeighbors.add(getNeighborLeft(c));
@@ -261,8 +261,8 @@ public class Grid {
      * @return a list of the 8 directly adjacent cells, with
      * any null neighbors removed.
      */
-    public List<Cell> getNeighbors_Eight(Cell c) {
-        List<Cell> myNeighbors = getNeighbors_Four(c);
+    public List<cellsociety.logic.grid.Cell> getNeighbors_Eight(cellsociety.logic.grid.Cell c) {
+        List<cellsociety.logic.grid.Cell> myNeighbors = getNeighbors_Four(c);
         myNeighbors.add(getNeighborUpLeft(c));
         myNeighbors.add(getNeighborDownLeft(c));
         myNeighbors.add(getNeighborUpRight(c));
@@ -309,7 +309,7 @@ public class Grid {
      *
      * @return the 2d array of cells.
      */
-    public Cell[][] getCells(){
+    public cellsociety.logic.grid.Cell[][] getCells(){
         return cells;
     }
 
@@ -330,11 +330,11 @@ public class Grid {
      * @param c the column of the desired cell.
      * @return the cell at the specified location.
      */
-    public Cell getCell(int r, int c) {
+    public cellsociety.logic.grid.Cell getCell(int r, int c) {
         return cells[r][c];
     }
 
-    public Stack<Cell> getCurrentEmptyCells(){
+    public Stack<cellsociety.logic.grid.Cell> getCurrentEmptyCells(){
         for (int r = 0; r < height; r++) {
             for (int c = 0; c < width; c++) {
                 if(cells[r][c].getState() == 0)
@@ -344,7 +344,7 @@ public class Grid {
         return emptyCells;
     }
 
-    public Cell getNextEmptyCell(){
+    public cellsociety.logic.grid.Cell getNextEmptyCell(){
         return emptyCells.peek();
     }
 }
