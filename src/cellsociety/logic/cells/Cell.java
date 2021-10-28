@@ -1,5 +1,7 @@
 package cellsociety.logic.cells;
 
+import cellsociety.logic.grid.Coordinate;
+
 /**
  * A datatype to represent a cell in a grid. This class keeps track of a
  * cell's row, column, current and next state, and current and next alternate state.
@@ -10,11 +12,8 @@ package cellsociety.logic.cells;
  */
 public class Cell {
 
-  //The row coordinate of the current cell.
-  private int row;
-
-  //The column coordinate of the current cell.
-  private int column;
+  //The row and column coordinate of the current cell.
+  private Coordinate myCoordinates;
 
   //The current state of the cell.
   private int currentState;
@@ -38,8 +37,7 @@ public class Cell {
    * @param altstate the current alternate state of the cell.
    */
   public Cell(int r, int c, int state, int altstate) {
-    this.row = row;
-    this.column = column;
+    this.myCoordinates = new Coordinate(r,c);
     this.currentState = state;
     this.currentAltState = altstate;
     this.nextState = 0;

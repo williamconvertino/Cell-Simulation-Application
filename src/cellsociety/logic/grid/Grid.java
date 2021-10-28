@@ -3,6 +3,7 @@ package cellsociety.logic.grid;
 import cellsociety.logic.bordertypes.BorderType;
 import cellsociety.logic.bordertypes.StaticBorder;
 import cellsociety.logic.cells.Cell;
+import cellsociety.logic.shapes.ShapeManager;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,15 +15,13 @@ public class Grid {
   //The border type of our grid.
   private BorderType myBorderType;
 
+  private ShapeManager myShapeManager;
 
-  public Grid (int[][] states,BorderType borderType) {
+  public Grid (int[][] states,BorderType borderType, ShapeManager shapeManager) {
     this.myBorderType = borderType;
+    this.myShapeManager = shapeManager;
     this.myCells = new HashMap<>();
     initializeGrid(states);
-  }
-
-  public Grid(int[][] states) {
-    this(states, new StaticBorder());
   }
 
   private void initializeGrid(int[][] states) {
