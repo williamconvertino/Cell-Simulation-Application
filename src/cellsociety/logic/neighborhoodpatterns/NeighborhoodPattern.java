@@ -1,7 +1,7 @@
 package cellsociety.logic.neighborhoodpatterns;
 
 import cellsociety.logic.cells.Cell;
-import cellsociety.logic.grids.Grid;
+import cellsociety.logic.grid.Grid;
 import java.util.List;
 
 public abstract class NeighborhoodPattern {

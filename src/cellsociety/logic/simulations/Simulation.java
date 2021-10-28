@@ -39,7 +39,7 @@ public abstract class Simulation {
     }
 
     /**
-     * Initializes the grids values using a 2d integer array.
+     * Initializes the grid values using a 2d integer array.
      *
      * @param myGridArray the array of values to initialize with.
      */

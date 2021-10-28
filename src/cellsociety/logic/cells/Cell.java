@@ -1,14 +1,14 @@
 package cellsociety.logic.cells;
 
 /**
- * An abstract implementation of a cell in a grid. This class keeps track of a
+ * A datatype to represent a cell in a grid. This class keeps track of a
  * cell's row, column, current and next state, and current and next alternate state.
  *
  * @author William Convertino
  *
  * @since 0.0.3
  */
-public abstract class Cell {
+public class Cell {
 
   //The row coordinate of the current cell.
   private int row;
@@ -84,5 +84,15 @@ public abstract class Cell {
   public int getNextState() {
     return this.nextState;
   }
+
+  /**
+   * Sets the value of this cell's next state to the specified state.
+   *
+   * @param state the next state of this cell.
+   */
+  public void setNextState(int state) {
+    this.nextState = state;
+  }
+
 
 }
