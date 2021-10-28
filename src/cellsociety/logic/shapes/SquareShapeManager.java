@@ -1,7 +1,6 @@
-package cellsociety.logic.neighborhoodpatterns;
+package cellsociety.logic.shapes;
 
 import cellsociety.logic.grid.Coordinate;
-import cellsociety.logic.shapes.ShapeManager;
 import java.util.LinkedList;
 import java.util.List;
 
