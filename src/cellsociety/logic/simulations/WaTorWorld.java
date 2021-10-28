@@ -3,9 +3,9 @@ package cellsociety.logic.simulations;
 import cellsociety.errors.MissingSimulationArgumentError;
 
 
-import cellsociety.logic.grid.Cell;
-import cellsociety.logic.grid.WaTorCell;
-import cellsociety.logic.grid.*;
+import cellsociety.logic.grid_LEGACY.Cell;
+import cellsociety.logic.grid_LEGACY.WaTorCell;
+import cellsociety.logic.grid_LEGACY.*;
 
 import java.util.*;
 
@@ -25,7 +25,7 @@ public class WaTorWorld extends Simulation {
         initEnergy = Integer.parseInt(metadata.get("InitialEnergy"));
         reproductionTime = Integer.parseInt(metadata.get("ReproductionTime"));
         energyPerFish = Integer.parseInt(metadata.get("EnergyPerFish"));
-        changeToWatorCells(); // changes the grid to use WaTorCells instead of regular Cells
+        changeToWatorCells(); // changes the grid_LEGACY to use WaTorCells instead of regular Cells
     }
 
     private void changeToWatorCells() {

@@ -3,7 +3,7 @@ package cellsociety.io;
 import cellsociety.errors.FileNotFoundError;
 import cellsociety.errors.InvalidFileFormatError;
 
-import cellsociety.logic.grid.Grid;
+import cellsociety.logic.grid_LEGACY.Grid;
 import com.opencsv.CSVReader;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package cellsociety.logic.grid;
+package cellsociety.logic.grid_LEGACY;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

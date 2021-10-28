@@ -1,4 +1,4 @@
-package cellsociety.logic.grid;
+package cellsociety.logic.grid_LEGACY;
 
 /**
  * @author Quentin MacFarlane

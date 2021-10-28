@@ -5,7 +5,7 @@ import cellsociety.errors.InvalidFileFormatError;
 import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.io.CSVFileReader;
 import cellsociety.io.SIMFileReader;
-import cellsociety.logic.grid.Grid;
+import cellsociety.logic.grid_LEGACY.Grid;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

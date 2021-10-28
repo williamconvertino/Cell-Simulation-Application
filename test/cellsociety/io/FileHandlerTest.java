@@ -1,7 +1,7 @@
 package cellsociety.io;
 
 import cellsociety.errors.InvalidFileFormatError;
-import cellsociety.logic.grid.Grid;
+import cellsociety.logic.grid_LEGACY.Grid;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

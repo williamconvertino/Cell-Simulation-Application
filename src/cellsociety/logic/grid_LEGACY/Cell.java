@@ -1,8 +1,8 @@
-package cellsociety.logic.grid;
+package cellsociety.logic.grid_LEGACY;
 
 /**
  * A class that keeps track of the state and position of one square
- * in the grid.
+ * in the grid_LEGACY.
  *
  * @author William Convertino
  *
@@ -13,7 +13,7 @@ public class Cell {
   //The state of the cell.
   protected int state;
 
-  //The row and column of this cell in the grid.
+  //The row and column of this cell in the grid_LEGACY.
   protected int row,column;
 
   /**

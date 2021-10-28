@@ -26,7 +26,7 @@ public class Controller {
   //The current display class of our program.
   private Display myDisplay;
 
-  //The current algorithm with which the grid should be updated.
+  //The current algorithm with which the grid_LEGACY should be updated.
   private LogicController myLogicController;
 
   /**
@@ -81,7 +81,7 @@ public class Controller {
   }
 
   /**
-   * Saves the display's grid to a CVS file.
+   * Saves the display's grid_LEGACY to a CVS file.
    */
   public void saveCurrentGrid() {
     FileHandler.saveFile(myLogicController.getActiveGrid(), "data/game_of_life/user_file.csv");

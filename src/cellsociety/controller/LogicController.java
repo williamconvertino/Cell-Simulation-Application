@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Controls the Simulation portion of Cell Society, allowing the different
  * algorithms to be loaded, unloaded, and updated. Also communicates
- * the current grid state of the loaded algorithm.
+ * the current grid_LEGACY state of the loaded algorithm.
  *
  * @author William Convertino
  * @since 0.0.1
@@ -39,7 +39,7 @@ public class LogicController {
   private Runnable cycleRunnable;
   private ScheduledExecutorService cycleExecutor;
 
-  //The current algorithm with which the grid should be updated.
+  //The current algorithm with which the grid_LEGACY should be updated.
   private Simulation currentSimulation;
 
   //Keeps track of whether the simulation is paused.
@@ -106,7 +106,7 @@ public class LogicController {
   private Simulation loadLogicClass(int[][] grid, Map<String, String> metadata)
       throws NoSuchMethodException, MissingSimulationArgumentError, InvocationTargetException, IllegalAccessException {
     return (Simulation)getClass().getMethod(metadata.get(TYPE), int[][].class, Map.class).invoke(this,grid, metadata);
-    //return GameOfLife(grid, metadata);
+    //return GameOfLife(grid_LEGACY, metadata);
   }
 
   //Returns a new GameOfLife simulation.
@@ -134,10 +134,10 @@ public class LogicController {
     return new WaTorWorld(grid, metadata);
   }
   /**
-   * Returns the current grid state of the currently loaded
+   * Returns the current grid_LEGACY state of the currently loaded
    * algorithm.
    *
-   * @return the grid state of  the currently loaded algorithm.
+   * @return the grid_LEGACY state of  the currently loaded algorithm.
    */
   public int[][] getActiveGrid() {
     if (currentSimulation != null) {
