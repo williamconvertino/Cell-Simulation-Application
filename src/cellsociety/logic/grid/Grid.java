@@ -3,11 +3,13 @@ package cellsociety.logic.grid;
 import cellsociety.logic.bordertypes.BorderType;
 import cellsociety.logic.bordertypes.StaticBorder;
 import cellsociety.logic.cells.Cell;
+import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
 import cellsociety.logic.shapes.ShapeManager;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class Grid {
+public abstract class Grid {
 
   //A map of the cells in the grid.
   private Map<Coordinate, Cell> myCells;
@@ -55,6 +57,11 @@ public class Grid {
   public Cell getCell(int r, int c) {
     Coordinate cellCoords = new Coordinate(r,c);
     return myCells.getOrDefault(cellCoords, null);
+  }
+
+
+  public List<Cell> getNeighbors(Cell cell, NeighborhoodPattern myPattern) {
+    myPattern.getNeighborhoodGroup(cell.getCoordinates(), myShapeManager);
   }
 
   public void moveCellTo(Cell cell, int r, int c){

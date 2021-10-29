@@ -44,6 +44,10 @@ public class Cell {
     this.nextAltState = 0;
   }
 
+  public Coordinate getCoordinates() {
+    return myCoordinates;
+  }
+
   /**
    * Constructs a new Cell at the specified coordinates with the given
    * state. The alternate state is initialized to 0.
