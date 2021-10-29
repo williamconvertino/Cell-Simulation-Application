@@ -7,7 +7,6 @@ import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.io.CSVFileReader;
 import cellsociety.io.SIMFileReader;
-import cellsociety.logic.simulations.Simulation;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;

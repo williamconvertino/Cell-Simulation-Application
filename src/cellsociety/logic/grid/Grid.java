@@ -18,13 +18,14 @@ import java.util.Map;
 public abstract class Grid {
 
   //A map of the cells in the grid.
-  protected Map<Coordinate, Cell> myCells;
+  private Map<Coordinate, Cell> myCells;
 
   //The shape manager of the grid - determines how the cell's interact.
   private ShapeManager myShapeManager;
 
+
   //The size of the grid.
-  protected int height, width;
+  private int height, width;
 
   /**
    * Constructs a new grid with a specified array of states
@@ -132,5 +133,29 @@ public abstract class Grid {
       c.setNextAltState(0);
     }
   }
+  public Map<Coordinate, Cell> getMyCells() {
+    return myCells;
+  }
+
+  public void setMyCells(Map<Coordinate, Cell> myCells) {
+    this.myCells = myCells;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public void setHeight(int height) {
+    this.height = height;
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public void setWidth(int width) {
+    this.width = width;
+  }
+
 
 }
