@@ -1,10 +1,8 @@
 package cellsociety.logic.grid;
 
-import cellsociety.logic.bordertypes.BorderType;
 import cellsociety.logic.cells.Cell;
 import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
 import cellsociety.logic.shapes.ShapeManager;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,19 +12,23 @@ public abstract class Grid {
   //A map of the cells in the grid.
   private Map<Coordinate, Cell> myCells;
 
-  //The border type of our grid.
-  private BorderType myBorderType;
-
+  //The shape manager of the grid - determines how the cell's interact.
   private ShapeManager myShapeManager;
 
-  public Grid (int[][] states,BorderType borderType, ShapeManager shapeManager) {
-    this.myBorderType = borderType;
+  /**
+   * Constructs a new grid with a specified array of states
+   *
+   * @param states
+   * @param shapeManager
+   */
+  public Grid (int[][] states, ShapeManager shapeManager) {
     this.myShapeManager = shapeManager;
-    this.myCells = new HashMap<>();
     initializeGrid(states);
   }
 
+  //Initializes the grid using a 2D array of states.
   private void initializeGrid(int[][] states) {
+    this.myCells = new HashMap<>();
     for (int r = 0; r < states.length; r++) {
       for (int c = 0; c < states[0].length; c++) {
         addCellIfAbsent(r,c,states[r][c]);
@@ -60,23 +62,36 @@ public abstract class Grid {
   }
 
   /**
+   * Given a cell and a neighborhood pattern, returns a list of the neighboring cells.
    *
-   * @param cell
-   * @param myPattern
-   * @return
+   * @param cell the cell whose neighbors we find.
+   * @param myPattern the neighborhood pattern that dictates what is considered a neighbord.
+   * @return a list of the neighboring cells.
    */
   public abstract List<Cell> getNeighbors(Cell cell, NeighborhoodPattern myPattern);
 
   /**
+   *  Moves a cell to the specified location.
    *
-   * @param cell
-   * @param r
-   * @param c
+   * @param sourceCell the cell to move.
+   * @param r the row to move the cell.
+   * @param c the column to move the cell.
    */
-  public void moveCellTo(Cell cell, int r, int c){
-    Cell targetCell = myCells.get(new Coordinate(r,c));
-    targetCell.setNextState(cell.getCurrentState());
-    cell.setNextState(0);
+  public void moveCellTo(Cell sourceCell, int r, int c){
+    moveCellTo(sourceCell, getCell(r,c));
+  }
+
+  /**
+   *  Moves a cell's states to another cell.
+   *
+   * @param sourceCell the cell to move.
+   * @param targetCell the destination where the cell should move.
+   */
+  public void moveCellTo(Cell sourceCell, Cell targetCell){
+    targetCell.setNextState(sourceCell.getCurrentState());
+    targetCell.setNextAltState(sourceCell.getCurrentAltState());
+    sourceCell.setNextState(0);
+    sourceCell.setNextAltState(0);
   }
 
 }

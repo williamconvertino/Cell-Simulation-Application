@@ -60,6 +60,7 @@ public class Cell {
     this(r,c,state,0);
   }
 
+
   /**
    * Returns the current state of the cell.
    *
@@ -94,6 +95,43 @@ public class Cell {
    */
   public void setNextState(int state) {
     this.nextState = state;
+  }
+
+
+  /**
+   * Returns the current alternate state of the cell.
+   *
+   * @return the current alternate state of the cell.
+   */
+  public int getCurrentAltState() {
+    return this.currentAltState;
+  }
+
+  /**
+   * Sets the value of this cell's alternate state to the specified state.
+   *
+   * @param state the new alternate state of this cell.
+   */
+  public void setCurrentAltState(int state) {
+    this.currentAltState = state;
+  }
+
+  /**
+   * Returns the next alternate state of the cell.
+   *
+   * @return the next alternate state of the cell.
+   */
+  public int getNextAltState() {
+    return this.nextAltState;
+  }
+
+  /**
+   * Sets the value of this cell's next alternate state to the specified state.
+   *
+   * @param state the next alternate state of this cell.
+   */
+  public void setNextAltState(int state) {
+    this.nextAltState = state;
   }
 
 
