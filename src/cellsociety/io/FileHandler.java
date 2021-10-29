@@ -1,5 +1,7 @@
 package cellsociety.io;
 
+import cellsociety.logic.grid.Coordinate;
+import cellsociety.logic.grid.Grid;
 import com.opencsv.CSVWriter;
 
 import java.io.FileWriter;
@@ -18,7 +20,7 @@ public class FileHandler {
      * @param grid the grid_LEGACY configuration to be saved to a new CSV file
      * @param fileName the file name of the file that will be saved
      */
-    public static void saveFile(int[][] grid, String fileName) {
+    public static void saveFile(Grid grid, String fileName) {
         List<String[]> csvData = createCsvData(grid);
 
 
@@ -40,18 +42,18 @@ public class FileHandler {
      * @return a list of string arrays where each string array represents one row of the grid_LEGACY. Each string array is
      * a list of 1's and 0's except for the first row, which has the dimensions of the grid_LEGACY
      */
-    private static List<String[]> createCsvData(int[][] grid) {
+    private static List<String[]> createCsvData(Grid grid) {
         List<String[]> list = new ArrayList<>();
-        String[] dimensions = {String.valueOf(grid[0].length), String.valueOf(grid.length)};
+        String[] dimensions = {String.valueOf(grid.getWidth()), String.valueOf(grid.getHeight())};
         list.add(dimensions);
 
-        String[] eachRow = new String[grid[0].length];
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length;j++) {
-                eachRow[j] = String.valueOf(grid[i][j]);
+        String[] eachRow = new String[grid.getWidth()];
+        for (int i = 0; i < grid.getHeight(); i++) {
+            for (int j = 0; j < grid.getWidth();j++) {
+                eachRow[j] = String.valueOf(grid.getCell(i, j).getCurrentState());
             }
             list.add(eachRow);
-            eachRow = new String[grid[0].length];
+            eachRow = new String[grid.getWidth()];
         }
         return list;
     }

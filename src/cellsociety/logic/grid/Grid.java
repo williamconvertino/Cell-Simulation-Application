@@ -119,6 +119,14 @@ public abstract class Grid {
     sourceCell.setNextAltState(0);
   }
 
+  public void changeCell(Cell c, int state){
+    myCells.get(c.getCoordinates()).setNextState(state);
+  }
+
+  public void changeCell(Coordinate c, int state){
+    myCells.get(c).setNextState(state);
+  }
+
   /**
    * Updates each cell in the grid. This sets their current
    * states equal to their next states, and sets their

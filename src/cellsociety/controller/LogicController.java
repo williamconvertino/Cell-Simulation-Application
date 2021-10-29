@@ -7,6 +7,9 @@ import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.io.CSVFileReader;
 import cellsociety.io.SIMFileReader;
+import cellsociety.logic.grid.Grid;
+import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
+import cellsociety.logic.simulations_LEGACY.GameOfLife;
 import cellsociety.logic.simulations_LEGACY.Simulation;
 
 import java.io.File;
@@ -106,38 +109,38 @@ public class LogicController {
   }
 
   //Returns a new GameOfLife simulation.
-  public Simulation GameOfLife(int[][] grid, Map<String, String> metadata) {
-    return new GameOfLife(grid, metadata);
+  public Simulation GameOfLife(Grid grid, NeighborhoodPattern np, Map<String, String> metadata) {
+    return new GameOfLife(grid, np , metadata);
   }
-
-  //Returns a new ModelOfSegregation simulation.
-  public Simulation ModelOfSegregation(int[][] grid, Map<String, String> metadata) {
-    return new ModelOfSegregation(grid, metadata);
-  }
-
-  //Returns a new Percolation simulation.
-  public Simulation Percolation(int[][] grid, Map<String, String> metadata) {
-    return new Percolation(grid, metadata);
-  }
-
-  //Returns a new FireSpreading simulation.
-  public Simulation FireSpreading(int[][] grid, Map<String, String> metadata) {
-    return new FireSpreading(grid, metadata);
-  }
-
-  //Returns a new WaTorWorld simulation.
-  public Simulation Wator(int[][] grid, Map<String, String> metadata) {
-    return new WaTorWorld(grid, metadata);
-  }
+//
+//  //Returns a new ModelOfSegregation simulation.
+//  public Simulation ModelOfSegregation(int[][] grid, Map<String, String> metadata) {
+//    return new ModelOfSegregation(grid, metadata);
+//  }
+//
+//  //Returns a new Percolation simulation.
+//  public Simulation Percolation(int[][] grid, Map<String, String> metadata) {
+//    return new Percolation(grid, metadata);
+//  }
+//
+//  //Returns a new FireSpreading simulation.
+//  public Simulation FireSpreading(int[][] grid, Map<String, String> metadata) {
+//    return new FireSpreading(grid, metadata);
+//  }
+//
+//  //Returns a new WaTorWorld simulation.
+//  public Simulation Wator(int[][] grid, Map<String, String> metadata) {
+//    return new WaTorWorld(grid, metadata);
+//  }
   /**
    * Returns the current grid_LEGACY state of the currently loaded
    * algorithm.
    *
    * @return the grid_LEGACY state of  the currently loaded algorithm.
    */
-  public int[][] getActiveGrid() {
+  public Grid getActiveGrid() {
     if (currentSimulation != null) {
-      return currentSimulation.getStateArray();
+      return currentSimulation.getCurrentGrid();
     }
     return null;
   }
