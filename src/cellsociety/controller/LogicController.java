@@ -89,7 +89,7 @@ public class LogicController {
     }
     try {
 
-      currentSimulation = loadLogicClass(grid,, metadata);
+      currentSimulation = loadLogicClass(grid,Class.forName("cellsociety.logic.neighborhoodpatterns" + metadata.get("Neighborhood")).getConstructor(), metadata);
 
     } catch (NoSuchMethodException e) {
       throw new InvalidSimulationTypeError(metadata.get(TYPE));
@@ -98,6 +98,8 @@ public class LogicController {
     } catch (InvocationTargetException|IllegalAccessException e){
       e.printStackTrace();
      // throw new UnhandledExceptionError();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
     }
 
   }

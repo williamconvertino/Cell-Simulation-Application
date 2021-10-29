@@ -6,6 +6,10 @@ import java.util.List;
 
 public abstract class NeighborhoodPattern {
 
+  public NeighborhoodPattern(){
+
+  }
+
   public abstract List<Coordinate> getNeighborhoodGroup(Coordinate myCenter, ShapeManager myShape);
 
 }
