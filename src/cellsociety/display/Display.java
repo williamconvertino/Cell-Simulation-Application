@@ -35,6 +35,7 @@ public class Display {
         COLOR_MAP.put(2, Color.RED);
     }
 
+    private Stage myStage;
     private Rectangle[][] displayGrid;
 
     private Group root;

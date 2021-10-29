@@ -9,8 +9,8 @@ import cellsociety.io.CSVFileReader;
 import cellsociety.io.SIMFileReader;
 import cellsociety.logic.grid.Grid;
 import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
-import cellsociety.logic.simulations_LEGACY.GameOfLife;
-import cellsociety.logic.simulations_LEGACY.Simulation;
+import cellsociety.logic.simulations.GameOfLife;
+import cellsociety.logic.simulations.Simulation;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;

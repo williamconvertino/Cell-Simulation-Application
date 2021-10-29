@@ -1,4 +1,4 @@
-package cellsociety.logic.simulations_LEGACY;
+package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.logic.grid.Cell;
@@ -62,15 +62,6 @@ public abstract class Simulation {
         return currentGrid;
     }
 
-//    /**
-//     * Returns a 2D array of integers representing the
-//     * current states of the cells.
-//     *
-//     * @return
-//     */
-//    public int[][] getStateArray() {
-//        return currentGrid.getCellStates();
-//    }
 
     /**
      * Returns the metadata of the simulation.
@@ -92,15 +83,9 @@ public abstract class Simulation {
      *  Updates each cell in the grid_LEGACY using the updateCell method.
      */
     public void update() {
-//        this.nextGrid = new Grid(currentGrid.getHeight(), currentGrid.getWidth());
-        for (int r = 0; r < currentGrid.getHeight(); r++) {
-            for (int c = 0; c < currentGrid.getWidth(); c++) {
-                updateNextGridFromCell(currentGrid.getCell(r,c));
-            }
-        }
-        this.currentGrid = this.nextGrid;
-        this.currentGrid.updateCells();
-        this.nextGrid.updateCells();
+
+
+
     }
 
 
