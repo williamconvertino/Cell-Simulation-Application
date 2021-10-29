@@ -7,13 +7,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * An abstract implementation of a grid. It contains a map of cells and
+ * the ability to find neighboring cells. Also has methods to get, move, or
+ * set cells.
+ *
+ * @author William Convertino
+ *
+ * @since 0.0.3
+ */
 public abstract class Grid {
 
   //A map of the cells in the grid.
-  private Map<Coordinate, Cell> myCells;
+  protected Map<Coordinate, Cell> myCells;
 
   //The shape manager of the grid - determines how the cell's interact.
   private ShapeManager myShapeManager;
+
+  //The size of the grid.
+  protected int height, width;
 
   /**
    * Constructs a new grid with a specified array of states
@@ -29,6 +41,8 @@ public abstract class Grid {
   //Initializes the grid using a 2D array of states.
   private void initializeGrid(int[][] states) {
     this.myCells = new HashMap<>();
+    this.height = states.length;
+    this.width = states[0].length;
     for (int r = 0; r < states.length; r++) {
       for (int c = 0; c < states[0].length; c++) {
         addCellIfAbsent(r,c,states[r][c]);
@@ -71,6 +85,17 @@ public abstract class Grid {
   public abstract List<Cell> getNeighbors(Cell cell, NeighborhoodPattern myPattern);
 
   /**
+   * Generates a list of coordinates for the potentially neighboring cells.
+   *
+   * @param c the cell whose neighbors' coordinates are generated.
+   * @param myPattern the neighborhood pattern to use in order to find the neighbors.
+   * @return a list of coordinates for the potentially neighboring cells.
+   */
+  protected List<Coordinate> generateNeighborCoordinates(Cell c, NeighborhoodPattern myPattern) {
+    return myPattern.getNeighborhoodGroup(c.getCoordinates(),myShapeManager);
+  }
+
+  /**
    *  Moves a cell to the specified location.
    *
    * @param sourceCell the cell to move.
@@ -94,5 +119,19 @@ public abstract class Grid {
     sourceCell.setNextAltState(0);
   }
 
-}
+  /**
+   * Updates each cell in the grid. This sets their current
+   * states equal to their next states, and sets their
+   * next states equal to 0.
+   */
+  public void updateCells() {
+    for (Coordinate coord: myCells.keySet()) {
+      Cell c = myCells.get(coord);
+      c.setCurrentState(c.getNextState());
+      c.setCurrentAltState(c.getNextAltState());
+      c.setNextState(0);
+      c.setNextAltState(0);
+    }
+  }
 
+}
