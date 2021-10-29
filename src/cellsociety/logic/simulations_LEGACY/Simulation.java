@@ -86,14 +86,13 @@ public abstract class Simulation {
      *  Updates each cell in the grid_LEGACY using the updateCell method.
      */
     public void update() {
-        this.nextGrid = new Grid(currentGrid.getHeight(), currentGrid.getWidth());
+//        this.nextGrid = new Grid(currentGrid.getHeight(), currentGrid.getWidth());
         for (int r = 0; r < currentGrid.getHeight(); r++) {
             for (int c = 0; c < currentGrid.getWidth(); c++) {
                 updateNextGridFromCell(currentGrid.getCell(r,c));
             }
         }
         this.currentGrid = this.nextGrid;
-        currentGrid.getCurrentEmptyCells();
     }
 
 
