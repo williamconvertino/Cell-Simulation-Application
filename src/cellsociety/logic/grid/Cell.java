@@ -1,4 +1,4 @@
-package cellsociety.logic.cells;
+package cellsociety.logic.grid;
 
 import cellsociety.logic.grid.Coordinate;
 
@@ -134,5 +134,17 @@ public class Cell {
     this.nextAltState = state;
   }
 
+  /**
+   * @see Object#equals(Object)  
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof Cell)) {
+      return false;
+    }
+    Cell c = (Cell) o;
+    return this == o || (this.currentState == c.currentState && this.currentAltState == c.currentAltState
+        && this.getCoordinates().equals(c.getCoordinates()));
+  }
 
 }

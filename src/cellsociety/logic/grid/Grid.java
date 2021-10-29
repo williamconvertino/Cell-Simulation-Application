@@ -1,6 +1,5 @@
 package cellsociety.logic.grid;
 
-import cellsociety.logic.cells.Cell;
 import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
 import cellsociety.logic.shapes.ShapeManager;
 import java.util.HashMap;

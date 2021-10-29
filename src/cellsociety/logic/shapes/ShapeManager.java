@@ -1,9 +1,6 @@
 package cellsociety.logic.shapes;
 
-import cellsociety.logic.cells.Cell;
 import cellsociety.logic.grid.Coordinate;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
