@@ -7,6 +7,9 @@ import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.errors.UnhandledExceptionError;
 import cellsociety.io.CSVFileReader;
 import cellsociety.io.SIMFileReader;
+import cellsociety.logic.grid.Grid;
+import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
+import cellsociety.logic.simulations_LEGACY.GameOfLife;
 import cellsociety.logic.simulations_LEGACY.Simulation;
 
 import java.io.File;
@@ -85,7 +88,8 @@ public class LogicController {
       throw e;
     }
     try {
-      currentSimulation = loadLogicClass(grid, metadata);
+
+      currentSimulation = loadLogicClass(grid,, metadata);
 
     } catch (NoSuchMethodException e) {
       throw new InvalidSimulationTypeError(metadata.get(TYPE));
@@ -99,45 +103,45 @@ public class LogicController {
   }
 
   //Initiates the proper simulation type and loads it into the currentSimulation variable.
-  private Simulation loadLogicClass(int[][] grid, Map<String, String> metadata)
+  private Simulation loadLogicClass(Grid grid, NeighborhoodPattern np, Map<String, String> metadata)
       throws NoSuchMethodException, MissingSimulationArgumentError, InvocationTargetException, IllegalAccessException {
-    return (Simulation)getClass().getMethod(metadata.get(TYPE), int[][].class, Map.class).invoke(this,grid, metadata);
+    return (Simulation)getClass().getMethod(metadata.get(TYPE), int[][].class, Map.class).invoke(this,grid, np, metadata);
     //return GameOfLife(grid_LEGACY, metadata);
   }
 
   //Returns a new GameOfLife simulation.
-  public Simulation GameOfLife(int[][] grid, Map<String, String> metadata) {
-    return new GameOfLife(grid, metadata);
+  public Simulation GameOfLife(Grid grid, NeighborhoodPattern np, Map<String, String> metadata) {
+    return new GameOfLife(grid, np , metadata);
   }
-
-  //Returns a new ModelOfSegregation simulation.
-  public Simulation ModelOfSegregation(int[][] grid, Map<String, String> metadata) {
-    return new ModelOfSegregation(grid, metadata);
-  }
-
-  //Returns a new Percolation simulation.
-  public Simulation Percolation(int[][] grid, Map<String, String> metadata) {
-    return new Percolation(grid, metadata);
-  }
-
-  //Returns a new FireSpreading simulation.
-  public Simulation FireSpreading(int[][] grid, Map<String, String> metadata) {
-    return new FireSpreading(grid, metadata);
-  }
-
-  //Returns a new WaTorWorld simulation.
-  public Simulation Wator(int[][] grid, Map<String, String> metadata) {
-    return new WaTorWorld(grid, metadata);
-  }
+//
+//  //Returns a new ModelOfSegregation simulation.
+//  public Simulation ModelOfSegregation(int[][] grid, Map<String, String> metadata) {
+//    return new ModelOfSegregation(grid, metadata);
+//  }
+//
+//  //Returns a new Percolation simulation.
+//  public Simulation Percolation(int[][] grid, Map<String, String> metadata) {
+//    return new Percolation(grid, metadata);
+//  }
+//
+//  //Returns a new FireSpreading simulation.
+//  public Simulation FireSpreading(int[][] grid, Map<String, String> metadata) {
+//    return new FireSpreading(grid, metadata);
+//  }
+//
+//  //Returns a new WaTorWorld simulation.
+//  public Simulation Wator(int[][] grid, Map<String, String> metadata) {
+//    return new WaTorWorld(grid, metadata);
+//  }
   /**
    * Returns the current grid_LEGACY state of the currently loaded
    * algorithm.
    *
    * @return the grid_LEGACY state of  the currently loaded algorithm.
    */
-  public int[][] getActiveGrid() {
+  public Grid getActiveGrid() {
     if (currentSimulation != null) {
-      return currentSimulation.getStateArray();
+      return currentSimulation.getCurrentGrid();
     }
     return null;
   }

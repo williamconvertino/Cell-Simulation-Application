@@ -1,10 +1,9 @@
-package cellsociety.logic.simulations;
+package cellsociety.logic.simulations_LEGACY;
 
 
 import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
-import cellsociety.logic.grid_LEGACY.Cell;
 import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
 import cellsociety.logic.simulations_LEGACY.Simulation;
 
@@ -35,14 +34,14 @@ public class GameOfLife extends Simulation {
     protected void updateNextGridFromCell(Cell cell) {
 
         List<Cell> neighbors = getCurrentGrid().getNeighbors(cell, getNeighborhoodPattern());
-        neighbors.removeIf(e->e.getState() == 0);
+        neighbors.removeIf(e->e.getCurrentState() == 0);
 
         if (neighbors.size() == 2) {
-            nextGrid.setCellState(cell.getRow(), cell.getColumn(), cell.getState());
+            getNextGrid().changeCell(cell, cell.getCurrentState());
         } else if (neighbors.size() == 3) {
-            nextGrid.setCellState(cell.getRow(), cell.getColumn(), 1);
+            getNextGrid().changeCell(cell, 1);
         } else {
-            nextGrid.setCellState(cell.getRow(), cell.getColumn(), 0);
+            getNextGrid().changeCell(cell, 0);
         }
     }
 

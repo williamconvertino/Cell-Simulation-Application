@@ -30,11 +30,11 @@ public class FiniteGrid extends Grid {
   @Override
   public List<Cell> getNeighbors(Cell cell, NeighborhoodPattern myPattern) {
     List<Coordinate> potentialNeighbors = generateNeighborCoordinates(cell, myPattern);
-    potentialNeighbors.removeIf(coordinate -> coordinate.r() < 0 || coordinate.r() > height
-        || coordinate.c() < 0 || coordinate.c() > width);
+    potentialNeighbors.removeIf(coordinate -> coordinate.r() < 0 || coordinate.r() > getHeight()
+        || coordinate.c() < 0 || coordinate.c() > getWidth());
     List<Cell> myNeighbors = new LinkedList<>();
     for (Coordinate coord: potentialNeighbors) {
-      myNeighbors.add(myCells.get(coord));
+      myNeighbors.add(getMyCells().get(coord));
     }
     return myNeighbors;
   }

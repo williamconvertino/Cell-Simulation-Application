@@ -4,6 +4,8 @@ import cellsociety.display.Display;
 import cellsociety.io.FileHandler;
 import java.io.File;
 import java.nio.file.Paths;
+
+import cellsociety.logic.grid.Coordinate;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
@@ -66,7 +68,7 @@ public class Controller {
       try {
       if (myLogicController.getActiveGrid()!=null) {
         int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid());
-        myLogicController.getCurrentSimulation().getGrid().setCellState(s[0], s[1], myLogicController.getSimulationDefaultValue());
+        myLogicController.getCurrentSimulation().getGrid().changeCell(new Coordinate(s[0], s[1]), myLogicController.getSimulationDefaultValue());
       }} catch (Exception e) {}
     });
 

@@ -99,6 +99,8 @@ public abstract class Simulation {
             }
         }
         this.currentGrid = this.nextGrid;
+        this.currentGrid.updateCells();
+        this.nextGrid.updateCells();
     }
 
 

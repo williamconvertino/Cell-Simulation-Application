@@ -6,6 +6,7 @@ import cellsociety.errors.MissingSimulationArgumentError;
 
 import java.util.*;
 
+import cellsociety.logic.grid.Grid;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
@@ -69,15 +70,15 @@ public class Display {
         buttonOffsetTop = Integer.parseInt(propertyResources.getString("BUTTON_OFFSET_TOP"));
     }
 
-    public void initializeGrid(int[][] grid) {
+    public void initializeGrid(Grid grid) {
         resetGrid();
-        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+        if (grid == null || grid.getHeight() == 0 || grid.getWidth() == 0) {
             return;
         }
-        displayGrid = new Rectangle[grid.length][grid[0].length];
+        displayGrid = new Rectangle[grid.getHeight()][grid.getWidth()];
 
-        for (int x = 0; x < grid.length; x++) {
-            for (int y = 0; y < grid[0].length; y++) {
+        for (int x = 0; x < grid.getHeight(); x++) {
+            for (int y = 0; y < grid.getWidth(); y++) {
                 Rectangle cell = new Rectangle(x * (cellLength + cellOffset) + gridLeftOffset,
                         y * (cellOffset + cellLength) + gridTopOffset, cellLength, cellLength);
                 displayGrid[x][y] = cell;
@@ -103,22 +104,23 @@ public class Display {
 
     /**
      * Update Scene
+     * @param grid
      */
-    public void updateScene(int[][] grid) {
-        if (displayGrid == null || grid.length != displayGrid.length) {
+    public void updateScene(Grid grid) {
+        if (displayGrid == null || grid.getHeight() != displayGrid.length) {
             initializeGrid(grid);
             return;
         }
-        for (int r = 0; r < grid.length; r++) {
-            for (int c = 0; c < grid[0].length; c++) {
-                displayGrid[r][c].setFill(COLOR_MAP.get(grid[r][c]));
+        for (int r = 0; r < grid.getHeight(); r++) {
+            for (int c = 0; c < grid.getWidth(); c++) {
+                displayGrid[r][c].setFill(COLOR_MAP.get(grid.getCell(r,c)));
             }
         }
     }
 
-    public int[] changeCell(double mouseX, double mouseY, int[][] grid) {
-        for (int x = 0; x < grid.length; x++) {
-            for (int y = 0; y < grid[0].length; y++) {
+    public int[] changeCell(double mouseX, double mouseY, Grid grid) {
+        for (int x = 0; x < grid.getWidth(); x++) {
+            for (int y = 0; y < grid.getHeight(); y++) {
                 double corrX = x * (cellLength + cellOffset) + gridLeftOffset;
                 double corrY = y * (cellOffset + cellLength) + gridTopOffset;
                 if(((corrX + cellLength) >= mouseX
