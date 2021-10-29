@@ -1,11 +1,10 @@
-package cellsociety.logic.simulations_LEGACY;
+package cellsociety.logic.simulations;
 
 
 import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
 import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
-import cellsociety.logic.simulations_LEGACY.Simulation;
 
 import java.util.List;
 import java.util.Map;
