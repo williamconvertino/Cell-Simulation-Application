@@ -3,6 +3,8 @@ package cellsociety.logic.simulations_LEGACY;
 import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
+import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
+
 import java.util.Map;
 
 /**
@@ -16,11 +18,14 @@ import java.util.Map;
  */
 public abstract class Simulation {
 
+
+
+    private NeighborhoodPattern neighborhoodPattern;
     //The current grid_LEGACY state of the simulation.
-    protected Grid currentGrid;
+    private Grid currentGrid;
     private int defaultValue;
     //The grid_LEGACY to be set next in the simulation.
-    protected Grid nextGrid;
+    private Grid nextGrid;
 
     //A map containing the simulation's data collected from the simulation's sim files.
     private Map<String, String> metadata;
@@ -33,8 +38,9 @@ public abstract class Simulation {
      * @param metadata the user-specified values used by the simulation.
      * @throws MissingSimulationArgumentError if the metadata is missing a required argument for the simulation.
      */
-    public Simulation(Grid grid, Map<String, String> metadata) throws MissingSimulationArgumentError {
+    public Simulation(Grid grid, NeighborhoodPattern np, Map<String, String> metadata) throws MissingSimulationArgumentError {
         makeGrid(grid);
+        this.neighborhoodPattern = np;
         this.metadata = metadata;
     }
 
@@ -104,5 +110,31 @@ public abstract class Simulation {
     protected void setDefaultValue(int newDefault){
         defaultValue = newDefault;
     }
+
+
+    public Grid getCurrentGrid() {
+        return currentGrid;
+    }
+
+    public void setCurrentGrid(Grid currentGrid) {
+        this.currentGrid = currentGrid;
+    }
+
+    public Grid getNextGrid() {
+        return nextGrid;
+    }
+
+    public void setNextGrid(Grid nextGrid) {
+        this.nextGrid = nextGrid;
+    }
+
+    public NeighborhoodPattern getNeighborhoodPattern() {
+        return neighborhoodPattern;
+    }
+
+    public void setNeighborhoodPattern(NeighborhoodPattern neighborhoodPattern) {
+        this.neighborhoodPattern = neighborhoodPattern;
+    }
+
 
 }
