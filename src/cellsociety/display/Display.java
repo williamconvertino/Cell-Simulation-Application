@@ -35,12 +35,6 @@ public class Display {
         COLOR_MAP.put(2, Color.RED);
     }
 
-    public final static int TOP_OFFSET_GRID = 50;
-    public final static double CELL_LENGTH = 29;
-    public final static double CELL_OFFSET = 1.5;
-    public final static int BUTTON_OFFSET = 50;
-    public final static int BUTTON_OFFSET_TOP = 30;
-    private Stage myStage;
     private Rectangle[][] displayGrid;
 
     private Group root;
