@@ -3,6 +3,7 @@ package cellsociety.logic.grid;
 import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
 import cellsociety.logic.shapes.ShapeManager;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -141,8 +142,12 @@ public abstract class Grid {
       c.setNextAltState(0);
     }
   }
-  public Map<Coordinate, Cell> getMyCells() {
-    return myCells;
+
+
+  public List<Cell> getCellsToUpdate() {
+
+    return new LinkedList<>(myCells.values());
+
   }
 
   public void setMyCells(Map<Coordinate, Cell> myCells) {
