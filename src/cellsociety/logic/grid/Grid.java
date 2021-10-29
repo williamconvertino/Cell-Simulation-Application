@@ -5,6 +5,7 @@ import cellsociety.logic.bordertypes.StaticBorder;
 import cellsociety.logic.cells.Cell;
 import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
 import cellsociety.logic.shapes.ShapeManager;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +63,7 @@ public abstract class Grid {
 
   public List<Cell> getNeighbors(Cell cell, NeighborhoodPattern myPattern) {
     myPattern.getNeighborhoodGroup(cell.getCoordinates(), myShapeManager);
+    return new ArrayList<>();
   }
 
   public void moveCellTo(Cell cell, int r, int c){
