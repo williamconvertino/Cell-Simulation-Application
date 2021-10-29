@@ -1,7 +1,6 @@
 package cellsociety.logic.grid;
 
 import cellsociety.logic.bordertypes.BorderType;
-import cellsociety.logic.bordertypes.StaticBorder;
 import cellsociety.logic.cells.Cell;
 import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
 import cellsociety.logic.shapes.ShapeManager;
@@ -60,12 +59,20 @@ public abstract class Grid {
     return myCells.getOrDefault(cellCoords, null);
   }
 
+  /**
+   *
+   * @param cell
+   * @param myPattern
+   * @return
+   */
+  public abstract List<Cell> getNeighbors(Cell cell, NeighborhoodPattern myPattern);
 
-  public List<Cell> getNeighbors(Cell cell, NeighborhoodPattern myPattern) {
-    myPattern.getNeighborhoodGroup(cell.getCoordinates(), myShapeManager);
-    return new ArrayList<>();
-  }
-
+  /**
+   *
+   * @param cell
+   * @param r
+   * @param c
+   */
   public void moveCellTo(Cell cell, int r, int c){
     Cell targetCell = myCells.get(new Coordinate(r,c));
     targetCell.setNextState(cell.getCurrentState());
