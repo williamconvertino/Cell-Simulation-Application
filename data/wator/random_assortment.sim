@@ -6,3 +6,6 @@ InitialStates=data/wator/random_assortment.csv
 InitialEnergy=4
 ReproductionTime=2
 EnergyPerFish=2
+GridType=FiniteGrid
+Neighborhood=CompleteNeighborPattern
+Shape=SquareShapeManager

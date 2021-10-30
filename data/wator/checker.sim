@@ -5,3 +5,6 @@ Description=The fish and sharks are in a checker board pattern
 InitialStates=data/wator/checker.csv
 Energy=3
 ReproductionTime=2
+GridType=FiniteGrid
+Neighborhood=CompleteNeighborPattern
+Shape=SquareShapeManager
