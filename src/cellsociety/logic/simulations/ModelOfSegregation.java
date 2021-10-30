@@ -9,6 +9,7 @@ import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class simulates Schelling's Model of Segregation. For each cell, it will attempt to move
@@ -47,6 +48,7 @@ public class ModelOfSegregation extends Simulation {
     @Override
     protected void updateNextGridFromCell(Cell cell) {
         List<Cell> myNeighbors = getGrid().getNeighbors(cell, getNeighborhoodPattern());
+        myNeighbors.removeIf(Objects::isNull);
         double similar = 0;
         double different = 0;
         for (Cell c: myNeighbors) {
