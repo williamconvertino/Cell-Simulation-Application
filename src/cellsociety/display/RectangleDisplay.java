@@ -25,16 +25,16 @@ public class RectangleDisplay extends Display{
     public void initializeGrid(List<Cell> cells){
         resetGrid();
 
-        if(cells.size() == 0) return;
+        cellMap = new HashMap<>();
 
         for(int i = 0; i < cells.size(); i++){
             resetGrid();
 
-            cellMap = new HashMap<>();
             Rectangle rectCell = new Rectangle(cells.get(i).getCoordinates().r() * (cellLength + cellOffset) + gridLeftOffset,
                     cells.get(i).getCoordinates().c() * (cellOffset + cellLength) + gridTopOffset, cellLength, cellLength);
 
             cellMap.put(cells.get(i).getCoordinates(), rectCell);
+
             root.getChildren().add(rectCell);
         }
 
@@ -57,7 +57,12 @@ public class RectangleDisplay extends Display{
      * @param cells
      */
     public void updateScene(List<Cell> cells) {
-        if (cells == null || cells.size() == 0 || cellMap == null) {
+        if (cellMap == null || cellMap.size() != cells.size()) {
+//            for(Cell cell: cells){
+//                System.out.println(cell.getCoordinates());
+//            }
+            initializeGrid(cells);
+//            System.out.println(cellMap);
             return;
         }
 

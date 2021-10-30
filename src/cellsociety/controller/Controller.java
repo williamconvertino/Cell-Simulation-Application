@@ -116,9 +116,11 @@ public class Controller {
   public void update() {
 
     myLogicController.update();
-    if (myLogicController.getActiveGrid() != null) {
+
+    if (myLogicController.getActiveGrid() != null){
       myDisplay.updateScene(myLogicController.getActiveGrid().getCellsToUpdate());
     }
+
   }
 
 }
