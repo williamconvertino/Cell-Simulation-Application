@@ -42,12 +42,12 @@ public abstract class Display {
     private Group root;
     protected ResourceBundle myResources;
     protected ResourceBundle propertyResources;
-    private int gridLeftOffset;
-    private int gridTopOffset;
-    private int cellLength;
-    private double cellOffset;
-    private int buttonOffset;
-    private int buttonOffsetTop;
+    protected int gridLeftOffset;
+    protected int gridTopOffset;
+    protected int cellLength;
+    protected double cellOffset;
+    protected int buttonOffset;
+    protected int buttonOffsetTop;
 
     /**
      * Create display based on given background color and Grid Cell length.
@@ -72,6 +72,7 @@ public abstract class Display {
         if (grid == null || grid.getHeight() == 0 || grid.getWidth() == 0) {
             return;
         }
+
         displayGrid = new Rectangle[grid.getHeight()][grid.getWidth()];
 
         for (int x = 0; x < grid.getHeight(); x++) {
