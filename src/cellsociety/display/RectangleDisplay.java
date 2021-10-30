@@ -57,7 +57,7 @@ public class RectangleDisplay extends Display{
      * @param cells
      */
     public void updateScene(List<Cell> cells) {
-        if (cells == null || cells.size() == 0) {
+        if (cells == null || cells.size() == 0 || cellMap == null) {
             return;
         }
 
