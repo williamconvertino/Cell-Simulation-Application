@@ -33,7 +33,7 @@ public class GameOfLife extends Simulation {
     protected void updateNextGridFromCell(Cell cell) {
 
         List<Cell> neighbors = getGrid().getNeighbors(cell, getNeighborhoodPattern());
-        neighbors.removeIf(e->e.getCurrentState() == 0);
+        neighbors.removeIf(e->e == null || e.getCurrentState() == 0);
 
         if (neighbors.size() == 2) {
             getGrid().changeCell(cell, cell.getCurrentState());
