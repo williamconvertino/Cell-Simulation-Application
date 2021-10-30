@@ -83,8 +83,9 @@ public abstract class Simulation {
     public void update() {
 
         for (Cell c: myGrid.getCellsToUpdate()) {
-
+            updateNextGridFromCell(c);
         }
+        myGrid.updateCells();
 
     }
 
