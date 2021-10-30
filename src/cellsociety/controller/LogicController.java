@@ -10,8 +10,9 @@ import cellsociety.io.SIMFileReader;
 import cellsociety.logic.grid.Grid;
 import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
 import cellsociety.logic.shapes.ShapeManager;
-import cellsociety.logic.simulations_LEGACY.GameOfLife;
-import cellsociety.logic.simulations_LEGACY.Simulation;
+import cellsociety.logic.simulations.GameOfLife;
+import cellsociety.logic.simulations.Simulation;
+
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -157,7 +158,7 @@ public class LogicController {
      */
     public Grid getActiveGrid() {
         if (currentSimulation != null) {
-            return currentSimulation.getCurrentGrid();
+            return currentSimulation.getGrid();
         }
         return null;
     }
@@ -186,8 +187,8 @@ public class LogicController {
 
     }
 
-    public int getSimulationDefaultValue() {
-        return currentSimulation.getDefaultValue();
-    }
+//    public int getSimulationDefaultValue() {
+//        return currentSimulation.getDefaultValue();
+//    }
 
 }

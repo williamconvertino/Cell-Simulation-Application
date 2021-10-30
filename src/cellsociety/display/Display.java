@@ -6,6 +6,7 @@ import cellsociety.errors.MissingSimulationArgumentError;
 
 import java.util.*;
 
+import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -21,7 +22,7 @@ import javafx.scene.shape.Rectangle;
  * @author Quentin MacFarlane
  * @author Alexis Cruz-Ayala
  */
-public class Display {
+public abstract class Display {
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "cellsociety.resources.";
     public static final String DEFAULT_RESOURCE_FOLDER =
@@ -35,11 +36,6 @@ public class Display {
         COLOR_MAP.put(2, Color.RED);
     }
 
-    public final static int TOP_OFFSET_GRID = 50;
-    public final static double CELL_LENGTH = 29;
-    public final static double CELL_OFFSET = 1.5;
-    public final static int BUTTON_OFFSET = 50;
-    public final static int BUTTON_OFFSET_TOP = 30;
     private Stage myStage;
     private Rectangle[][] displayGrid;
 
@@ -72,6 +68,7 @@ public class Display {
 
     public void initializeGrid(Grid grid) {
         resetGrid();
+
         if (grid == null || grid.getHeight() == 0 || grid.getWidth() == 0) {
             return;
         }
@@ -85,6 +82,7 @@ public class Display {
                 root.getChildren().add(cell);
             }
         }
+
         updateScene(grid);
     }
 

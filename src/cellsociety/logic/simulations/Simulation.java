@@ -1,4 +1,4 @@
-package cellsociety.logic.simulations_LEGACY;
+package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.logic.grid.Cell;
@@ -20,12 +20,10 @@ public abstract class Simulation {
 
 
 
+    //The neighborhood pattern of this simulation.
     private NeighborhoodPattern neighborhoodPattern;
-    //The current grid_LEGACY state of the simulation.
-    private Grid currentGrid;
-    private int defaultValue;
-    //The grid_LEGACY to be set next in the simulation.
-    private Grid nextGrid;
+
+    private Grid myGrid;
 
     //A map containing the simulation's data collected from the simulation's sim files.
     private Map<String, String> metadata;
@@ -50,7 +48,7 @@ public abstract class Simulation {
      * @param newGrid the array of values to initialize with.
      */
     protected void makeGrid(Grid newGrid) {
-        this.currentGrid = newGrid;
+        this.myGrid = newGrid;
     }
 
     /**
@@ -59,18 +57,9 @@ public abstract class Simulation {
      * @return the current grid_LEGACY state of the simulation.
      */
     public Grid getGrid() {
-        return currentGrid;
+        return myGrid;
     }
 
-//    /**
-//     * Returns a 2D array of integers representing the
-//     * current states of the cells.
-//     *
-//     * @return
-//     */
-//    public int[][] getStateArray() {
-//        return currentGrid.getCellStates();
-//    }
 
     /**
      * Returns the metadata of the simulation.
@@ -92,50 +81,16 @@ public abstract class Simulation {
      *  Updates each cell in the grid_LEGACY using the updateCell method.
      */
     public void update() {
-//        this.nextGrid = new Grid(currentGrid.getHeight(), currentGrid.getWidth());
-        for (int r = 0; r < currentGrid.getHeight(); r++) {
-            for (int c = 0; c < currentGrid.getWidth(); c++) {
-                updateNextGridFromCell(currentGrid.getCell(r,c));
-            }
+
+        for (Cell c: myGrid.getCellsToUpdate()) {
+
         }
-        this.currentGrid = this.nextGrid;
-        this.currentGrid.updateCells();
-        this.nextGrid.updateCells();
+
     }
 
-
-
-    public int getDefaultValue(){
-        return defaultValue;
-    }
-
-    protected void setDefaultValue(int newDefault){
-        defaultValue = newDefault;
-    }
-
-
-    public Grid getCurrentGrid() {
-        return currentGrid;
-    }
-
-    public void setCurrentGrid(Grid currentGrid) {
-        this.currentGrid = currentGrid;
-    }
-
-    public Grid getNextGrid() {
-        return nextGrid;
-    }
-
-    public void setNextGrid(Grid nextGrid) {
-        this.nextGrid = nextGrid;
-    }
 
     public NeighborhoodPattern getNeighborhoodPattern() {
         return neighborhoodPattern;
-    }
-
-    public void setNeighborhoodPattern(NeighborhoodPattern neighborhoodPattern) {
-        this.neighborhoodPattern = neighborhoodPattern;
     }
 
 

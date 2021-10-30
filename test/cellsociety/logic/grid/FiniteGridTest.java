@@ -12,7 +12,7 @@ public class FiniteGridTest extends GridTest {
   void initialize() {
     int[][] myArray =
         {   {0,0,0},
-            {0,0,0},
+            {0,1,0},
             {0,0,0}
         };
 
@@ -22,6 +22,9 @@ public class FiniteGridTest extends GridTest {
   @Test
   void testGetCell() {
     assertEquals(myGrid.getCell(0,0), new Cell(0,0,0));
+    assertNotEquals(myGrid.getCell(0,0), new Cell(0,0,1));
+    assertEquals(myGrid.getCell(1,1), new Cell(1,1,1));
+    assertNotEquals(myGrid.getCell(1,1), new Cell(0,0,1));
   }
 
 
