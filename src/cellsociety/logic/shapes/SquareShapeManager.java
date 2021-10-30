@@ -13,6 +13,10 @@ import java.util.List;
  */
 public class SquareShapeManager extends ShapeManager {
 
+
+  public SquareShapeManager(){
+
+  }
   /**
    * @see ShapeManager#getNeighborsLeft(Coordinate)
    */

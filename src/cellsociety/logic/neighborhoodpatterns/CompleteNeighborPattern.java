@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompleteNeighborPattern extends NeighborhoodPattern{
+
+
+    public CompleteNeighborPattern() {
+    }
+
     @Override
     public List<Coordinate> getNeighborhoodGroup(Coordinate myCenter, ShapeManager myShape) {
         return myShape.getAllNeighbors(myCenter);

@@ -1,12 +1,11 @@
 package cellsociety.logic.simulations;
 
 import cellsociety.errors.MissingSimulationArgumentError;
-
 import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
 import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
-
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Random;
 
@@ -40,7 +39,7 @@ public class FireSpreading extends Simulation {
         super(grid, np, metadata);
         this.probCatch = Double.parseDouble(metadata.get("ProbCatch"));
         rand = new Random();
-        setDefaultValue(2);
+//        setDefaultValue(2);
     }
 
     /**
@@ -48,20 +47,20 @@ public class FireSpreading extends Simulation {
      */
     @Override
     protected void updateNextGridFromCell(Cell cell) {
-        if (rand.nextDouble() < probCatch * getNumAdjacentFires(cell) && cell.getCurrentState() == 1) {
-            getNextGrid().changeCell(cell, 2);
+        System.out.println(Collections.frequency(getGrid().getNeighbors(cell, getNeighborhoodPattern()), 2));
+        ArrayList neighborStates = new ArrayList();
+        for (Cell c : getGrid().getNeighbors(cell, getNeighborhoodPattern())){
+            if(c != null){
+                neighborStates.add(c.getCurrentState());
+            }
+
+        }
+        if (rand.nextDouble() < probCatch * Collections.frequency(neighborStates, 2) && cell.getCurrentState() == 1) {
+            getGrid().changeCell(cell,  2);
         } else if (cell.getCurrentState() == 2) {
-            getNextGrid().changeCell(cell, 0);
+            getGrid().changeCell(cell,  0);
         } else {
-            getNextGrid().changeCell(cell, cell.getCurrentState());
+            getGrid().changeCell(cell,  cell.getCurrentState());
         }
     }
-
-    //Returns the number of adjacent fires to a cell.
-    private int getNumAdjacentFires(Cell cell) {
-        List<Cell> neighbors = getCurrentGrid().getNeighbors(cell, getNeighborhoodPattern());
-        neighbors.removeIf(e->e.getCurrentState() == 0 || e.getCurrentState() == 1);
-        return neighbors.size();
-    }
-
 }

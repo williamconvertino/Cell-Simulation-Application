@@ -20,12 +20,10 @@ public abstract class Simulation {
 
 
 
+    //The neighborhood pattern of this simulation.
     private NeighborhoodPattern neighborhoodPattern;
-    //The current grid_LEGACY state of the simulation.
-    private Grid currentGrid;
-    private int defaultValue;
-    //The grid_LEGACY to be set next in the simulation.
-    private Grid nextGrid;
+
+    private Grid myGrid;
 
     //A map containing the simulation's data collected from the simulation's sim files.
     private Map<String, String> metadata;
@@ -50,7 +48,7 @@ public abstract class Simulation {
      * @param newGrid the array of values to initialize with.
      */
     protected void makeGrid(Grid newGrid) {
-        this.currentGrid = newGrid;
+        this.myGrid = newGrid;
     }
 
     /**
@@ -59,7 +57,7 @@ public abstract class Simulation {
      * @return the current grid_LEGACY state of the simulation.
      */
     public Grid getGrid() {
-        return currentGrid;
+        return myGrid;
     }
 
 
@@ -84,43 +82,16 @@ public abstract class Simulation {
      */
     public void update() {
 
-
+        for (Cell c: myGrid.getCellsToUpdate()) {
+            updateNextGridFromCell(c);
+        }
+        myGrid.updateCells();
 
     }
 
-
-
-    public int getDefaultValue(){
-        return defaultValue;
-    }
-
-    protected void setDefaultValue(int newDefault){
-        defaultValue = newDefault;
-    }
-
-
-    public Grid getCurrentGrid() {
-        return currentGrid;
-    }
-
-    public void setCurrentGrid(Grid currentGrid) {
-        this.currentGrid = currentGrid;
-    }
-
-    public Grid getNextGrid() {
-        return nextGrid;
-    }
-
-    public void setNextGrid(Grid nextGrid) {
-        this.nextGrid = nextGrid;
-    }
 
     public NeighborhoodPattern getNeighborhoodPattern() {
         return neighborhoodPattern;
-    }
-
-    public void setNeighborhoodPattern(NeighborhoodPattern neighborhoodPattern) {
-        this.neighborhoodPattern = neighborhoodPattern;
     }
 
 

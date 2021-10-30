@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardinalNeighborPattern extends NeighborhoodPattern{
+    public CardinalNeighborPattern() {
+    }
+
     @Override
     public List<Coordinate> getNeighborhoodGroup(Coordinate myCenter, ShapeManager myShape) {
         ArrayList<Coordinate> result = new ArrayList<>();

@@ -6,7 +6,9 @@ import cellsociety.errors.MissingSimulationArgumentError;
 
 import java.util.*;
 
+import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
@@ -21,7 +23,7 @@ import javafx.scene.shape.Rectangle;
  * @author Quentin MacFarlane
  * @author Alexis Cruz-Ayala
  */
-public class Display {
+public abstract class Display {
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "cellsociety.resources.";
     public static final String DEFAULT_RESOURCE_FOLDER =
@@ -35,23 +37,18 @@ public class Display {
         COLOR_MAP.put(2, Color.RED);
     }
 
-    public final static int TOP_OFFSET_GRID = 50;
-    public final static double CELL_LENGTH = 29;
-    public final static double CELL_OFFSET = 1.5;
-    public final static int BUTTON_OFFSET = 50;
-    public final static int BUTTON_OFFSET_TOP = 30;
     private Stage myStage;
     private Rectangle[][] displayGrid;
 
-    private Group root;
+    protected Group root;
     protected ResourceBundle myResources;
     protected ResourceBundle propertyResources;
-    private int gridLeftOffset;
-    private int gridTopOffset;
-    private int cellLength;
-    private double cellOffset;
-    private int buttonOffset;
-    private int buttonOffsetTop;
+    protected int gridLeftOffset;
+    protected int gridTopOffset;
+    protected int cellLength;
+    protected double cellOffset;
+    protected int buttonOffset;
+    protected int buttonOffsetTop;
 
     /**
      * Create display based on given background color and Grid Cell length.
@@ -70,53 +67,16 @@ public class Display {
         buttonOffsetTop = Integer.parseInt(propertyResources.getString("BUTTON_OFFSET_TOP"));
     }
 
-    public void initializeGrid(Grid grid) {
-        resetGrid();
-        if (grid == null || grid.getHeight() == 0 || grid.getWidth() == 0) {
-            return;
-        }
-        displayGrid = new Rectangle[grid.getHeight()][grid.getWidth()];
 
-        for (int x = 0; x < grid.getHeight(); x++) {
-            for (int y = 0; y < grid.getWidth(); y++) {
-                Rectangle cell = new Rectangle(x * (cellLength + cellOffset) + gridLeftOffset,
-                        y * (cellOffset + cellLength) + gridTopOffset, cellLength, cellLength);
-                displayGrid[x][y] = cell;
-                root.getChildren().add(cell);
-            }
-        }
-        updateScene(grid);
-    }
+    public abstract void initializeGrid(List<Cell> cells);
 
     /**
      * Removes all elements of the displayGrid from the display.
      */
 
-    public void resetGrid() {
-        if (displayGrid != null) {
-            for (Rectangle[] rectangles : displayGrid) {
-                for (int j = 0; j < displayGrid[0].length; j++) {
-                    root.getChildren().remove(rectangles[j]);
-                }
-            }
-        }
-    }
+    public abstract void resetGrid();
 
-    /**
-     * Update Scene
-     * @param grid
-     */
-    public void updateScene(Grid grid) {
-        if (displayGrid == null || grid.getHeight() != displayGrid.length) {
-            initializeGrid(grid);
-            return;
-        }
-        for (int r = 0; r < grid.getHeight(); r++) {
-            for (int c = 0; c < grid.getWidth(); c++) {
-                displayGrid[r][c].setFill(COLOR_MAP.get(grid.getCell(r,c)));
-            }
-        }
-    }
+    public abstract void updateScene(List<Cell> cells);
 
     public int[] changeCell(double mouseX, double mouseY, Grid grid) {
         for (int x = 0; x < grid.getWidth(); x++) {
@@ -135,37 +95,14 @@ public class Display {
         return null;
     }
 
-    public void addButtons(Button saveButton, Button playButton, Button pauseButton, Button resetButton, Button loadButton, Slider speedSlider) {
-        loadButton.setLayoutX(buttonOffset);
-        loadButton.setLayoutY(buttonOffsetTop);
-        loadButton.setText("Load");
-
-        playButton.setLayoutX(buttonOffset);
-        playButton.setLayoutY(buttonOffsetTop + buttonOffset);
-        playButton.setText("Play");
-
-        pauseButton.setLayoutX(buttonOffset);
-        pauseButton.setLayoutY(buttonOffsetTop + buttonOffset * 2);
-        pauseButton.setText("Pause");
-
-        resetButton.setLayoutX(buttonOffset);
-        resetButton.setLayoutY(buttonOffsetTop + buttonOffset * 3);
-        resetButton.setText("Reset");
-
-        saveButton.setLayoutX(buttonOffset);
-        saveButton.setLayoutY(buttonOffsetTop + buttonOffset * 4);
-        saveButton.setText("Save");
-
-        speedSlider.setLayoutX(buttonOffset);
-        speedSlider.setLayoutY(buttonOffsetTop + buttonOffset * 5);
-        speedSlider.setShowTickLabels(true);
-
-        root.getChildren().add(saveButton);
-        root.getChildren().add(playButton);
-        root.getChildren().add(pauseButton);
-        root.getChildren().add(resetButton);
-        root.getChildren().add(loadButton);
-        root.getChildren().add(speedSlider);
+    public void addButtons(Node...nodes){// saveButton, Button playButton, Button pauseButton, Button resetButton, Button loadButton, Slider speedSlider) {
+        int scalar = 0;
+        for(Node node : nodes){
+            node.setLayoutX(buttonOffset);
+            node.setLayoutY(buttonOffsetTop + buttonOffset*scalar);
+            root.getChildren().add(node);
+            scalar++;
+        }
     }
 
     public void showError(Exception e) {
@@ -176,7 +113,7 @@ public class Display {
             errorTitle = "FileNotFoundError";
             errorMessage = String.format("%s %s", myResources.getString(errorTitle), ((FileNotFoundError) e).getFilename());
         } else if (e instanceof InvalidSimulationTypeError) {
-            errorTitle = "InvalidSimulationTypeError";
+            errorTitle = "InvalidSiinitializegridmulationTypeError";
             errorMessage = String.format("%s %s", myResources.getString(errorTitle), ((InvalidSimulationTypeError) e).getType());
         } else if (e instanceof MissingSimulationArgumentError) {
             errorTitle = "MissingSimulationArgumentError";

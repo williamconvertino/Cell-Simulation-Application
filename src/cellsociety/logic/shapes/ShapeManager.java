@@ -7,6 +7,10 @@ import java.util.List;
 
 public abstract class ShapeManager {
 
+  public ShapeManager(){
+
+  }
+
   public List<Coordinate> getAllNeighbors (Coordinate cellCoordinates) {
     HashSet<Coordinate> myNeighbors = new HashSet<>();
     myNeighbors.addAll(getAllNeighborsUp(cellCoordinates));

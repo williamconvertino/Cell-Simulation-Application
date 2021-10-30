@@ -34,7 +34,7 @@ public class FiniteGrid extends Grid {
         || coordinate.c() < 0 || coordinate.c() > getWidth());
     List<Cell> myNeighbors = new LinkedList<>();
     for (Coordinate coord: potentialNeighbors) {
-      myNeighbors.add(getMyCells().get(coord));
+      myNeighbors.add(getCell(coord.r(), coord.c()));
     }
     return myNeighbors;
   }
