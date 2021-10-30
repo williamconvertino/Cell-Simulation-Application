@@ -8,6 +8,9 @@ import java.util.List;
 
 public class CornerNeighborPattern extends NeighborhoodPattern{
 
+    public CornerNeighborPattern() {
+    }
+
     @Override
     public List<Coordinate> getNeighborhoodGroup(Coordinate myCenter, ShapeManager myShape) {
         ArrayList<Coordinate> result = new ArrayList<>();

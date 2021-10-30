@@ -86,10 +86,11 @@ public class LogicController {
         Grid grid = null;
         try {
             metadata = SIMFileReader.getMetadataFromFile(file);
+            Class cls[] = new Class[] { int[][].class, ShapeManager.class };
+            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape")).getConstructor().newInstance();
             Object[] params = {CSVFileReader.readFile(new File(metadata.get(INITIAL_STATE_FILE))),
-                    (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape")).getConstructor().newInstance()};
-
-            grid = (Grid) Class.forName("cellsociety.logic.grid." + metadata.get("GridType")).getConstructor().newInstance(params);
+                    sm};
+            grid = (Grid) Class.forName("cellsociety.logic.grid." + metadata.get("GridType")).getConstructor(cls).newInstance(params);
         } catch (FileNotFoundError | UnhandledExceptionError | InvalidFileFormatError | ClassNotFoundException | NoSuchMethodException e) {
             throw e;
         } catch (InvocationTargetException e) {
@@ -100,7 +101,10 @@ public class LogicController {
             e.printStackTrace();
         }
         try {
-            currentSimulation = loadLogicClass(grid, (NeighborhoodPattern) Class.forName("cellsociety.logic.neighborhoodpatterns." + metadata.get("Neighborhood")).getConstructor().newInstance(), metadata);
+            Class cls[] = new Class[] { };
+            currentSimulation = loadLogicClass(grid,
+                    (NeighborhoodPattern) Class.forName("cellsociety.logic.neighborhoodpatterns." + metadata.get("Neighborhood"))
+                            .getConstructor(cls).newInstance(), metadata);
 
         } catch (NoSuchMethodException e) {
             System.out.println("Bruh5");
