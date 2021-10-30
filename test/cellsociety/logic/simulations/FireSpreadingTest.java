@@ -35,6 +35,12 @@ class FireSpreadingTest {
                     (NeighborhoodPattern) Class.forName("cellsociety.logic.neighborhoodpatterns." + metadata.get("Neighborhood"))
                             .getConstructor().newInstance(),
                     metadata);
+            for(int i = 0; i < fs.getGrid().getWidth(); i++){
+                for(int j = 0; j < fs.getGrid().getHeight(); j++){
+                    System.out.print(fs.getGrid().getCell(i,j).getCurrentState() + ",");
+                }
+                System.out.println("");
+            }
             fs.update();
             int x = 0;
             int y = 0;
@@ -45,22 +51,22 @@ class FireSpreadingTest {
                 System.out.println("");
             }
 
-//            assertEquals(1, fs.getGrid().getCell(x, y).getCurrentState());
-//            x = 4;
-//            y = 4;
-//            assertEquals(0, fs.getGrid().getCell(x, y).getCurrentState());
-//            x = 3;
-//            y = 4;
-//            assertEquals(2, fs.getGrid().getCell(x, y).getCurrentState());
-//            x = 5;
-//            y = 4;
-//            assertEquals(2, fs.getGrid().getCell(x, y).getCurrentState());
-//            x = 4;
-//            y = 3;
-//            assertEquals(2, fs.getGrid().getCell(x, y).getCurrentState());
-//            x = 4;
-//            y = 5;
-//            assertEquals(2, fs.getGrid().getCell(x, y).getCurrentState());
+            assertEquals(1, fs.getGrid().getCell(x, y).getCurrentState());
+            x = 4;
+            y = 4;
+            assertEquals(0, fs.getGrid().getCell(x, y).getCurrentState());
+            x = 3;
+            y = 4;
+            assertEquals(2, fs.getGrid().getCell(x, y).getCurrentState());
+            x = 5;
+            y = 4;
+            assertEquals(2, fs.getGrid().getCell(x, y).getCurrentState());
+            x = 4;
+            y = 3;
+            assertEquals(2, fs.getGrid().getCell(x, y).getCurrentState());
+            x = 4;
+            y = 5;
+            assertEquals(2, fs.getGrid().getCell(x, y).getCurrentState());
         } catch (Exception e) {
             e.printStackTrace();
             fail("File Not Found");
