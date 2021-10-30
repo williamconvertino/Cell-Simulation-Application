@@ -8,6 +8,7 @@ import java.util.*;
 
 import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
@@ -22,7 +23,7 @@ import javafx.scene.shape.Rectangle;
  * @author Quentin MacFarlane
  * @author Alexis Cruz-Ayala
  */
-public abstract class Display {
+public class Display {
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "cellsociety.resources.";
     public static final String DEFAULT_RESOURCE_FOLDER =
@@ -134,37 +135,14 @@ public abstract class Display {
         return null;
     }
 
-    public void addButtons(Button saveButton, Button playButton, Button pauseButton, Button resetButton, Button loadButton, Slider speedSlider) {
-        loadButton.setLayoutX(buttonOffset);
-        loadButton.setLayoutY(buttonOffsetTop);
-        loadButton.setText("Load");
-
-        playButton.setLayoutX(buttonOffset);
-        playButton.setLayoutY(buttonOffsetTop + buttonOffset);
-        playButton.setText("Play");
-
-        pauseButton.setLayoutX(buttonOffset);
-        pauseButton.setLayoutY(buttonOffsetTop + buttonOffset * 2);
-        pauseButton.setText("Pause");
-
-        resetButton.setLayoutX(buttonOffset);
-        resetButton.setLayoutY(buttonOffsetTop + buttonOffset * 3);
-        resetButton.setText("Reset");
-
-        saveButton.setLayoutX(buttonOffset);
-        saveButton.setLayoutY(buttonOffsetTop + buttonOffset * 4);
-        saveButton.setText("Save");
-
-        speedSlider.setLayoutX(buttonOffset);
-        speedSlider.setLayoutY(buttonOffsetTop + buttonOffset * 5);
-        speedSlider.setShowTickLabels(true);
-
-        root.getChildren().add(saveButton);
-        root.getChildren().add(playButton);
-        root.getChildren().add(pauseButton);
-        root.getChildren().add(resetButton);
-        root.getChildren().add(loadButton);
-        root.getChildren().add(speedSlider);
+    public void addButtons(Node...nodes){// saveButton, Button playButton, Button pauseButton, Button resetButton, Button loadButton, Slider speedSlider) {
+        int scalar = 0;
+        for(Node node : nodes){
+            node.setLayoutX(buttonOffset);
+            node.setLayoutY(buttonOffsetTop + buttonOffset*scalar);
+            root.getChildren().add(node);
+            scalar++;
+        }
     }
 
     public void showError(Exception e) {

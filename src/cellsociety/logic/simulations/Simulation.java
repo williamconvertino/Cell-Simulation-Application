@@ -18,6 +18,8 @@ import java.util.Map;
  */
 public abstract class Simulation {
 
+
+
     //The neighborhood pattern of this simulation.
     private NeighborhoodPattern neighborhoodPattern;
 
@@ -46,7 +48,7 @@ public abstract class Simulation {
      * @param newGrid the array of values to initialize with.
      */
     protected void makeGrid(Grid newGrid) {
-        this.currentGrid = newGrid;
+        this.myGrid = newGrid;
     }
 
     /**
@@ -55,7 +57,7 @@ public abstract class Simulation {
      * @return the current grid_LEGACY state of the simulation.
      */
     public Grid getGrid() {
-        return currentGrid;
+        return myGrid;
     }
 
 
@@ -81,11 +83,16 @@ public abstract class Simulation {
     public void update() {
 
         for (Cell c: myGrid.getCellsToUpdate()) {
-
+            updateNextGridFromCell(c);
         }
+        myGrid.updateCells();
 
     }
 
+
+    public NeighborhoodPattern getNeighborhoodPattern() {
+        return neighborhoodPattern;
+    }
 
 
 }
