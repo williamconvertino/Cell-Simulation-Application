@@ -23,7 +23,7 @@ class ModelOfSegregationTest {
     private ModelOfSegregation mos;
 
     @Test
-    void linesTest() throws ClassNotFoundException, FileNotFoundError, InvalidFileFormatError, UnhandledExceptionError, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    void linesTest() {
         try {
             HashMap<String, String> metadata = (HashMap<String, String>) SIMFileReader.getMetadataFromFile(new File("data/segregation_model/lines.sim"));
             Class cls[] = new Class[]{int[][].class, ShapeManager.class};
