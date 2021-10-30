@@ -68,7 +68,7 @@ public class Controller {
       try {
       if (myLogicController.getActiveGrid()!=null) {
         int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid());
-        myLogicController.getCurrentSimulation().getGrid().changeCell(new Coordinate(s[0], s[1]), myLogicController.getSimulationDefaultValue());
+        //myLogicController.getCurrentSimulation().getGrid().changeCell(new Coordinate(s[0], s[1]), myLogicController.getSimulationDefaultValue());
       }} catch (Exception e) {}
     });
 

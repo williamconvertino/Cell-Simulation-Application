@@ -22,7 +22,7 @@ import javafx.scene.shape.Rectangle;
  * @author Quentin MacFarlane
  * @author Alexis Cruz-Ayala
  */
-public abstract class Display {
+public class Display {
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "cellsociety.resources.";
     public static final String DEFAULT_RESOURCE_FOLDER =
