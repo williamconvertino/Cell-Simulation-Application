@@ -28,7 +28,6 @@ public class RectangleDisplay extends Display{
         cellMap = new HashMap<>();
 
         for(int i = 0; i < cells.size(); i++){
-            resetGrid();
 
             Rectangle rectCell = new Rectangle(cells.get(i).getCoordinates().r() * (cellLength + cellOffset) + gridLeftOffset,
                     cells.get(i).getCoordinates().c() * (cellOffset + cellLength) + gridTopOffset, cellLength, cellLength);

@@ -103,6 +103,7 @@ public abstract class Display {
             root.getChildren().add(node);
             scalar++;
         }
+
     }
 
     public void showError(Exception e) {
