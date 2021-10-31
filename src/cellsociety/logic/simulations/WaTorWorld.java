@@ -66,7 +66,7 @@ public class WaTorWorld extends Simulation {
         } else if (cell.getCurrentState() == 2) { // if the cell is a shark
             if (cell.getAltStates() == null) {
                 cell.addState("Life", 1);
-                cell.addState("Life", initEnergy);
+                cell.addState("Energy", initEnergy);
             } else {
                 cell.addState("Life", cell.getAltStates().get("Life") + 1);
             }
@@ -119,6 +119,11 @@ public class WaTorWorld extends Simulation {
         if (cell.getAltStates().get("Life") == reproductionTime) {
             reproduce = true;
         }
+
+        // don't count neighbors that used to be fish but were eaten by a shark or if fish moved somewhere else
+        neighborsFish.removeIf(e->e.getNextState() != 1);
+        // don't count neighbors that used to be water but were filled by shark or fish
+        neighborsEmpty.removeIf(e->e.getNextState() != 0);
 
         if (neighborsFish.size() > 0) { // if there is a fish next to the shark
             // first, figure out which fish to eat

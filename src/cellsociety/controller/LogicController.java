@@ -149,9 +149,9 @@ public class LogicController {
   }
 
 //  //Returns a new WaTorWorld simulation.
-//  public Simulation Wator(int[][] grid, Map<String, String> metadata) {
-//    return new WaTorWorld(grid, metadata);
-//  }
+  public Simulation Wator(Grid grid, NeighborhoodPattern np, Map<String, String> metadata) {
+    return new WaTorWorld(grid, np, metadata);
+  }
 
     /**
      * Returns the current grid_LEGACY state of the currently loaded
