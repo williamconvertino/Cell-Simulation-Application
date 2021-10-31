@@ -2,8 +2,8 @@ package cellsociety.display;
 
 import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Coordinate;
-import cellsociety.logic.grid.Grid;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -11,14 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author Tim Jang
- */
+public class TriangleDisplay extends Display{
+    Map<Coordinate, Polygon> cellMap;
 
-public class RectangleDisplay extends Display{
-    Map<Coordinate, Rectangle> cellMap;
-
-    public RectangleDisplay(Stage stage, Color background){
+    public TriangleDisplay(Stage stage, Color background){
         super(stage, background);
     }
 
@@ -30,12 +26,12 @@ public class RectangleDisplay extends Display{
         for(int i = 0; i < cells.size(); i++){
             resetGrid();
 
-            Rectangle rectCell = new Rectangle(cells.get(i).getCoordinates().r() * (cellLength + cellOffset) + gridLeftOffset,
+            Polygon triangleCell = new Polygon(cells.get(i).getCoordinates().r() * (cellLength + cellOffset) + gridLeftOffset,
                     cells.get(i).getCoordinates().c() * (cellOffset + cellLength) + gridTopOffset, cellLength, cellLength);
 
-            cellMap.put(cells.get(i).getCoordinates(), rectCell);
+            cellMap.put(cells.get(i).getCoordinates(), triangleCell);
 
-            root.getChildren().add(rectCell);
+            root.getChildren().add(triangleCell);
         }
 
         updateScene(cells);
@@ -74,5 +70,4 @@ public class RectangleDisplay extends Display{
 
         //System.out.println(cellMap);
     }
-
 }
