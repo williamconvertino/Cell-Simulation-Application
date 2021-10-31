@@ -24,10 +24,44 @@ public class TriangleDisplay extends Display{
         cellMap = new HashMap<>();
 
         for(int i = 0; i < cells.size(); i++){
-            resetGrid();
 
-            Polygon triangleCell = new Polygon(cells.get(i).getCoordinates().r() * (cellLength + cellOffset) + gridLeftOffset,
-                    cells.get(i).getCoordinates().c() * (cellOffset + cellLength) + gridTopOffset, cellLength, cellLength);
+            Polygon triangleCell = new Polygon();
+
+            double posX = cells.get(i).getCoordinates().r() * (cellLength + cellOffset) + gridLeftOffset;
+            double posY = cells.get(i).getCoordinates().c() * (cellOffset + cellLength) + gridTopOffset;
+
+            Double[] trianglePositions = new Double[6];
+
+            if(cells.get(i).getCoordinates().c() % 2 == 0){
+                trianglePositions[0] = posX;
+                trianglePositions[1] = posY;
+                trianglePositions[2] = posX - cellLength/2;
+                trianglePositions[3] = posY + cellLength;
+                trianglePositions[4] = posX + cellLength/2;
+                trianglePositions[5] = posY + cellLength;
+
+                if(cells.get(i).getCoordinates().r() % 2 == 1){
+                    trianglePositions[1] = posY + cellLength;
+                    trianglePositions[3] = posY;
+                    trianglePositions[5] = posY;
+                }
+            }else{
+                trianglePositions[0] = posX;
+                trianglePositions[1] = posY + cellLength;
+                trianglePositions[2] = posX - cellLength/2;
+                trianglePositions[3] = posY;
+                trianglePositions[4] = posX + cellLength/2;
+                trianglePositions[5] = posY;
+
+                if(cells.get(i).getCoordinates().r() % 2 == 1){
+                    trianglePositions[1] = posY;
+                    trianglePositions[2] = posX - cellLength/2;
+                    trianglePositions[3] = posY + cellLength;
+                    trianglePositions[5] = posY + cellLength;
+                }
+            }
+
+            triangleCell.getPoints().addAll(trianglePositions);
 
             cellMap.put(cells.get(i).getCoordinates(), triangleCell);
 

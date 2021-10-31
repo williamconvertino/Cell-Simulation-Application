@@ -1,9 +1,6 @@
 package cellsociety.controller;
 
-import cellsociety.display.CircleDisplay;
-import cellsociety.display.ButtonManager;
-import cellsociety.display.Display;
-import cellsociety.display.RectangleDisplay;
+import cellsociety.display.*;
 import cellsociety.io.FileHandler;
 import java.io.File;
 import java.nio.file.Paths;
@@ -48,7 +45,7 @@ public class Controller {
 
   //Initializes the display components.
   private void initializeDisplay (Stage myStage) {
-    myDisplay = new CircleDisplay(myStage, Color.color(.50,.50,.80));
+    myDisplay = new TriangleDisplay(myStage, Color.color(.50,.50,.80));
     initializeButtons(myDisplay);
   }
 
