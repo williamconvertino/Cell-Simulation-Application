@@ -19,7 +19,6 @@ import javafx.scene.shape.Rectangle;
 
 /**
  * @author Tim Jang
- * @author William Convertino
  * @author Quentin MacFarlane
  * @author Alexis Cruz-Ayala
  */

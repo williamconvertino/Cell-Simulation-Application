@@ -7,8 +7,6 @@ public abstract class GridTest {
 
   Grid myGrid;
 
-  abstract void initialize();
 
-  abstract void testGetCell();
 
 }
