@@ -18,6 +18,7 @@ import java.util.Objects;
  *
  * @autahor William Convertino
  * @author Tim Jang
+ * @author Quentin MacFarlane
  *
  * @since 0.0.2
  */
