@@ -5,12 +5,23 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * An abstract parent class of the various ShapeManager classes. Has the ability
+ * to find specific types of neighbors for each shape.
+ *
+ * @author William Convertino
+ *
+ * @since 0.0.3
+ */
 public abstract class ShapeManager {
 
-  public ShapeManager(){
-
-  }
-
+  /**
+   * Given the coordinates of a cell, returns a list of the coordinates of its
+   * neighbors in every direction.
+   *
+   * @param cellCoordinates the coordinates of the cell whose neighbors you want to return.
+   * @return a list of the coordinates of all neighboring cells.
+   */
   public List<Coordinate> getAllNeighbors (Coordinate cellCoordinates) {
     HashSet<Coordinate> myNeighbors = new HashSet<>();
     myNeighbors.addAll(getAllNeighborsUp(cellCoordinates));
@@ -20,6 +31,12 @@ public abstract class ShapeManager {
     return (new LinkedList<>(myNeighbors));
   }
 
+  /**
+   *
+   *
+   * @param cellCoordinates
+   * @return
+   */
   public List<Coordinate> getNeighborsUL(Coordinate cellCoordinates) {
     List<Coordinate> myNeighbors = getAllNeighborsUp(cellCoordinates);
     HashSet<Coordinate> myNeighborsLeft = new HashSet<>(getAllNeighborsLeft(cellCoordinates));

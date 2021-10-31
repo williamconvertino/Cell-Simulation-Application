@@ -1,8 +1,17 @@
 package cellsociety.logic.grid;
 
+/**
+ * A data type to keep track of the coordinates of any given cell.
+ *
+ * @author William Convertino
+ *
+ * @since 0.0.3
+ */
 public record Coordinate(int r, int c) {
 
-  //Overrides the equals method to state that 2 coordinates are equal if they share the same values.
+  /**
+   * @see Object#equals(Object)
+   */
   @Override
   public boolean equals(Object o) {
     if (!(o instanceof Coordinate)) {
@@ -12,8 +21,9 @@ public record Coordinate(int r, int c) {
     return this == o || (this.r == oCoordinate.r && this.c == oCoordinate.c);
   }
 
-  //Overrides the hashCode method to create a new hashcode based on the coordinates.
-  //This will help distribute our coordinates in the map.
+  /**
+   * @see Object#hashCode()
+   */
   @Override
   public int hashCode() {
     return (r * 31) + c;
