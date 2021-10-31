@@ -2,11 +2,17 @@ package cellsociety.logic.grid;
 
 import cellsociety.logic.grid.Coordinate;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Objects;
+
 /**
  * A datatype to represent a cell in a grid. This class keeps track of a
  * cell's row, column, current and next state, and current and next alternate state.
  *
  * @author William Convertino
+ * @author Quentin MacFarlane
  *
  * @since 0.0.3
  */
@@ -21,11 +27,11 @@ public class Cell {
   //The next state of the cell.
   private int nextState;
 
-  //The current alternate state of the cell, useful for a variety of abstract implementations.
-  private int currentAltState;
+  //Map of alternate states of a cell, useful for a variety of abstract implementations.
+  private Map<String, Integer> altStates;
 
-  //The next alternate state of the cell, useful for a variety of abstract implementations.
-  private int nextAltState;
+  //The next alternate states of a cell
+  private Map<String, Integer> nextAltStates;
 
   /**
    * Constructs a new Cell at the specified coordinates with the given
@@ -34,32 +40,16 @@ public class Cell {
    * @param r the row of the cell.
    * @param c the column of the cell.
    * @param state the current state of the cell.
-   * @param altstate the current alternate state of the cell.
    */
-  public Cell(int r, int c, int state, int altstate) {
+  public Cell(int r, int c, int state) {
     this.myCoordinates = new Coordinate(r,c);
     this.currentState = state;
-    this.currentAltState = altstate;
     this.nextState = 0;
-    this.nextAltState = 0;
   }
 
   public Coordinate getCoordinates() {
     return myCoordinates;
   }
-
-  /**
-   * Constructs a new Cell at the specified coordinates with the given
-   * state. The alternate state is initialized to 0.
-   *
-   * @param r the row of the cell.
-   * @param c the column of the cell.
-   * @param state the current state of the cell
-   */
-  public Cell(int r, int c, int state) {
-    this(r,c,state,0);
-  }
-
 
   /**
    * Returns the current state of the cell.
@@ -97,42 +87,29 @@ public class Cell {
     this.nextState = state;
   }
 
-
-  /**
-   * Returns the current alternate state of the cell.
-   *
-   * @return the current alternate state of the cell.
-   */
-  public int getCurrentAltState() {
-    return this.currentAltState;
+  public Map<String, Integer> getAltStates() {
+    return altStates;
   }
 
-  /**
-   * Sets the value of this cell's alternate state to the specified state.
-   *
-   * @param state the new alternate state of this cell.
-   */
-  public void setCurrentAltState(int state) {
-    this.currentAltState = state;
+  public void setAltStates(Map<String, Integer> newStates) {
+    altStates = newStates;
   }
 
-  /**
-   * Returns the next alternate state of the cell.
-   *
-   * @return the next alternate state of the cell.
-   */
-  public int getNextAltState() {
-    return this.nextAltState;
+  public void addState(String state, int value) {
+    if (this.altStates == null) {
+      altStates = new HashMap<>();
+    }
+    altStates.put(state, value);
   }
 
-  /**
-   * Sets the value of this cell's next alternate state to the specified state.
-   *
-   * @param state the next alternate state of this cell.
-   */
-  public void setNextAltState(int state) {
-    this.nextAltState = state;
+  public Map<String, Integer> getNextAltStates() {
+    return nextAltStates;
   }
+
+  public void setNextAltStates(Map<String, Integer> updatedStates) {
+    nextAltStates = updatedStates;
+  }
+
 
   /**
    * @see Object#equals(Object)  
@@ -143,8 +120,21 @@ public class Cell {
       return false;
     }
     Cell c = (Cell) o;
-    return this == o || (this.currentState == c.currentState && this.currentAltState == c.currentAltState
+    boolean altStatesMatch = checkAltStatesEqual(this.getAltStates(), c.getAltStates());
+    return this == o || (this.currentState == c.currentState && altStatesMatch
         && this.getCoordinates().equals(c.getCoordinates()));
+  }
+
+  private boolean checkAltStatesEqual(Map<String, Integer> altStatesOne, Map<String, Integer> altStatesTwo) {
+    if (altStatesOne == null && altStatesTwo == null) {
+      return true;
+    } else if (altStatesOne == null || altStatesTwo == null) {
+      return false;
+    } else if (altStatesOne.keySet().equals(altStatesTwo.keySet()) &&
+            new ArrayList<>(altStatesOne.values()).equals(new ArrayList<>(altStatesTwo.values()))) {
+      return true;
+    }
+    return false;
   }
 
 }

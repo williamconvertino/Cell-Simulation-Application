@@ -115,9 +115,9 @@ public abstract class Grid {
    */
   public void moveCellTo(Cell sourceCell, Cell targetCell){
     targetCell.setNextState(sourceCell.getCurrentState());
-    targetCell.setNextAltState(sourceCell.getCurrentAltState());
+    targetCell.setNextAltStates(sourceCell.getAltStates());
     sourceCell.setNextState(0);
-    sourceCell.setNextAltState(0);
+    sourceCell.setNextAltStates(new HashMap<>());
   }
 
   public void changeCell(Cell c, int state){
@@ -137,9 +137,9 @@ public abstract class Grid {
     for (Coordinate coord: myCells.keySet()) {
       Cell c = myCells.get(coord);
       c.setCurrentState(c.getNextState());
-      c.setCurrentAltState(c.getNextAltState());
+      c.setAltStates(c.getNextAltStates());
       c.setNextState(0);
-      c.setNextAltState(0);
+      c.setNextAltStates(new HashMap<>());
     }
   }
 
