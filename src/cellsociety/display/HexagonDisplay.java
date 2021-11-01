@@ -16,29 +16,37 @@ public class HexagonDisplay extends Display{
 
     public HexagonDisplay(Stage stage, Color background){
         super(stage, background);
-        cellOffset += 20;
-        cellLength -=  10;
+        cellOffset =  cellLength*Math.cos(Math.toRadians(60)) + 10;
     }
 
     public void initializeGrid(List<Cell> cells){
         resetGrid();
 
         cellMap = new HashMap<>();
-
+        double extraOffset = 0;
         for(int i = 0; i < cells.size(); i++){
             Polygon hexagon = new Polygon();
-            double startX = cells.get(i).getCoordinates().r() * (cellLength + cellOffset) + gridLeftOffset;
-            double startY = cells.get(i).getCoordinates().c() * (cellOffset + cellLength) + gridTopOffset;
+            extraOffset = (cells.get(i).getCoordinates().c()%2 == 1) ? cellLength : 0;
+            double startX = cells.get(i).getCoordinates().r() * (cellLength + cellOffset) + gridLeftOffset + extraOffset;
+            double startY = cells.get(i).getCoordinates().c() * (cellLength + cellLength*Math.sin(Math.toRadians(60))) + gridTopOffset;
             //*Math.sin(Math.toRadians(60))
+//            hexagon.getPoints().addAll(new Double[]{
+//                    startX, startY,
+//                    startX + cellLength, startY,
+//                    startX + cellLength + cellLength*Math.cos(Math.toRadians(60)), startY + cellLength*Math.sin(Math.toRadians(60)),
+//                    startX + cellLength, startY + 2*cellLength*Math.sin(Math.toRadians(60)),
+//                    startX, startY + 2*cellLength*Math.sin(Math.toRadians(60)),
+//                    startX - cellLength*Math.cos(Math.toRadians(60)), startY + cellLength*Math.sin(Math.toRadians(60)),
+//            });
+
             hexagon.getPoints().addAll(new Double[]{
                     startX, startY,
-                    startX + cellLength, startY,
-                    startX + cellLength + cellLength*Math.cos(Math.toRadians(60)), startY + cellLength*Math.sin(Math.toRadians(60)),
-                    startX + cellLength, startY + 2*cellLength*Math.sin(Math.toRadians(60)),
-                    startX, startY + 2*cellLength*Math.sin(Math.toRadians(60)),
-                    startX - cellLength*Math.cos(Math.toRadians(60)), startY + cellLength*Math.sin(Math.toRadians(60)),
+                    startX + cellLength*Math.cos(Math.toRadians(30)), startY - cellLength*Math.sin(Math.toRadians(30)),
+                    startX + 2*cellLength*Math.cos(Math.toRadians(30)), startY,
+                    startX + 2*cellLength*Math.cos(Math.toRadians(30)), startY + cellLength,
+                    startX + cellLength*Math.cos(Math.toRadians(30)), startY + cellLength + cellLength*Math.sin(Math.toRadians(30)),
+                    startX, startY + cellLength,
             });
-
             cellMap.put(cells.get(i).getCoordinates(), hexagon);
 
             root.getChildren().add(hexagon);
