@@ -42,6 +42,19 @@ public class ButtonManager {
         myFileChoser.setInitialDirectory(
             new File(Paths.get(".").toAbsolutePath().normalize() + "/data"));
         myController.loadFile(myFileChoser.showOpenDialog(myStage), myLogicController, myLogicController.getStage());
+        myLogicController.getStage().getScene().setOnMouseClicked(mouseEvent -> {
+          System.out.println("clicking");
+          try {
+            if (myLogicController.getActiveGrid()!=null) {
+              Coordinate coordinate = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid().getCellsToUpdate());
+              myLogicController.getCurrentSimulation().getGrid().changeCell(coordinate, 2);
+              myLogicController.getActiveGrid().updateCells();
+            }
+            System.out.println("It's clicking");
+          } catch (Exception br) {
+            System.out.println("error");
+          }
+        });
       } catch (Exception exception) {
       }
     });
