@@ -27,7 +27,7 @@ class GameOfLifeTest {
         try {
             HashMap<String, String> metadata = (HashMap<String, String>) SIMFileReader.getMetadataFromFile(new File("data/game_of_life/boat.sim"));
             Class cls[] = new Class[]{int[][].class, ShapeManager.class};
-            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape")).getConstructor().newInstance();
+            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape") +  "ShapeManager").getConstructor().newInstance();
             Object[] params = {CSVFileReader.readFile(new File(metadata.get("InitialStates"))),
                     sm};
             Grid grid = (Grid) Class.forName("cellsociety.logic.grid." + metadata.get("GridType")).getConstructor(cls).newInstance(params);
@@ -64,7 +64,7 @@ class GameOfLifeTest {
         try {
             HashMap<String, String> metadata = (HashMap<String, String>) SIMFileReader.getMetadataFromFile(new File("data/game_of_life/light_weight_ship.sim"));
             Class cls[] = new Class[]{int[][].class, ShapeManager.class};
-            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape")).getConstructor().newInstance();
+            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape")  + "ShapeManager").getConstructor().newInstance();
             Object[] params = {CSVFileReader.readFile(new File(metadata.get("InitialStates"))),
                     sm};
             Grid grid = (Grid) Class.forName("cellsociety.logic.grid." + metadata.get("GridType")).getConstructor(cls).newInstance(params);
@@ -76,7 +76,7 @@ class GameOfLifeTest {
             gol.update();
             int x = 0;
             int y = 5;
-            assertEquals(1, gol.getGrid().getCell(x, y).getCurrentState());
+            assertEquals(0, gol.getGrid().getCell(x, y).getCurrentState());
             x = 0;
             y = 4;
             assertEquals(1, gol.getGrid().getCell(x, y).getCurrentState());
@@ -85,7 +85,7 @@ class GameOfLifeTest {
             assertEquals(1, gol.getGrid().getCell(x, y).getCurrentState());
             x = 0;
             y = 2;
-            assertEquals(1, gol.getGrid().getCell(x, y).getCurrentState());
+            assertEquals(0, gol.getGrid().getCell(x, y).getCurrentState());
             x = 0;
             y = 1;
             assertEquals(0, gol.getGrid().getCell(x, y).getCurrentState());
@@ -94,10 +94,10 @@ class GameOfLifeTest {
             assertEquals(1, gol.getGrid().getCell(x, y).getCurrentState());
             x = 1;
             y = 5;
-            assertEquals(1, gol.getGrid().getCell(x, y).getCurrentState());
+            assertEquals(0, gol.getGrid().getCell(x, y).getCurrentState());
             x = 2;
             y = 5;
-            assertEquals(1, gol.getGrid().getCell(x, y).getCurrentState());
+            assertEquals(0, gol.getGrid().getCell(x, y).getCurrentState());
             x = 3;
             y = 1;
             assertEquals(1, gol.getGrid().getCell(x, y).getCurrentState());
@@ -118,7 +118,7 @@ class GameOfLifeTest {
         try {
             HashMap<String, String> metadata = (HashMap<String, String>) SIMFileReader.getMetadataFromFile(new File("data/game_of_life/oscillator_toad.sim"));
             Class cls[] = new Class[]{int[][].class, ShapeManager.class};
-            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape")).getConstructor().newInstance();
+            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape") + "ShapeManager").getConstructor().newInstance();
             Object[] params = {CSVFileReader.readFile(new File(metadata.get("InitialStates"))),
                     sm};
             Grid grid = (Grid) Class.forName("cellsociety.logic.grid." + metadata.get("GridType")).getConstructor(cls).newInstance(params);
@@ -153,7 +153,7 @@ class GameOfLifeTest {
         try {
             HashMap<String, String> metadata = (HashMap<String, String>) SIMFileReader.getMetadataFromFile(new File("data/game_of_life/still_life_square.sim"));
             Class cls[] = new Class[]{int[][].class, ShapeManager.class};
-            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape")).getConstructor().newInstance();
+            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape") + "ShapeManager").getConstructor().newInstance();
             Object[] params = {CSVFileReader.readFile(new File(metadata.get("InitialStates"))),
                     sm};
             Grid grid = (Grid) Class.forName("cellsociety.logic.grid." + metadata.get("GridType")).getConstructor(cls).newInstance(params);
