@@ -3,7 +3,11 @@ package cellsociety.io;
 import cellsociety.logic.grid.Coordinate;
 import cellsociety.logic.grid.Grid;
 import com.opencsv.CSVWriter;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,18 +19,23 @@ import java.util.List;
  */
 public class FileHandler {
 
+    private static FileChooser fChooser = new FileChooser();
+
     /**
      * saves the current grid_LEGACY configuration to a CSV file for the user to upload later
      * @param grid the grid_LEGACY configuration to be saved to a new CSV file
-     * @param fileName the file name of the file that will be saved
+     * @param stage the window that we are currently in
      */
-    public static void saveFile(Grid grid, String fileName) {
+    public static void saveFile(Grid grid, Stage stage) {
         List<String[]> csvData = createCsvData(grid);
 
-
+        fChooser.setTitle("Save File Dialog");
+        fChooser.setInitialFileName("mysave");
+        fChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("csv file", "*.csv"));
+        File file = fChooser.showSaveDialog(stage);
         // default separator is a comma
-        try (FileWriter outputfile = new FileWriter(fileName);
-             CSVWriter writer = new CSVWriter(outputfile, ',',
+        try (FileWriter outputFile = new FileWriter(file);
+             CSVWriter writer = new CSVWriter(outputFile, ',',
                      CSVWriter.NO_QUOTE_CHARACTER,
                      CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                      CSVWriter.DEFAULT_LINE_END)) {

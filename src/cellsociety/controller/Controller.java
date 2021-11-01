@@ -72,7 +72,7 @@ public class Controller {
    * Saves the display's grid to a CVS file.
    */
   public void saveCurrentGrid(LogicController logicController) {
-    FileHandler.saveFile(logicController.getActiveGrid(), "data/game_of_life/user_file.csv");
+    FileHandler.saveFile(logicController.getActiveGrid(), myStage);
   }
 
   /**
