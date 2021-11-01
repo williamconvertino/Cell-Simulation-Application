@@ -124,4 +124,8 @@ public abstract class Display {
         alert.setContentText(errorMessage);
         alert.show();
     }
+
+    public Stage getMyStage() {
+        return myStage;
+    }
 }

@@ -3,7 +3,6 @@ package cellsociety.controller;
 import cellsociety.Main;
 import cellsociety.display.*;
 import cellsociety.errors.InvalidSimulationTypeError;
-import cellsociety.errors.MissingSimulationArgumentError;
 import cellsociety.io.FileHandler;
 import java.io.File;
 
@@ -31,6 +30,9 @@ public class Controller {
   //The current display class of our program.
   private Display myDisplay;
 
+  //The main logic controller.
+  private LogicController myLogicController;
+
   //The current algorithm with which the grid_LEGACY should be updated.
   private List<LogicController> myLogicControllers;
 
@@ -44,12 +46,8 @@ public class Controller {
   public Controller(Stage myStage) {
     this.myStage = myStage;
     this.myLogicControllers = new ArrayList<>();
-    try {
-      myDisplay = initializeDisplay( "Square", myStage);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    initializeButtons(myDisplay, new LogicController());
+    this.myLogicController = new LogicController();
+    loadNewDisplay(new File("data/game_of_life/default.sim"));
   }
 
   //Initializes the display components.
@@ -71,7 +69,7 @@ public class Controller {
   }
 
   /**
-   * Saves the display's grid_LEGACY to a CVS file.
+   * Saves the display's grid to a CVS file.
    */
   public void saveCurrentGrid(LogicController logicController) {
     FileHandler.saveFile(logicController.getActiveGrid(), "data/game_of_life/user_file.csv");
@@ -82,11 +80,11 @@ public class Controller {
    *
    * @param file the SIM file with the simulation's information.
    */
-  public void loadFile(File file, LogicController logicController) {
+  public void loadFile(File file, LogicController logicController, Stage stage) {
     try {
-
       logicController.resetDisplay();
       logicController.initializeFromFile(file);
+      logicController.setDisplay(initializeDisplay( logicController.getMetaData().get("Shape"), stage));
     } catch (Exception e) {
       myDisplay.showError(e);
     }
@@ -103,7 +101,7 @@ public class Controller {
       newStage.setTitle(Main.WINDOW_NAME);
       Display newDisplay = initializeDisplay(shape, newStage);
       initializeButtons(newDisplay, newLogicController);
-      newLogicController.addDisplay(newDisplay);
+      newLogicController.setDisplay(newDisplay);
       myLogicControllers.add(newLogicController);
       newStage.show();
       //initializeButtons(myDisplay);

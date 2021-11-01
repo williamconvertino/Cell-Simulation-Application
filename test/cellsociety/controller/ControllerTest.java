@@ -33,7 +33,7 @@ class ControllerTest extends DukeApplicationTest {
 
         try {
             File workingFile = new File("./data/game_of_life/glider.sim");
-            testController.loadFile(workingFile, new LogicController());
+            testController.loadFile(workingFile, new LogicController(), new Stage());
             assertTrue(true);
         } catch (Exception e) {
             fail();
@@ -41,7 +41,7 @@ class ControllerTest extends DukeApplicationTest {
 
         try {
             File nonWorkingFile = new File("./data/game_of_life/blinkers.cvs");
-            testController.loadFile(nonWorkingFile, new LogicController());
+            testController.loadFile(nonWorkingFile, new LogicController(), new Stage());
             fail();
         } catch (Exception e) {
             assertTrue(true);
