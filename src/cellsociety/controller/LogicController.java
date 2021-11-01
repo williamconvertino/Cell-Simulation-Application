@@ -58,6 +58,7 @@ public class LogicController {
 
     //Initializes a cycle executor to run the simulation's update method at a specified interval.
     private void initializeCycles(int delay) {
+
         boolean oldPauseState = isPaused;
         this.isPaused = true;
         if (cycleExecutor != null) {
@@ -65,7 +66,12 @@ public class LogicController {
         }
         this.cycleRunnable = () -> {
             if (currentSimulation != null && !isPaused) {
+              try {
                 currentSimulation.update();
+              } catch (Exception e) {
+                e.printStackTrace();
+              }
+
             }
         };
         cycleExecutor = Executors.newScheduledThreadPool(1);

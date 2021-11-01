@@ -75,7 +75,7 @@ public class WaTorWorld extends Simulation {
         if (cell.getAltStates() == null) {
             cell.addState(life, 1);
         } else {
-            cell.addState(life, cell.getAltStates().get(life) + 1);
+            cell.addState(life, cell.getAltStates().getOrDefault(life,0) + 1);
         }
     }
 
