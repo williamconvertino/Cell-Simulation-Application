@@ -13,10 +13,10 @@ public class CardinalNeighborPattern extends NeighborhoodPattern{
     @Override
     public List<Coordinate> getNeighborhoodGroup(Coordinate myCenter, ShapeManager myShape) {
         ArrayList<Coordinate> result = new ArrayList<>();
-        result.addAll(myShape.getAllNeighborsUp(myCenter));
-        result.addAll(myShape.getAllNeighborsLeft(myCenter));
-        result.addAll(myShape.getAllNeighborsDown(myCenter));
-        result.addAll(myShape.getAllNeighborsRight(myCenter));
+        result.addAll(myShape.getNeighborsUp(myCenter));
+        result.addAll(myShape.getNeighborsLeft(myCenter));
+        result.addAll(myShape.getNeighborsDown(myCenter));
+        result.addAll(myShape.getNeighborsRight(myCenter));
         return result;
     }
 }
