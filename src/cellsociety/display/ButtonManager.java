@@ -53,7 +53,7 @@ public class ButtonManager {
       } catch (Exception exception) {
       }
     });
-
+//
 //    myStage.getScene().setOnMouseClicked(mouseEvent -> {
 //      try {
 //      if (myLogicController.getActiveGrid()!=null) {
