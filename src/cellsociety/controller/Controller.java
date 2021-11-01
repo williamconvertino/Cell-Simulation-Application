@@ -45,7 +45,7 @@ public class Controller {
 
   //Initializes the display components.
   private void initializeDisplay (Stage myStage) {
-    myDisplay = new TriangleDisplay(myStage, Color.color(.50,.50,.80));
+    myDisplay = new RectangleDisplay(myStage, Color.color(.50,.50,.80));
     initializeButtons(myDisplay);
   }
 

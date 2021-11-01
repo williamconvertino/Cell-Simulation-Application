@@ -6,7 +6,7 @@ import cellsociety.logic.shapes.ShapeManager;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Toroidal extends Grid{
+public class ToroidalGrid extends Grid{
 
 
 
@@ -16,7 +16,7 @@ public class Toroidal extends Grid{
      * @param states
      * @param shapeManager
      */
-    public Toroidal(int[][] states, ShapeManager shapeManager) {
+    public ToroidalGrid(int[][] states, ShapeManager shapeManager) {
         super(states, shapeManager);
     }
 
