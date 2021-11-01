@@ -58,7 +58,7 @@ public class ButtonManager {
       }
     });
 
-    myStage.getScene().setOnMouseClicked(mouseEvent -> {
+    myStage.getScene().getRoot().setOnMouseClicked(mouseEvent -> {
       try {
         if (myLogicController.getActiveGrid()!=null) {
           Coordinate coordinate = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid().getCellsToUpdate());
