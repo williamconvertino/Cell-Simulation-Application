@@ -35,10 +35,10 @@ public class Percolation extends Simulation {
     protected void updateNextGridFromCell(Cell cell) {
 
         List<Cell> neighbors = getGrid().getNeighbors(cell, new CardinalNeighborPattern());
-        if(neighbors.get(1) == null && cell.getCurrentState() == 0){
+        if(neighbors.get(0) == null && cell.getCurrentState() == 0){
             getGrid().changeCell(cell, 1, cell.getAltStates());
-        } else if(neighbors.get(1) != null){
-            if ((neighbors.get(1).getCurrentState() == 1) && cell.getCurrentState() == 0) {
+        } else if(neighbors.get(0) != null){
+            if ((neighbors.get(0).getCurrentState() == 1) && cell.getCurrentState() == 0) {
                 getGrid().changeCell(cell, 1, cell.getAltStates());
             } else {
                 getGrid().changeCell(cell, cell.getCurrentState(), cell.getAltStates());

@@ -22,11 +22,13 @@ public class InfiniteGrid extends Grid{
     @Override
     public List<Cell> getNeighbors(Cell cell, NeighborhoodPattern myPattern) {
         List<Coordinate> potentialNeighbors = generateNeighborCoordinates(cell, myPattern);
-        List<Cell> myNeighbors = new LinkedList<>();
-        for (Coordinate coord: potentialNeighbors) {
-            if(coord.r() < 0 || coord.r() > getHeight() || coord.c() < 0 || coord.c() > getWidth()){
+        potentialNeighbors.forEach(coord ->{
+            if(coord.c() > getWidth() || coord.r() > getHeight()){
                 addCellIfAbsent(coord.r(), coord.c(), 0);
             }
+        });
+        List<Cell> myNeighbors = new LinkedList<>();
+        for (Coordinate coord: potentialNeighbors) {
             myNeighbors.add(getCell(coord.r(), coord.c()));
         }
         return myNeighbors;
