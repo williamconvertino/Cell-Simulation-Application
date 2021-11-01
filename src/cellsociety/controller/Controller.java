@@ -60,7 +60,9 @@ public class Controller {
       Display newDisplay = (Display) Class.forName("cellsociety.display." + displayType + "Display")
           .getConstructor(Stage.class, Color.class)
           .newInstance(myStage, Color.color(.50, .50, .80));
+
       return newDisplay;
+
     } catch (Exception e) {
       throw new InvalidSimulationTypeError(displayType);
     }
@@ -100,7 +102,7 @@ public class Controller {
     try {
       logicController.resetDisplay();
       logicController.initializeFromFile(file);
-      logicController.setDisplay(initializeDisplay( logicController.getMetaData().get("Shape"), stage));
+      logicController.setDisplay(initializeDisplay(logicController.getMetaData().get("Shape"), stage));
     } catch (Exception e) {
       myDisplay.showError(e);
     }

@@ -41,8 +41,5 @@ public class FiniteGridTest extends GridTest {
     assertEquals(myGrid.getNeighbors(myGrid.getCell(1,1), new CardinalNeighborPattern()).get(1).getCurrentState(), new Cell(1,0,0).getCurrentState());
     assertEquals(myGrid.getNeighbors(myGrid.getCell(1,1), new CardinalNeighborPattern()).get(2).getCurrentState(), new Cell(2,1,0).getCurrentState());
     assertEquals(myGrid.getNeighbors(myGrid.getCell(1,1), new CardinalNeighborPattern()).get(3).getCurrentState(), new Cell(1,2,0).getCurrentState());
-
   }
-
-
 }

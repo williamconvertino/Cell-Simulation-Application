@@ -109,6 +109,16 @@ public class TriangleDisplay extends Display{
     }
 
     public Coordinate changeCell(double mouseX, double mouseY, List<Cell> cells) {
+        for(int index = 0; index < cells.size(); index++){
+            double corrX = cells.get(index).getCoordinates().r() * (cellLength + cellOffset) + gridLeftOffset;
+            double corrY = cells.get(index).getCoordinates().r() * (cellOffset + cellLength) + gridTopOffset;
+            if(((corrX + cellLength) >= mouseX
+                    && (corrY + cellLength) >= mouseY
+                    && corrX <= mouseX + cellLength
+                    && (corrY <= (mouseY + cellLength)))){
+                return cells.get(index).getCoordinates();
+            }
+        }
 //        for (int x = 0; x < grid.getWidth(); x++) {
 //            for (int y = 0; y < grid.getHeight(); y++) {
 //                double corrX = x * (cellLength + cellOffset) + gridLeftOffset;
