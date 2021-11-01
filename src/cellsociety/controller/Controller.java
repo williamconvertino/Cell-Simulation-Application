@@ -64,7 +64,7 @@ public class Controller {
   public void loadFile(File file) {
     try {
       myLogicController.initializeFromFile(file);
-      myDisplay = (Display) Class.forName("cellsociety.display." + myLogicController.getMetaData().get("Shapes") + "Display")
+      myDisplay = (Display) Class.forName("cellsociety.display." + myLogicController.getMetaData().get("Shape") + "Display")
               .getConstructor(Stage.class, Color.class)
               .newInstance(myStage, Color.color(.50,.50,.80));
     } catch (Exception e) {
