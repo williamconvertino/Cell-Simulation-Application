@@ -1,5 +1,6 @@
 package cellsociety.logic.grid;
 
+import cellsociety.logic.neighborhoodpatterns.CardinalNeighborPattern;
 import cellsociety.logic.shapes.SquareShapeManager;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,7 +32,15 @@ public class FiniteGridTest extends GridTest {
 
   @Test
   void testGetNeighbors() {
+    assertEquals(myGrid.getNeighbors(myGrid.getCell(1,1), new CardinalNeighborPattern()).get(0).getCoordinates(), new Cell(0,1,0).getCoordinates());
+    assertEquals(myGrid.getNeighbors(myGrid.getCell(1,1), new CardinalNeighborPattern()).get(1).getCoordinates(), new Cell(1,0,0).getCoordinates());
+    assertEquals(myGrid.getNeighbors(myGrid.getCell(1,1), new CardinalNeighborPattern()).get(2).getCoordinates(), new Cell(2,1,0).getCoordinates());
+    assertEquals(myGrid.getNeighbors(myGrid.getCell(1,1), new CardinalNeighborPattern()).get(3).getCoordinates(), new Cell(1,2,0).getCoordinates());
 
+    assertEquals(myGrid.getNeighbors(myGrid.getCell(1,1), new CardinalNeighborPattern()).get(0).getCurrentState(), new Cell(0,1,0).getCurrentState());
+    assertEquals(myGrid.getNeighbors(myGrid.getCell(1,1), new CardinalNeighborPattern()).get(1).getCurrentState(), new Cell(1,0,0).getCurrentState());
+    assertEquals(myGrid.getNeighbors(myGrid.getCell(1,1), new CardinalNeighborPattern()).get(2).getCurrentState(), new Cell(2,1,0).getCurrentState());
+    assertEquals(myGrid.getNeighbors(myGrid.getCell(1,1), new CardinalNeighborPattern()).get(3).getCurrentState(), new Cell(1,2,0).getCurrentState());
 
   }
 
