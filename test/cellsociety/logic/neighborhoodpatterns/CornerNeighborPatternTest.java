@@ -18,7 +18,7 @@ class CornerNeighborPatternTest {
     Grid squareGrid;
     Grid triangleGrid;
     Grid hexagonGrid;
-    CardinalNeighborPattern cnp = new CardinalNeighborPattern();
+    CornerNeighborPattern cnp = new CornerNeighborPattern();
 
     @BeforeEach
     void initialize() {

@@ -29,16 +29,6 @@ public class HexagonDisplay extends Display{
             extraOffset = (cells.get(i).getCoordinates().c()%2 == 1) ? cellLength : 0;
             double startX = cells.get(i).getCoordinates().r() * (cellLength + cellOffset) + gridLeftOffset + extraOffset;
             double startY = cells.get(i).getCoordinates().c() * (cellLength + cellLength*Math.sin(Math.toRadians(60))) + gridTopOffset;
-            //*Math.sin(Math.toRadians(60))
-//            hexagon.getPoints().addAll(new Double[]{
-//                    startX, startY,
-//                    startX + cellLength, startY,
-//                    startX + cellLength + cellLength*Math.cos(Math.toRadians(60)), startY + cellLength*Math.sin(Math.toRadians(60)),
-//                    startX + cellLength, startY + 2*cellLength*Math.sin(Math.toRadians(60)),
-//                    startX, startY + 2*cellLength*Math.sin(Math.toRadians(60)),
-//                    startX - cellLength*Math.cos(Math.toRadians(60)), startY + cellLength*Math.sin(Math.toRadians(60)),
-//            });
-
             hexagon.getPoints().addAll(new Double[]{
                     startX, startY,
                     startX + cellLength*Math.cos(Math.toRadians(30)), startY - cellLength*Math.sin(Math.toRadians(30)),
