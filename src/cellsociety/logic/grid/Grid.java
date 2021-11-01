@@ -120,8 +120,9 @@ public abstract class Grid {
     sourceCell.setNextAltStates(new HashMap<>());
   }
 
-  public void changeCell(Cell c, int state){
+  public void changeCell(Cell c, int state, Map<String, Integer> currentAltStates){
     myCells.get(c.getCoordinates()).setNextState(state);
+    myCells.get(c.getCoordinates()).setNextAltStates(currentAltStates);
   }
 
   public void changeCell(Coordinate c, int state){

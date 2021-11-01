@@ -6,10 +6,7 @@ import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
 import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.List;
-import java.util.Collections;
+import java.util.*;
 
 /**
  * @author Quentin MacFarlane
@@ -59,9 +56,11 @@ public class WaTorWorld extends Simulation {
             incrementSharkLife(cell);
 
             List<Cell> neighborsFish = getGrid().getNeighbors(cell, getNeighborhoodPattern());
+            neighborsFish.removeIf(Objects::isNull);
             neighborsFish.removeIf(e->e.getCurrentState() == 0 || e.getCurrentState() == 2);
 
             List<Cell> neighborsEmpty = getGrid().getNeighbors(cell, getNeighborhoodPattern());
+            neighborsEmpty.removeIf(Objects::isNull);
             neighborsEmpty.removeIf(e->e.getCurrentState() == 1 || e.getCurrentState() == 2);
 
             eatFishOrMove(neighborsFish, neighborsEmpty, cell);
@@ -100,13 +99,15 @@ public class WaTorWorld extends Simulation {
      */
     private void moveFish(List<Cell> neighbors, Cell cell) {
         boolean reproduce = checkIfReproduce(cell);
+//        neighbors.removeIf(e->e.getNextState() != 0);
 
         if (neighbors.size() > 0) {
             Collections.shuffle(neighbors);
             getGrid().moveCellTo(cell, neighbors.get(0));
+            cell.setAltStates(new HashMap<>());
             reproduceFish(reproduce, cell);
         } else {
-            getGrid().changeCell(cell, cell.getCurrentState());
+            getGrid().changeCell(cell, cell.getCurrentState(), cell.getAltStates());
         }
     }
 
@@ -129,8 +130,9 @@ public class WaTorWorld extends Simulation {
      */
     private void reproduceFish(boolean reproduce, Cell cell) {
         if (reproduce) {
-            getGrid().changeCell(cell, 1);
+            getGrid().changeCell(cell, 1, new HashMap<>());
             cell.addState(life, 1);
+            cell.setNextAltStates(cell.getAltStates());
         }
     }
 
@@ -141,7 +143,7 @@ public class WaTorWorld extends Simulation {
      */
     private void reproduceShark(boolean reproduce, Cell cell) {
         if (reproduce) {
-            getGrid().changeCell(cell, 1);
+            getGrid().changeCell(cell, 1, new HashMap<>());
             cell.addState(life, 1);
             cell.addState(energy, initEnergy);
         }
@@ -155,8 +157,8 @@ public class WaTorWorld extends Simulation {
      */
     private void eatFishOrMove(List<Cell> neighborsFish, List<Cell> neighborsEmpty, Cell cell) {
         boolean reproduce = checkIfReproduce(cell);
-        neighborsFish.removeIf(e->e.getNextState() != 1);
-        neighborsEmpty.removeIf(e->e.getNextState() != 0);
+//        neighborsFish.removeIf(e->e.getNextState() != 1);
+//        neighborsEmpty.removeIf(e->e.getNextState() != 0);
 
         if (neighborsFish.size() > 0) { // if there is a fish next to the shark
             Collections.shuffle(neighborsFish);
@@ -164,11 +166,12 @@ public class WaTorWorld extends Simulation {
             int prevEnergy = cell.getAltStates().get(energy);
             cell.addState(energy, prevEnergy + energyPerFish - 1);
             getGrid().moveCellTo(cell, neighborsFish.get(0));
+            neighborsFish.get(0).setCurrentState(0);
             reproduceShark(reproduce, cell);
 
         } else if (neighborsEmpty.size() > 0) { // if there is an empty water spot next to the shark
             Collections.shuffle(neighborsEmpty);
-            decrementEnergyOnMove(cell);
+            decrementEnergyOnMove(cell, neighborsEmpty);
             reproduceShark(reproduce, cell);
 
         } else {
@@ -180,13 +183,13 @@ public class WaTorWorld extends Simulation {
      * Reduces the energy of a shark by 1 if it moved
      * @param cell shark cell we are iterating over
      */
-    private void decrementEnergyOnMove(Cell cell) {
+    private void decrementEnergyOnMove(Cell cell, List<Cell> neighborsEmpty) {
         int prevEnergy = cell.getAltStates().get(energy);
         cell.addState(energy, prevEnergy - 1);
         if (cell.getAltStates().get(energy) == 0) {
             getGrid().moveCellTo(cell, cell);
         } else {
-            getGrid().changeCell(cell, cell.getCurrentState());
+            getGrid().moveCellTo(cell, neighborsEmpty.get(0));
         }
     }
 
@@ -200,7 +203,7 @@ public class WaTorWorld extends Simulation {
         if (cell.getAltStates().get(energy) == 0) {
             getGrid().moveCellTo(cell, cell);
         } else {
-            getGrid().changeCell(cell, cell.getCurrentState());
+            getGrid().changeCell(cell, cell.getCurrentState(), cell.getAltStates());
         }
     }
 }

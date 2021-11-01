@@ -56,11 +56,11 @@ public class FireSpreading extends Simulation {
 
         }
         if (rand.nextDouble() < probCatch * Collections.frequency(neighborStates, 2) && cell.getCurrentState() == 1) {
-            getGrid().changeCell(cell,  2);
+            getGrid().changeCell(cell,  2, cell.getAltStates());
         } else if (cell.getCurrentState() == 2) {
-            getGrid().changeCell(cell,  0);
+            getGrid().changeCell(cell,  0, cell.getAltStates());
         } else {
-            getGrid().changeCell(cell,  cell.getCurrentState());
+            getGrid().changeCell(cell,  cell.getCurrentState(), cell.getAltStates());
         }
     }
 }

@@ -36,11 +36,11 @@ public class GameOfLife extends Simulation {
         neighbors.removeIf(e->e == null || e.getCurrentState() == 0);
 
         if (neighbors.size() == 2) {
-            getGrid().changeCell(cell, cell.getCurrentState());
+            getGrid().changeCell(cell, cell.getCurrentState(), cell.getAltStates());
         } else if (neighbors.size() == 3) {
-            getGrid().changeCell(cell, 1);
+            getGrid().changeCell(cell, 1, cell.getAltStates());
         } else {
-            getGrid().changeCell(cell, 0);
+            getGrid().changeCell(cell, 0, cell.getAltStates());
         }
     }
 

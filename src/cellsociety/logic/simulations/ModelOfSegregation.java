@@ -65,9 +65,9 @@ public class ModelOfSegregation extends Simulation {
         myNeighbors.removeIf(e->getGrid().getCell(e.getCoordinates().r(), e.getCoordinates().c()).getCurrentState()!=0);
         if (different != 0 && (similar/different) < satisfactionRate && myNeighbors.size() > 0) {
             Collections.shuffle(myNeighbors);
-            getGrid().changeCell(myNeighbors.get(0), cell.getCurrentState());
+            getGrid().changeCell(myNeighbors.get(0), cell.getCurrentState(), cell.getAltStates());
         } else {
-            getGrid().changeCell(cell, cell.getCurrentState());
+            getGrid().changeCell(cell, cell.getCurrentState(), cell.getAltStates());
         }
     }
 
