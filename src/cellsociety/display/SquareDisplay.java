@@ -7,9 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Tim Jang
@@ -24,6 +22,7 @@ public class SquareDisplay extends Display{
 
     public void initializeGrid(List<Cell> cells){
         resetGrid();
+
 
         cellMap = new HashMap<>();
 

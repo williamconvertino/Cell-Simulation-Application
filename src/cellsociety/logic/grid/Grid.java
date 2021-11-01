@@ -60,6 +60,12 @@ public abstract class Grid {
    * @param state the state of the new cell.
    */
   public void addCellIfAbsent(int r, int c, int state) {
+    Coordinate newCell = new Coordinate(r,c);
+    for(Coordinate cell : myCells.keySet()){
+      if(cell == newCell){
+        return;
+      }
+    }
     myCells.putIfAbsent(new Coordinate(r,c), new Cell(r,c,state));
   }
 
