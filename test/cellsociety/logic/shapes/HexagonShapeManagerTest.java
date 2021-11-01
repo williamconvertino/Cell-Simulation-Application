@@ -15,6 +15,15 @@ class HexagonShapeManagerTest extends ShapeManagerTest {
     Coordinate cd1 = new Coordinate(1,0);
     Coordinate cd2 = new Coordinate(1,1);
 
+    @Test
+    void testCardinalDirections() {
+        assertUpNeighbors(cu1, cu2);
+        assertDownNeighbors(cd1, cd2);
+        assertLeftNeighbors(cl);
+        assertRightNeighbors(cr);
+    }
+    
+
 
     @Test
     void testAllDirections() {
