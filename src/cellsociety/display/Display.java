@@ -66,6 +66,7 @@ public abstract class Display {
         cellOffset = Double.parseDouble(propertyResources.getString("CELL_OFFSET"));
         buttonOffset = Integer.parseInt(propertyResources.getString("BUTTON_OFFSET"));
         buttonOffsetTop = Integer.parseInt(propertyResources.getString("BUTTON_OFFSET_TOP"));
+
     }
 
 

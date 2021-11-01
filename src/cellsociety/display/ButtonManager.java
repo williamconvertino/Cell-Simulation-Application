@@ -60,13 +60,12 @@ public class ButtonManager {
 
     myStage.getScene().setOnMouseClicked(mouseEvent -> {
       try {
-      if (myLogicController.getActiveGrid()!=null) {
-        Coordinate coordinate = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid().getCellsToUpdate());
-        myLogicController.getCurrentSimulation().getGrid().changeCell(coordinate, myLogicController.getSimulationDefaultValue());
-      }
-        System.out.println("It's clicking");
+        if (myLogicController.getActiveGrid()!=null) {
+          Coordinate coordinate = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid().getCellsToUpdate());
+          myLogicController.getCurrentSimulation().getGrid().changeCell(coordinate, myLogicController.getSimulationDefaultValue());
+        }
+          System.out.println("It's clicking");
       } catch (Exception e) {
-
         System.out.println("error");
       }
     });
