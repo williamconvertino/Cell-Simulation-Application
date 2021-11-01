@@ -63,6 +63,7 @@ public class Controller {
    */
   public void loadFile(File file) {
     try {
+      myDisplay.resetGrid();
       myLogicController.initializeFromFile(file);
       myDisplay = (Display) Class.forName("cellsociety.display." + myLogicController.getMetaData().get("Shape") + "Display")
               .getConstructor(Stage.class, Color.class)
