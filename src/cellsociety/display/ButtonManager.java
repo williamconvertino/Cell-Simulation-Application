@@ -54,6 +54,7 @@ public class ButtonManager {
         myFileChoser.setInitialDirectory(
             new File(Paths.get(".").toAbsolutePath().normalize() + "/data"));
         myController.loadNewDisplay(myFileChoser.showOpenDialog(myStage));
+        System.out.println("It's clicking");
       } catch (Exception exception) {
       }
     });
