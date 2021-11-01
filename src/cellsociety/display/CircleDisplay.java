@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Tim Jang
+ */
 public class CircleDisplay extends Display {
     Map<Coordinate, Circle> cellMap;
 

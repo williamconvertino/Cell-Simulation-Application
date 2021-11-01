@@ -21,6 +21,7 @@ import javafx.stage.Stage;
  * handling to communicate with each other.
  *
  * @author William Convertino
+ * @author Tim Jang
  * @since 0.0.1
  */
 public class Controller {

@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Tim Jang
+ */
 public class TriangleDisplay extends Display{
     Map<Coordinate, Polygon> cellMap;
 
