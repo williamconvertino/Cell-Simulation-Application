@@ -68,6 +68,7 @@ public class Controller {
       myDisplay = (Display) Class.forName("cellsociety.display." + myLogicController.getMetaData().get("Shape") + "Display")
               .getConstructor(Stage.class, Color.class)
               .newInstance(myStage, Color.color(.50,.50,.80));
+      initializeButtons(myDisplay);
     } catch (Exception e) {
       e.printStackTrace();
       myDisplay.showError(e);
