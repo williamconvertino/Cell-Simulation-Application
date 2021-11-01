@@ -88,7 +88,7 @@ public class WaTorWorld extends Simulation {
             cell.addState(life, 1);
             cell.addState(energy, initEnergy);
         } else {
-            cell.addState(life, cell.getAltStates().get(life) + 1);
+            cell.addState(life, cell.getAltStates().getOrDefault(life, 0) + 1);
         }
     }
 
@@ -99,7 +99,7 @@ public class WaTorWorld extends Simulation {
      */
     private void moveFish(List<Cell> neighbors, Cell cell) {
         boolean reproduce = checkIfReproduce(cell);
-//        neighbors.removeIf(e->e.getNextState() != 0);
+        neighbors.removeIf(e->e.getNextState() != 0);
 
         if (neighbors.size() > 0) {
             Collections.shuffle(neighbors);
@@ -133,6 +133,7 @@ public class WaTorWorld extends Simulation {
             getGrid().changeCell(cell, 1, new HashMap<>());
             cell.addState(life, 1);
             cell.setNextAltStates(cell.getAltStates());
+            cell.setAltStates(new HashMap<>());
         }
     }
 
@@ -143,9 +144,9 @@ public class WaTorWorld extends Simulation {
      */
     private void reproduceShark(boolean reproduce, Cell cell) {
         if (reproduce) {
-            getGrid().changeCell(cell, 1, new HashMap<>());
-            cell.addState(life, 1);
-            cell.addState(energy, initEnergy);
+            getGrid().changeCell(cell, 2, new HashMap<>());
+            cell.addToNextState(life, 1);
+            cell.addToNextState(energy, initEnergy);
         }
     }
 
@@ -157,8 +158,7 @@ public class WaTorWorld extends Simulation {
      */
     private void eatFishOrMove(List<Cell> neighborsFish, List<Cell> neighborsEmpty, Cell cell) {
         boolean reproduce = checkIfReproduce(cell);
-//        neighborsFish.removeIf(e->e.getNextState() != 1);
-//        neighborsEmpty.removeIf(e->e.getNextState() != 0);
+        neighborsEmpty.removeIf(e->e.getNextState() != 0);
 
         if (neighborsFish.size() > 0) { // if there is a fish next to the shark
             Collections.shuffle(neighborsFish);
@@ -167,6 +167,7 @@ public class WaTorWorld extends Simulation {
             cell.addState(energy, prevEnergy + energyPerFish - 1);
             getGrid().moveCellTo(cell, neighborsFish.get(0));
             neighborsFish.get(0).setCurrentState(0);
+            neighborsFish.get(0).setAltStates(new HashMap<>());
             reproduceShark(reproduce, cell);
 
         } else if (neighborsEmpty.size() > 0) { // if there is an empty water spot next to the shark
