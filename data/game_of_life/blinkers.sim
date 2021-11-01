@@ -6,3 +6,4 @@ InitialStates=data/game_of_life/blinkers.csv
 GridType=FiniteGrid
 Neighborhood=CompleteNeighborPattern
 Shape=SquareShapeManager
+Shapes=Hexagon

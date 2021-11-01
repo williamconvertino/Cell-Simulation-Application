@@ -3,13 +3,8 @@ package cellsociety.controller;
 import cellsociety.display.*;
 import cellsociety.io.FileHandler;
 import java.io.File;
-import java.nio.file.Paths;
 
-import cellsociety.logic.grid.Coordinate;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -45,7 +40,7 @@ public class Controller {
 
   //Initializes the display components.
   private void initializeDisplay (Stage myStage) {
-    myDisplay = new RectangleDisplay(myStage, Color.color(.50,.50,.80));
+    myDisplay = new SquareDisplay(myStage, Color.color(.50,.50,.80));
     initializeButtons(myDisplay);
   }
 
@@ -69,6 +64,9 @@ public class Controller {
   public void loadFile(File file) {
     try {
       myLogicController.initializeFromFile(file);
+      myDisplay = (Display) Class.forName("cellsociety.display." + myLogicController.getMetaData().get("Shapes") + "Display")
+              .getConstructor(Stage.class, Color.class)
+              .newInstance(myStage, Color.color(.50,.50,.80));
     } catch (Exception e) {
       e.printStackTrace();
       myDisplay.showError(e);

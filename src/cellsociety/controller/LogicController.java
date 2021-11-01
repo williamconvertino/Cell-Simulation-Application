@@ -190,8 +190,8 @@ public class LogicController {
 
     }
 
-//    public int getSimulationDefaultValue() {
-//        return currentSimulation.getDefaultValue();
-//    }
+    public Map<String, String> getMetaData() {
+        return currentSimulation.getMetaData();
+    }
 
 }

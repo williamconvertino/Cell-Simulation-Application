@@ -15,10 +15,10 @@ import java.util.Map;
  * @author Tim Jang
  */
 
-public class RectangleDisplay extends Display{
+public class SquareDisplay extends Display{
     Map<Coordinate, Rectangle> cellMap;
 
-    public RectangleDisplay(Stage stage, Color background){
+    public SquareDisplay(Stage stage, Color background){
         super(stage, background);
     }
 
