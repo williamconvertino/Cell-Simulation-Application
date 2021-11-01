@@ -110,6 +110,13 @@ public class Cell {
     nextAltStates = updatedStates;
   }
 
+  public void addToNextState(String state, int value) {
+    if (this.nextAltStates == null) {
+      nextAltStates = new HashMap<>();
+    }
+    nextAltStates.put(state, value);
+  }
+
 
   /**
    * @see Object#equals(Object)  

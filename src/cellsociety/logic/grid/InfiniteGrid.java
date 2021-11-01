@@ -24,8 +24,9 @@ public class InfiniteGrid extends Grid{
         List<Coordinate> potentialNeighbors = generateNeighborCoordinates(cell, myPattern);
         List<Cell> myNeighbors = new LinkedList<>();
         for (Coordinate coord: potentialNeighbors) {
-            if(coord.r() < 0 || coord.r() > getHeight() || coord.c() < 0 || coord.c() > getWidth()){
-                addCellIfAbsent(coord.r(), coord.c(), 0);
+            if((coord.c() >= getHeight() || coord.r() >= getWidth()) && cell.getCurrentState() != 0){
+               addCellIfAbsent(coord.r() , coord.c() , 0);
+
             }
             myNeighbors.add(getCell(coord.r(), coord.c()));
         }

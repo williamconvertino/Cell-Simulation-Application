@@ -6,8 +6,7 @@ import cellsociety.logic.shapes.ShapeManager;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ToroidalGrid extends Grid{
-
+public class ToroidalGrid extends Grid {
 
 
     /**
@@ -24,12 +23,11 @@ public class ToroidalGrid extends Grid{
     public List<Cell> getNeighbors(Cell cell, NeighborhoodPattern myPattern) {
         List<Coordinate> potentialNeighbors = generateNeighborCoordinates(cell, myPattern);
         List<Cell> myNeighbors = new LinkedList<>();
-        for (Coordinate coord: potentialNeighbors) {
-            if(coord.r() < 0 || coord.r() > getHeight() || coord.c() < 0 || coord.c() > getWidth()){
-                myNeighbors.add(getCell(coord.r()%getWidth(), coord.c()%getHeight()));
-            }else{
-                myNeighbors.add(getCell(coord.r(), coord.c()));
-            }
+        for (Coordinate coord : potentialNeighbors) {
+            myNeighbors.add(
+                    getCell((coord.r() < 0) ? getWidth() + coord.r() : coord.r() % getWidth(),
+                            (coord.c() < 0) ? getHeight() + coord.c() : coord.c() % getHeight()));
+
         }
         return myNeighbors;
     }

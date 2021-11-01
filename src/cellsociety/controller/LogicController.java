@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javafx.stage.Stage;
 
 /**
  * Controls the Simulation portion of Cell Society, allowing the different
@@ -163,8 +164,12 @@ public class LogicController {
   }
 
 
-  public void addDisplay(Display display) {
+  public void setDisplay(Display display) {
       this.myDisplay = display;
+  }
+
+  public Stage getStage() {
+      return myDisplay.getMyStage();
   }
 
     /**

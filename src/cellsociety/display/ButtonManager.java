@@ -37,7 +37,7 @@ public class ButtonManager {
         FileChooser myFileChoser = new FileChooser();
         myFileChoser.setInitialDirectory(
             new File(Paths.get(".").toAbsolutePath().normalize() + "/data"));
-        myController.loadFile(myFileChoser.showOpenDialog(myStage), myLogicController);
+        myController.loadFile(myFileChoser.showOpenDialog(myStage), myLogicController, myLogicController.getStage());
       } catch (Exception exception) {
       }
     });
