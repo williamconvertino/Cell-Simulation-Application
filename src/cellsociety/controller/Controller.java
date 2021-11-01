@@ -70,7 +70,7 @@ public class Controller {
   private void initializeButtons(Display display, LogicController logicController) {
     ButtonManager.initializeButtons(display, logicController, this, myStage);
 
-    myStage.getScene().setOnMouseClicked(mouseEvent -> {
+    myStage.getScene().getRoot().setOnMouseClicked(mouseEvent -> {
       System.out.println("clicking");
       try {
         if (myLogicController.getActiveGrid()!=null) {
