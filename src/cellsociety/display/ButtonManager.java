@@ -37,7 +37,19 @@ public class ButtonManager {
         FileChooser myFileChoser = new FileChooser();
         myFileChoser.setInitialDirectory(
             new File(Paths.get(".").toAbsolutePath().normalize() + "/data"));
-        myController.loadFile(myFileChoser.showOpenDialog(myStage));
+        myController.loadFile(myFileChoser.showOpenDialog(myStage), myLogicController);
+      } catch (Exception exception) {
+      }
+    });
+
+    Button loadNewWindowButton = new Button();
+    loadNewWindowButton.setText("Load in new window");
+    loadNewWindowButton.setOnAction(e -> {
+      try {
+        FileChooser myFileChoser = new FileChooser();
+        myFileChoser.setInitialDirectory(
+            new File(Paths.get(".").toAbsolutePath().normalize() + "/data"));
+        myController.loadNewDisplay(myFileChoser.showOpenDialog(myStage));
       } catch (Exception exception) {
       }
     });
@@ -58,6 +70,6 @@ public class ButtonManager {
     speedSlider.valueProperty()
         .addListener(e -> myLogicController.setSpeed((int) speedSlider.getValue()));
     speedSlider.setShowTickLabels(true);
-    myDisplay.addButtons(loadButton, saveButton, playButton, pauseButton, resetButton, speedSlider);
+    myDisplay.addButtons(loadButton, saveButton, playButton, pauseButton, resetButton, loadNewWindowButton, speedSlider);
   }
 }

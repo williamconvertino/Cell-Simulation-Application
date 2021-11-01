@@ -82,7 +82,17 @@ public class Controller {
    *
    * @param file the SIM file with the simulation's information.
    */
-  public void loadFile(File file) {
+  public void loadFile(File file, LogicController logicController) {
+    try {
+
+      logicController.resetDisplay();
+      logicController.initializeFromFile(file);
+    } catch (Exception e) {
+      myDisplay.showError(e);
+    }
+  }
+
+  public void loadNewDisplay(File file) {
     try {
       LogicController newLogicController = new LogicController();
       newLogicController.initializeFromFile(file);

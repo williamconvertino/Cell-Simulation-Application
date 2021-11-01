@@ -197,6 +197,10 @@ public class LogicController {
       }
     }
 
+    public void resetDisplay() {
+      myDisplay.resetGrid();
+    }
+
     public void setSpeed(int speed) {
         if (currentSpeed != speed) {
             currentSpeed = speed;
