@@ -116,17 +116,12 @@ public class LogicController {
                             .getConstructor(cls).newInstance(), metadata);
 
         } catch (NoSuchMethodException e) {
-            System.out.println("Bruh5");
             throw new InvalidSimulationTypeError(metadata.get(TYPE));
         } catch (MissingSimulationArgumentError e) {
-            System.out.println("Bruh4");
         } catch (InvocationTargetException | IllegalAccessException e) {
-            System.out.println("Bruh3");
             // throw new UnhandledExceptionError();
         } catch (ClassNotFoundException e) {
-            System.out.println("Bruh1");
         } catch (InstantiationException e) {
-            System.out.println("Bruh2");
         }
 
     }

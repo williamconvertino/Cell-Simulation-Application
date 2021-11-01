@@ -25,7 +25,7 @@ class FireSpreadingTest {
             HashMap<String, String> metadata = (HashMap<String, String>) SIMFileReader.getMetadataFromFile(new File("data/fire_spreading/single_fire.sim"));
             metadata.put("ProbCatch", "1.00");
             Class cls[] = new Class[]{int[][].class, ShapeManager.class};
-            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape")).getConstructor().newInstance();
+            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape")  + "ShapeManager").getConstructor().newInstance();
             Object[] params = {CSVFileReader.readFile(new File(metadata.get("InitialStates"))),
                     sm};
             Grid grid = (Grid) Class.forName("cellsociety.logic.grid." + metadata.get("GridType")).getConstructor(cls).newInstance(params);
@@ -66,7 +66,7 @@ class FireSpreadingTest {
             HashMap<String, String> metadata = (HashMap<String, String>) SIMFileReader.getMetadataFromFile(new File("data/fire_spreading/diagonal_fire.sim"));
             metadata.put("ProbCatch", "1.00");
             Class cls[] = new Class[]{int[][].class, ShapeManager.class};
-            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape")).getConstructor().newInstance();
+            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape")  + "ShapeManager").getConstructor().newInstance();
             Object[] params = {CSVFileReader.readFile(new File(metadata.get("InitialStates"))),
                     sm};
             Grid grid = (Grid) Class.forName("cellsociety.logic.grid." + metadata.get("GridType")).getConstructor(cls).newInstance(params);
@@ -103,7 +103,7 @@ class FireSpreadingTest {
             HashMap<String, String> metadata = (HashMap<String, String>) SIMFileReader.getMetadataFromFile(new File("data/fire_spreading/ring_of_fire.sim"));
             metadata.put("ProbCatch", "1.00");
             Class cls[] = new Class[]{int[][].class, ShapeManager.class};
-            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape")).getConstructor().newInstance();
+            ShapeManager sm = (ShapeManager) Class.forName("cellsociety.logic.shapes." + metadata.get("Shape")  + "ShapeManager").getConstructor().newInstance();
             Object[] params = {CSVFileReader.readFile(new File(metadata.get("InitialStates"))),
                     sm};
             Grid grid = (Grid) Class.forName("cellsociety.logic.grid." + metadata.get("GridType")).getConstructor(cls).newInstance(params);
