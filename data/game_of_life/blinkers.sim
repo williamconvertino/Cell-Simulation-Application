@@ -5,4 +5,4 @@ Description=Examples of a blinker, a line of cells 3 wide that switches back and
 InitialStates=data/game_of_life/blinkers.csv
 GridType=ToroidalGrid
 Neighborhood=CompleteNeighborPattern
-Shape=Square
+Shape=Hexagon
