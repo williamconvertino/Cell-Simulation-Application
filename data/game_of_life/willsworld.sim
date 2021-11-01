@@ -5,4 +5,4 @@ Description=An interesting pattern.
 InitialStates=data/game_of_life/willsworld.csv
 GridType=FiniteGrid
 Neighborhood=CompleteNeighborPattern
-Shape=SquareShapeManager
+Shape=Square

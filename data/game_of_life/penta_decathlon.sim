@@ -6,4 +6,4 @@ InitialStates=data/game_of_life/penta-decathlon.csv
 StateColors=DDDDDD,FF0000
 GridType=FiniteGrid
 Neighborhood=CompleteNeighborPattern
-Shape=SquareShapeManager
+Shape=Square

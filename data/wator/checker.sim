@@ -7,4 +7,4 @@ Energy=3
 ReproductionTime=2
 GridType=FiniteGrid
 Neighborhood=CompleteNeighborPattern
-Shape=SquareShapeManager
+Shape=Square

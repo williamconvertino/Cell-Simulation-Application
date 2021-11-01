@@ -6,4 +6,4 @@ InitialStates=data/segregation_model/lines.csv
 SatisfactionRate=0.01
 GridType=FiniteGrid
 Neighborhood=CardinalNeighborPattern
-Shape=SquareShapeManager
+Shape=Square

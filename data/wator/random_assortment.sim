@@ -8,4 +8,4 @@ ReproductionTime=2
 EnergyPerFish=2
 GridType=FiniteGrid
 Neighborhood=CompleteNeighborPattern
-Shape=SquareShapeManager
+Shape=Square

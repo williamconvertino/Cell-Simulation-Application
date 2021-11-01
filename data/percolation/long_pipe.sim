@@ -5,4 +5,4 @@ Description=A long, more complex, pipe flowing from top to bottom
 InitialStates=data/percolation/long_pipe.csv
 GridType=FiniteGrid
 Neighborhood=CompleteNeighborPattern
-Shape=SquareShapeManager
+Shape=Square

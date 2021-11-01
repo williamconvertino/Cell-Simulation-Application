@@ -6,4 +6,4 @@ InitialStates=data/game_of_life/glider.csv
 StateColors=00FF00,FF00FF
 GridType=FiniteGrid
 Neighborhood=CompleteNeighborPattern
-Shape=SquareShapeManager
+Shape=Square

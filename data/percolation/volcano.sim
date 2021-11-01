@@ -5,4 +5,4 @@ Description=An erupting volcano
 InitialStates=data/percolation/volcano.csv
 GridType=FiniteGrid
 Neighborhood=CompleteNeighborPattern
-Shape=SquareShapeManager
+Shape=Square

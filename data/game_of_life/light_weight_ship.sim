@@ -5,4 +5,4 @@ Description=A type of glider that resembles a light weight spaceship, "YOU CAN'T
 InitialStates=data/game_of_life/light_weight_ship.csv
 GridType=FiniteGrid
 Neighborhood=CompleteNeighborPattern
-Shape=SquareShapeManager
+Shape=Square
