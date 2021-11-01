@@ -63,8 +63,9 @@ public class ButtonManager {
       if (myLogicController.getActiveGrid()!=null) {
         Coordinate coordinate = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid().getCellsToUpdate());
         myLogicController.getCurrentSimulation().getGrid().changeCell(coordinate, myLogicController.getSimulationDefaultValue());
+      }
         System.out.println("It's clicking");
-      }} catch (Exception e) {}
+      } catch (Exception e) {}
     });
 
     Slider speedSlider = new Slider(1.0, 4.0, 1.0);
