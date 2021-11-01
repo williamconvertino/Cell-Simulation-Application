@@ -21,6 +21,9 @@ public class WaTorWorld extends Simulation {
 
     public static final String life = "Life";
     public static final String energy = "Energy";
+    public static final int waterState = 0;
+    public static final int fishState = 1;
+    public static final int sharkState = 2;
 
     private int initEnergy;
     private int reproductionTime;
@@ -47,25 +50,25 @@ public class WaTorWorld extends Simulation {
      */
     @Override
     protected void updateNextGridFromCell(Cell cell) {
-        if (cell.getCurrentState() == 0) {
+        if (cell.getCurrentState() == waterState) {
             return;
-        } else if (cell.getCurrentState() == 1) {
+        } else if (cell.getCurrentState() == fishState) {
             List<Cell> neighbors = getGrid().getNeighbors(cell, getNeighborhoodPattern());
             neighbors.removeIf(Objects::isNull);
             incrementFishLife(cell);
 
-            neighbors.removeIf(e->e.getCurrentState() == 1 || e.getCurrentState() == 2);
+            neighbors.removeIf(e->e.getCurrentState() == fishState || e.getCurrentState() == sharkState);
             moveFish(neighbors, cell);
-        } else if (cell.getCurrentState() == 2) {
+        } else if (cell.getCurrentState() == sharkState) {
             incrementSharkLife(cell);
 
             List<Cell> neighborsFish = getGrid().getNeighbors(cell, getNeighborhoodPattern());
             neighborsFish.removeIf(Objects::isNull);
-            neighborsFish.removeIf(e->e.getCurrentState() == 0 || e.getCurrentState() == 2);
+            neighborsFish.removeIf(e->e.getCurrentState() == waterState || e.getCurrentState() == sharkState);
 
             List<Cell> neighborsEmpty = getGrid().getNeighbors(cell, getNeighborhoodPattern());
             neighborsEmpty.removeIf(Objects::isNull);
-            neighborsEmpty.removeIf(e->e.getCurrentState() == 1 || e.getCurrentState() == 2);
+            neighborsEmpty.removeIf(e->e.getCurrentState() == fishState || e.getCurrentState() == sharkState);
 
             eatFishOrMove(neighborsFish, neighborsEmpty, cell);
         }
@@ -103,7 +106,7 @@ public class WaTorWorld extends Simulation {
      */
     private void moveFish(List<Cell> neighbors, Cell cell) {
         boolean reproduce = checkIfReproduce(cell);
-        neighbors.removeIf(e->e.getNextState() != 0);
+        neighbors.removeIf(e->e.getNextState() != waterState);
 
         if (neighbors.size() > 0) {
             Collections.shuffle(neighbors);
@@ -134,7 +137,7 @@ public class WaTorWorld extends Simulation {
      */
     private void reproduceFish(boolean reproduce, Cell cell) {
         if (reproduce) {
-            getGrid().changeCell(cell, 1, new HashMap<>());
+            getGrid().changeCell(cell, fishState, new HashMap<>());
             cell.addState(life, 1);
             cell.setNextAltStates(cell.getAltStates());
             cell.setAltStates(new HashMap<>());
@@ -148,7 +151,7 @@ public class WaTorWorld extends Simulation {
      */
     private void reproduceShark(boolean reproduce, Cell cell) {
         if (reproduce) {
-            getGrid().changeCell(cell, 2, new HashMap<>());
+            getGrid().changeCell(cell, sharkState, new HashMap<>());
             cell.addToNextState(life, 1);
             cell.addToNextState(energy, initEnergy);
         }
@@ -162,7 +165,7 @@ public class WaTorWorld extends Simulation {
      */
     private void eatFishOrMove(List<Cell> neighborsFish, List<Cell> neighborsEmpty, Cell cell) {
         boolean reproduce = checkIfReproduce(cell);
-        neighborsEmpty.removeIf(e->e.getNextState() != 0);
+        neighborsEmpty.removeIf(e->e.getNextState() != waterState);
 
         if (neighborsFish.size() > 0) { // if there is a fish next to the shark
             Collections.shuffle(neighborsFish);
