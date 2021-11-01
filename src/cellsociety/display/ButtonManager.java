@@ -4,6 +4,10 @@ import cellsociety.controller.Controller;
 import cellsociety.controller.LogicController;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.List;
+
+import cellsociety.logic.grid.Cell;
+import cellsociety.logic.grid.Coordinate;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.stage.FileChooser;
@@ -53,14 +57,14 @@ public class ButtonManager {
       } catch (Exception exception) {
       }
     });
-//
-//    myStage.getScene().setOnMouseClicked(mouseEvent -> {
-//      try {
-//      if (myLogicController.getActiveGrid()!=null) {
-//        int[] s = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid());
-//        //myLogicController.getCurrentSimulation().getGrid().changeCell(new Coordinate(s[0], s[1]), myLogicController.getSimulationDefaultValue());
-//      }} catch (Exception e) {}
-//    });
+
+    myStage.getScene().setOnMouseClicked(mouseEvent -> {
+      try {
+      if (myLogicController.getActiveGrid()!=null) {
+        Coordinate coordinate = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid().getCellsToUpdate());
+        myLogicController.getCurrentSimulation().getGrid().changeCell(coordinate, myLogicController.getSimulationDefaultValue());
+      }} catch (Exception e) {}
+    });
 
     Slider speedSlider = new Slider(1.0, 4.0, 1.0);
     speedSlider.setMajorTickUnit(1);

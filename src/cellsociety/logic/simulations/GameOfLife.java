@@ -23,7 +23,7 @@ public class GameOfLife extends Simulation {
 
     public GameOfLife(Grid grid, NeighborhoodPattern np, Map<String, String> metadata) throws MissingSimulationArgumentError {
         super(grid,np, metadata);
-        //setDefaultValue(1);
+        setDefaultValue(1);
     }
 
     /**

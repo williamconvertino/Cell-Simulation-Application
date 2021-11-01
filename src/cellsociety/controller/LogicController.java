@@ -219,4 +219,7 @@ public class LogicController {
         return currentSimulation.getMetaData();
     }
 
+    public int getSimulationDefaultValue(){
+        return currentSimulation.getDefaultValue();
+    }
 }

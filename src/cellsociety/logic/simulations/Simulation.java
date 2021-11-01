@@ -24,6 +24,8 @@ public abstract class Simulation {
     private NeighborhoodPattern neighborhoodPattern;
 
     private Grid myGrid;
+    private int defaultValue;
+
 
     //A map containing the simulation's data collected from the simulation's sim files.
     private Map<String, String> metadata;
@@ -92,6 +94,14 @@ public abstract class Simulation {
 
     public NeighborhoodPattern getNeighborhoodPattern() {
         return neighborhoodPattern;
+    }
+
+    public int getDefaultValue(){
+        return defaultValue;
+    }
+
+    protected void setDefaultValue(int newDefault){
+        defaultValue = newDefault;
     }
 
 
