@@ -8,35 +8,36 @@ import java.util.List;
 public class HexagonShapeManager extends ShapeManager{
     @Override
     public List<Coordinate> getNeighborsLeft(Coordinate cellCoordinates) {
-        List<Coordinate> myNeighbors = getAllNeighborsLeft(cellCoordinates);
+        List<Coordinate> myNeighbors = new LinkedList<>();
+        myNeighbors.add(new Coordinate(cellCoordinates.r(),cellCoordinates.c()-1));
         return myNeighbors;
     }
 
     @Override
     public List<Coordinate> getNeighborsRight(Coordinate cellCoordinates) {
-        List<Coordinate> myNeighbors = getAllNeighborsLeft(cellCoordinates);
+        List<Coordinate> myNeighbors = new LinkedList<>();
+        myNeighbors.add(new Coordinate(cellCoordinates.r(),cellCoordinates.c()+1));
         return myNeighbors;
     }
 
     @Override
     public List<Coordinate> getNeighborsUp(Coordinate cellCoordinates) {
-        List<Coordinate> myNeighbors = new LinkedList<>();
-        myNeighbors.add(new Coordinate(cellCoordinates.r()-1,cellCoordinates.c()));
+        List<Coordinate> myNeighbors = getAllNeighborsUp(cellCoordinates);
         return myNeighbors;
     }
 
     @Override
     public List<Coordinate> getNeighborsDown(Coordinate cellCoordinates) {
-        List<Coordinate> myNeighbors = new LinkedList<>();
-        myNeighbors.add(new Coordinate(cellCoordinates.r()+1,cellCoordinates.c()));
+        List<Coordinate> myNeighbors = getAllNeighborsDown(cellCoordinates);
         return myNeighbors;
     }
 
     @Override
     public List<Coordinate> getAllNeighborsLeft(Coordinate cellCoordinates) {
         List<Coordinate> myNeighbors = new LinkedList<>();
-        myNeighbors.add(new Coordinate(cellCoordinates.r()-1,cellCoordinates.c()-1));
+        myNeighbors.add(new Coordinate(cellCoordinates.r()-1,cellCoordinates.c()));
         myNeighbors.add(new Coordinate(cellCoordinates.r(),cellCoordinates.c()-1));
+        myNeighbors.add(new Coordinate(cellCoordinates.r()+1,cellCoordinates.c()));
         return myNeighbors;
     }
 
@@ -45,13 +46,13 @@ public class HexagonShapeManager extends ShapeManager{
         List<Coordinate> myNeighbors = new LinkedList<>();
         myNeighbors.add(new Coordinate(cellCoordinates.r()-1,cellCoordinates.c()+1));
         myNeighbors.add(new Coordinate(cellCoordinates.r(),cellCoordinates.c()+1));
+        myNeighbors.add(new Coordinate(cellCoordinates.r()+1,cellCoordinates.c()+1));
         return myNeighbors;
     }
 
     @Override
     public List<Coordinate> getAllNeighborsUp(Coordinate cellCoordinates) {
         List<Coordinate> myNeighbors = new LinkedList<>();
-        myNeighbors.add(new Coordinate(cellCoordinates.r()-1,cellCoordinates.c()-1));
         myNeighbors.add(new Coordinate(cellCoordinates.r()-1,cellCoordinates.c()));
         myNeighbors.add(new Coordinate(cellCoordinates.r()-1,cellCoordinates.c()+1));
         return myNeighbors;
@@ -60,7 +61,6 @@ public class HexagonShapeManager extends ShapeManager{
     @Override
     public List<Coordinate> getAllNeighborsDown(Coordinate cellCoordinates) {
         List<Coordinate> myNeighbors = new LinkedList<>();
-        myNeighbors.add(new Coordinate(cellCoordinates.r()+1,cellCoordinates.c()-1));
         myNeighbors.add(new Coordinate(cellCoordinates.r()+1,cellCoordinates.c()));
         myNeighbors.add(new Coordinate(cellCoordinates.r()+1,cellCoordinates.c()+1));
         return myNeighbors;
