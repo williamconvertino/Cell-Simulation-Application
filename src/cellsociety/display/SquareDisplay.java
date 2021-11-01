@@ -84,6 +84,9 @@ public class SquareDisplay extends Display{
                     return cells.get(index).getCoordinates();
                 }
         }
+        System.out.println(mouseX);
+        System.out.println(mouseY);
+        System.out.println(cells);
         return null;
     }
 
