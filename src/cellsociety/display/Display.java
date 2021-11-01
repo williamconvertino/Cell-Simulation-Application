@@ -114,7 +114,7 @@ public abstract class Display {
             errorTitle = "FileNotFoundError";
             errorMessage = String.format("%s %s", myResources.getString(errorTitle), ((FileNotFoundError) e).getFilename());
         } else if (e instanceof InvalidSimulationTypeError) {
-            errorTitle = "InvalidSiinitializegridmulationTypeError";
+            errorTitle = "InvalidSimulationTypeError";
             errorMessage = String.format("%s %s", myResources.getString(errorTitle), ((InvalidSimulationTypeError) e).getType());
         } else if (e instanceof MissingSimulationArgumentError) {
             errorTitle = "MissingSimulationArgumentError";
