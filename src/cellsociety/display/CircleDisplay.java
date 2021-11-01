@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Tim Jang
+ */
 public class CircleDisplay extends Display {
     Map<Coordinate, Circle> cellMap;
 
@@ -66,6 +69,23 @@ public class CircleDisplay extends Display {
         }
 
         //System.out.println(cellMap);
+    }
+
+    public Coordinate changeCell(double mouseX, double mouseY, List<Cell> cells) {
+//        for (int x = 0; x < grid.getWidth(); x++) {
+//            for (int y = 0; y < grid.getHeight(); y++) {
+//                double corrX = x * (cellLength + cellOffset) + gridLeftOffset;
+//                double corrY = y * (cellOffset + cellLength) + gridTopOffset;
+//                if(((corrX + cellLength) >= mouseX
+//                        && (corrY + cellLength) >= mouseY
+//                        && corrX <= mouseX + cellLength
+//                        && (corrY <= (mouseY + cellLength)))){
+//                    int[] s = new int[]{x, y};
+//                    return s;
+//                }
+//            }
+//        }
+        return null;
     }
 
 }

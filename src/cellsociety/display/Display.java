@@ -7,6 +7,7 @@ import cellsociety.errors.MissingSimulationArgumentError;
 import java.util.*;
 
 import cellsociety.logic.grid.Cell;
+import cellsociety.logic.grid.Coordinate;
 import cellsociety.logic.grid.Grid;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -78,22 +79,8 @@ public abstract class Display {
 
     public abstract void updateScene(List<Cell> cells);
 
-    public int[] changeCell(double mouseX, double mouseY, Grid grid) {
-        for (int x = 0; x < grid.getWidth(); x++) {
-            for (int y = 0; y < grid.getHeight(); y++) {
-                double corrX = x * (cellLength + cellOffset) + gridLeftOffset;
-                double corrY = y * (cellOffset + cellLength) + gridTopOffset;
-                if(((corrX + cellLength) >= mouseX
-                        && (corrY + cellLength) >= mouseY
-                        && corrX <= mouseX + cellLength
-                        && (corrY <= (mouseY + cellLength)))){
-                    int[] s = new int[]{x, y};
-                    return s;
-                }
-            }
-        }
-        return null;
-    }
+    public abstract Coordinate changeCell(double mouseX, double mouseY, List<Cell> cells);
+
 
     public void addButtons(Node...nodes){// saveButton, Button playButton, Button pauseButton, Button resetButton, Button loadButton, Slider speedSlider) {
         int scalar = 0;

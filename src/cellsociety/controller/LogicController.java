@@ -30,6 +30,7 @@ import javafx.stage.Stage;
  * the current grid_LEGACY state of the loaded algorithm.
  *
  * @author William Convertino
+ * @author Tim Jang
  * @since 0.0.1
  */
 public class LogicController {
