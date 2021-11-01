@@ -8,6 +8,8 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cellsociety.logic.grid.Coordinate;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -67,6 +69,19 @@ public class Controller {
   //Initializes all the buttons in the display.
   private void initializeButtons(Display display, LogicController logicController) {
     ButtonManager.initializeButtons(display, logicController, this, myStage);
+
+    myStage.getScene().setOnMouseClicked(mouseEvent -> {
+      System.out.println("clicking");
+      try {
+        if (myLogicController.getActiveGrid()!=null) {
+          Coordinate coordinate = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid().getCellsToUpdate());
+          myLogicController.getCurrentSimulation().getGrid().changeCell(coordinate, myLogicController.getSimulationDefaultValue());
+        }
+        System.out.println("It's clicking");
+      } catch (Exception e) {
+        System.out.println("error");
+      }
+    });
   }
 
   /**
