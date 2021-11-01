@@ -70,18 +70,7 @@ public class Controller {
   private void initializeButtons(Display display, LogicController logicController) {
     ButtonManager.initializeButtons(display, logicController, this, myStage);
 
-    myStage.getScene().setOnMouseClicked(mouseEvent -> {
-      System.out.println("clicking");
-      try {
-        if (myLogicController.getActiveGrid()!=null) {
-          Coordinate coordinate = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid().getCellsToUpdate());
-          myLogicController.getCurrentSimulation().getGrid().changeCell(coordinate, myLogicController.getSimulationDefaultValue());
-        }
-        System.out.println("It's clicking");
-      } catch (Exception e) {
-        System.out.println("error");
-      }
-    });
+
   }
 
   /**
@@ -101,6 +90,7 @@ public class Controller {
       logicController.resetDisplay();
       logicController.initializeFromFile(file);
       logicController.setDisplay(initializeDisplay( logicController.getMetaData().get("Shape"), stage));
+
     } catch (Exception e) {
       myDisplay.showError(e);
     }
