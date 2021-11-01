@@ -40,7 +40,6 @@ public class ModelOfSegregation extends Simulation {
             throws MissingSimulationArgumentError {
         super(grid, np, metadata);
         satisfactionRate = Double.parseDouble(metadata.get("SatisfactionRate"));
-//        setDefaultValue(2);
     }
 
     /**
@@ -61,8 +60,9 @@ public class ModelOfSegregation extends Simulation {
         }
         //Given the neighbor list, remove all non-zero entries in either this or the next iterations, and pick
         //a new location from there.
-        myNeighbors.removeIf(e->e.getCurrentState()!=0 );//|| nextGrid.getCellState(e.getRow(), e.getColumn()) != 0);
-        myNeighbors.removeIf(e->getGrid().getCell(e.getCoordinates().r(), e.getCoordinates().c()).getCurrentState()!=0);
+        myNeighbors.removeIf(e->e.getNextState() != 0 ||  e.getCurrentState()!=0 );
+        //myNeighbors.removeIf(e->e.getCurrentState()!=0 );//|| nextGrid.getCellState(e.getRow(), e.getColumn()) != 0);
+        //myNeighbors.removeIf(e->getGrid().getCell(e.getCoordinates().r(), e.getCoordinates().c()).getCurrentState()!=0);
         if (different != 0 && (similar/different) < satisfactionRate && myNeighbors.size() > 0) {
             Collections.shuffle(myNeighbors);
             getGrid().changeCell(myNeighbors.get(0), cell.getCurrentState(), cell.getAltStates());
