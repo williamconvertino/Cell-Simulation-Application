@@ -42,10 +42,10 @@ class HexagonShapeManagerTest extends ShapeManagerTest {
 
     @Test
     void testAllDirections() {
-//        assertAllLeftNeighbors(cl,cul,cdl);
-//        assertAllRightNeighbors(cr,cur,cdr);
-//        assertAllUpNeighbors(cul,cu,cur);
-//        assertAllDownNeighbors(cd,cdr,cdl);
+        assertAllLeftNeighbors(cl1, cl2,cul,cdl);
+        assertAllRightNeighbors(cr,cur,cdr);
+        assertAllUpNeighbors(cul,cu,cur);
+        assertAllDownNeighbors(cd,cdr,cdl);
     }
 
     @BeforeEach
