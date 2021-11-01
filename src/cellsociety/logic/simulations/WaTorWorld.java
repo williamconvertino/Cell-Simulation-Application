@@ -6,7 +6,11 @@ import cellsociety.logic.grid.Cell;
 import cellsociety.logic.grid.Grid;
 import cellsociety.logic.neighborhoodpatterns.NeighborhoodPattern;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Map;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Collections;
 
 /**
  * @author Quentin MacFarlane
