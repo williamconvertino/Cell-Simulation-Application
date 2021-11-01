@@ -1,5 +1,6 @@
 package cellsociety.controller;
 
+import cellsociety.display.Display;
 import cellsociety.errors.FileNotFoundError;
 import cellsociety.errors.InvalidFileFormatError;
 import cellsociety.errors.InvalidSimulationTypeError;
@@ -39,6 +40,7 @@ public class LogicController {
 
     private Runnable cycleRunnable;
     private ScheduledExecutorService cycleExecutor;
+    private Display myDisplay;
 
     //The current algorithm with which the grid_LEGACY should be updated.
     private Simulation currentSimulation;
@@ -159,6 +161,11 @@ public class LogicController {
     return new WaTorWorld(grid, np, metadata);
   }
 
+
+  public void addDisplay(Display display) {
+      this.myDisplay = display;
+  }
+
     /**
      * Returns the current grid_LEGACY state of the currently loaded
      * algorithm.
@@ -185,7 +192,9 @@ public class LogicController {
     }
 
     public void update() {
-
+      if (getActiveGrid() != null && getActiveGrid().getCellsToUpdate().size() > 0 ) {
+        myDisplay.updateScene(getActiveGrid().getCellsToUpdate());
+      }
     }
 
     public void setSpeed(int speed) {

@@ -19,7 +19,7 @@ public class ButtonManager {
   public static void initializeButtons(Display myDisplay, LogicController myLogicController, Controller myController, Stage myStage) {
     Button saveButton = new Button();
     saveButton.setText("Save");
-    saveButton.setOnAction(e -> myController.saveCurrentGrid());
+    saveButton.setOnAction(e -> myController.saveCurrentGrid(myLogicController));
     Button playButton = new Button();
     playButton.setText("Play");
     playButton.setOnAction(e -> myLogicController.playSimulation());
