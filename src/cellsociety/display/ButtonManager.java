@@ -74,7 +74,8 @@ public class ButtonManager {
       try {
         if (myLogicController.getActiveGrid()!=null) {
           Coordinate coordinate = myDisplay.changeCell(mouseEvent.getX(), mouseEvent.getY(), myLogicController.getActiveGrid().getCellsToUpdate());
-          myLogicController.getCurrentSimulation().getGrid().changeCell(coordinate, myLogicController.getSimulationDefaultValue());
+          myLogicController.getCurrentSimulation().getGrid().changeCell(coordinate,
+                  (myLogicController.getActiveGrid().getCell(coordinate.r(), coordinate.c()).getCurrentState() + 1) % myLogicController.getSimulationDefaultValue());
         }
           System.out.println("It's clicking");
       } catch (Exception e) {

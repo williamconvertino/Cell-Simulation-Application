@@ -43,6 +43,7 @@ public class WaTorWorld extends Simulation {
         this.initEnergy = Integer.parseInt(metadata.get("InitialEnergy"));
         this.reproductionTime = Integer.parseInt(metadata.get("ReproductionTime"));
         this.energyPerFish = Integer.parseInt(metadata.get("EnergyPerFish"));
+        setDefaultValue(2);
     }
 
     /**

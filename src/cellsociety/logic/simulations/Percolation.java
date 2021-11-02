@@ -28,7 +28,7 @@ public class Percolation extends Simulation {
     public Percolation(Grid grid, NeighborhoodPattern np, Map<String, String> metadata)
             throws MissingSimulationArgumentError {
         super(grid, np, metadata);
-//    setDefaultValue(0);
+    setDefaultValue(2);
     }
 
     @Override

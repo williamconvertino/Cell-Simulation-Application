@@ -119,19 +119,6 @@ public class TriangleDisplay extends Display{
                 return cells.get(index).getCoordinates();
             }
         }
-//        for (int x = 0; x < grid.getWidth(); x++) {
-//            for (int y = 0; y < grid.getHeight(); y++) {
-//                double corrX = x * (cellLength + cellOffset) + gridLeftOffset;
-//                double corrY = y * (cellOffset + cellLength) + gridTopOffset;
-//                if(((corrX + cellLength) >= mouseX
-//                        && (corrY + cellLength) >= mouseY
-//                        && corrX <= mouseX + cellLength
-//                        && (corrY <= (mouseY + cellLength)))){
-//                    int[] s = new int[]{x, y};
-//                    return s;
-//                }
-//            }
-//        }
         return null;
     }
 }

@@ -39,7 +39,7 @@ public class FireSpreading extends Simulation {
         super(grid, np, metadata);
         this.probCatch = Double.parseDouble(metadata.get("ProbCatch"));
         rand = new Random();
-//        setDefaultValue(2);
+        setDefaultValue(2);
     }
 
     /**
