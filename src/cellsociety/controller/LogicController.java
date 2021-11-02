@@ -158,11 +158,20 @@ public class LogicController {
     return new WaTorWorld(grid, np, metadata);
   }
 
-
+  /**
+   * Initializes the passed display in this logic controller.
+   *
+   * @param display the display to initialize.
+   */
   public void setDisplay(Display display) {
       this.myDisplay = display;
   }
 
+  /**
+   * Returns the stage of the active display.
+   *
+   * @return the stage of the active display.
+   */
   public Stage getStage() {
       return myDisplay.getMyStage();
   }
@@ -180,15 +189,26 @@ public class LogicController {
         return null;
     }
 
-    public void pauseSimulation() {
+  /**
+   * Pauses the active simulation.
+   */
+  public void pauseSimulation() {
         this.isPaused = true;
     }
 
-    public void playSimulation() {
+  /**
+   * Unpauses the active simulation.
+   */
+  public void playSimulation() {
         this.isPaused = false;
     }
 
-    public Simulation getCurrentSimulation() {
+  /**
+   * Returns the current simulation.
+   *
+   * @return the current simulation.
+   */
+  public Simulation getCurrentSimulation() {
         return currentSimulation;
     }
 
@@ -198,11 +218,19 @@ public class LogicController {
       }
     }
 
-    public void resetDisplay() {
+  /**
+   * Resets the active display grid.
+   */
+  public void resetDisplay() {
       myDisplay.resetGrid();
     }
 
-    public void setSpeed(int speed) {
+  /**
+   * Sets the speed of the simulation.
+   *
+   * @param speed the speed of the simulation (Should be an int between 0 and 4)
+   */
+  public void setSpeed(int speed) {
         if (currentSpeed != speed) {
             currentSpeed = speed;
             initializeCycles((5 - speed) * 200);
@@ -210,11 +238,21 @@ public class LogicController {
 
     }
 
-    public Map<String, String> getMetaData() {
+  /**
+   * Returns the metadata of the current simulation.
+   *
+   * @return the metadata of the current simulation.
+   */
+  public Map<String, String> getMetaData() {
         return currentSimulation.getMetaData();
     }
 
-    public int getSimulationDefaultValue(){
+  /**
+   * Returns the default value of the simulation.
+   *
+   * @return the default value of the simulation.
+   */
+  public int getSimulationDefaultValue(){
         return currentSimulation.getDefaultValue();
     }
 }
