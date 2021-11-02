@@ -4,6 +4,7 @@ import cellsociety.controller.Controller;
 import cellsociety.controller.LogicController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -84,9 +85,11 @@ public class DisplayTest extends DisplayApplication {
      */
     @Test
     void ErrorTest () throws InterruptedException {
-        //String BAD_FILE = "a bad file name"
-        //File file = new File("./data/game_of_life/BAD_FILE");
-        //cellSocietyProgram.loadFile(file);
+        String BAD_FILE = "a bad file name";
+        File file = new File("./data/game_of_life/BAD_FILE");
+
+        Platform.runLater(() ->
+                cellSocietyProgram.loadFile(file, cellSocietyProgram.getLogicController(), cellSocietyProgram.getStage()));
 
         Button button = lookup("Load").query();
         clickOn(button);
@@ -100,8 +103,10 @@ public class DisplayTest extends DisplayApplication {
     void SaveTest (){
         File file = new File("./data/game_of_life/blinkers.sim");
 
-        cellSocietyProgram.loadFile(file, cellSocietyProgram.getLogicController(), cellSocietyProgram.getStage());
-//        cellSocietyProgram.update();
+        Platform.runLater(() ->
+                cellSocietyProgram.loadFile(file, cellSocietyProgram.getLogicController(), cellSocietyProgram.getStage()));
+
+        cellSocietyProgram.update();
 
         Button button = lookup("Save").query();
         clickOn(button);
