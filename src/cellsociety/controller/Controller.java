@@ -49,8 +49,7 @@ public class Controller {
   public Controller(Stage myStage) {
     this.myStage = myStage;
     this.myLogicControllers = new ArrayList<>();
-    this.myLogicController = new LogicController();
-    loadNewDisplay(new File("data/game_of_life/default.sim"));
+    myDisplay = loadNewDisplay(new File("data/game_of_life/default.sim"));
   }
 
   //Initializes the display components.
@@ -96,7 +95,7 @@ public class Controller {
     }
   }
 
-  public void loadNewDisplay(File file) {
+  public Display loadNewDisplay(File file) {
     try {
       LogicController newLogicController = new LogicController();
       newLogicController.initializeFromFile(file);
@@ -110,9 +109,11 @@ public class Controller {
       newLogicController.setDisplay(newDisplay);
       myLogicControllers.add(newLogicController);
       newStage.show();
+      return  newDisplay;
       //initializeButtons(myDisplay);
     } catch (Exception e) {
       myDisplay.showError(e);
+      return null;
     }
   }
 
@@ -124,6 +125,14 @@ public class Controller {
       lc.update();
     }
 
+  }
+
+  public LogicController getLogicController() {
+    return myLogicController;
+  }
+
+  public Stage getStage() {
+    return myStage;
   }
 
 }
