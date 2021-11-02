@@ -75,8 +75,9 @@ public class SquareDisplay extends Display{
 
     public Coordinate changeCell(double mouseX, double mouseY, List<Cell> cells) {
         for(int index = 0; index < cells.size(); index++){
+            //cells.get(i).getCoordinates().r() * (cellLength + cellOffset) + gridLeftOffset
             double corrX = cells.get(index).getCoordinates().r() * (cellLength + cellOffset) + gridLeftOffset;
-            double corrY = cells.get(index).getCoordinates().r() * (cellOffset + cellLength) + gridTopOffset;
+            double corrY = cells.get(index).getCoordinates().c() * (cellOffset + cellLength) + gridTopOffset;
             if(((corrX + cellLength) >= mouseX
                 && (corrY + cellLength) >= mouseY
                 && corrX <= mouseX + cellLength
@@ -84,9 +85,6 @@ public class SquareDisplay extends Display{
                     return cells.get(index).getCoordinates();
                 }
         }
-        System.out.println(mouseX);
-        System.out.println(mouseY);
-        System.out.println(cells);
         return null;
     }
 

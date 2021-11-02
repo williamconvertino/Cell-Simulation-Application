@@ -150,6 +150,13 @@ public abstract class Grid {
     }
   }
 
+  public void updateCell(Coordinate c) {
+      Cell cell = myCells.get(c);
+      cell.setCurrentState(cell.getNextState());
+      cell.setAltStates(cell.getNextAltStates());
+      cell.setNextState(0);
+      cell.setNextAltStates(new HashMap<>());
+  }
 
   public List<Cell> getCellsToUpdate() {
 
