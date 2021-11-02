@@ -40,6 +40,7 @@ public class ModelOfSegregation extends Simulation {
             throws MissingSimulationArgumentError {
         super(grid, np, metadata);
         satisfactionRate = Double.parseDouble(metadata.get("SatisfactionRate"));
+        setDefaultValue(2);
     }
 
     /**
