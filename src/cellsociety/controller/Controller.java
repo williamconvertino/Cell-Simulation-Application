@@ -135,4 +135,8 @@ public class Controller {
     return myStage;
   }
 
+  public void setMyDisplay(String file) {
+    myDisplay = loadNewDisplay(new File(String.format("data/game_of_life/%s.sim", file)));
+  }
+
 }
