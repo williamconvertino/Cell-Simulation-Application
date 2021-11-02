@@ -1,6 +1,7 @@
 package cellsociety.display;
 
 import cellsociety.controller.Controller;
+import cellsociety.controller.LogicController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
@@ -97,13 +98,13 @@ public class DisplayTest extends DisplayApplication {
      */
     @Test
     void SaveTest (){
-//        File file = new File("./data/game_of_life/blinkers.sim");
-//
-//        cellSocietyProgram.loadFile(file);
+        File file = new File("./data/game_of_life/blinkers.sim");
+
+        cellSocietyProgram.loadFile(file, cellSocietyProgram.getLogicController(), cellSocietyProgram.getStage());
 //        cellSocietyProgram.update();
-//
-//        Button button = lookup("Save").query();
-//        clickOn(button);
+
+        Button button = lookup("Save").query();
+        clickOn(button);
 
     }
 }

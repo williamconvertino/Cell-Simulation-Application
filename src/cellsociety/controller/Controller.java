@@ -126,4 +126,12 @@ public class Controller {
 
   }
 
+  public LogicController getLogicController() {
+    return myLogicController;
+  }
+
+  public Stage getStage() {
+    return myStage;
+  }
+
 }
