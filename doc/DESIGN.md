@@ -112,6 +112,25 @@ you want to say a neighbor is any adjacent cell above the current cell, the neig
 
 ## New Features HowTo
 
+_New Simulation type:_ To add a new simulation type, you can extend the Simulation main class, save any relevant metadata variables in the constructor,
+and change the updateGridFromCell method to implement the rules of any given simulation. You also must add an initialization method in the LogicController.
+This only requires you to add one method, as the LogicController uses reflection to select the simulation type.
+
+_New neighborhood patterns:_ To add a new neighborhood pattern, you need to create a child class of the NeighborhoodPattern class. This class
+has an abstract method, getNeighborhoodGroup, in which you consolidate the cells that are considered neighbors and return thier coordinates as a list. 
+To find these coordinates, you will need to use the getNeighborX methods in the shape manager, which returns the adjacent cells in any given direction. The neighborhood patterns
+are also implemented using reflection, so you don't need to add any new methods to use them.
+
+_New border pattern:_ To add a new border pattern, you need to extend the Grid class and update the getNeighbors method to reflect the behavior of the
+border. You can use the NeighborhoodPattern's getNeighborhoodGroup to return all cell coordinates that correspond to a neighbor, and then use those coordinates
+to determine what cells are actually available for the simulations use. For example, the infinite border pattern would check for any invalid coordinates, and create
+a new cell at that location, while the finite border just returns the valid coordinates' cells.
+
+_New Shapes:_ To add a new shape, you start by creating a new ShapeManager class. This has a group of abstract methods you need to fill out to specify
+how to determine the location of a cell's adjacent cells.
+
+[TODO: Talk about the display]
+
 #### Easy to Add Features
 
 #### Other Features not yet Done
