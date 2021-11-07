@@ -59,8 +59,9 @@ When every cell has been updated, the current states are set to be whatever valu
 This allows for synchronization between iterations, and prevents conflicts that could occur if one cell's updated state would change the behavior
 of a non-updated cell.
 
-The Simulation's logic is based on a cell's neighbors, which they can get from the Grid class using the getNeighbors method. 
-
+The Simulation's logic is based on a cell's neighbors, which they can get from the Grid class using the getNeighbors method. This method uses the passed
+neighborhood pattern (which can be specified if needed, but usually just uses the pattern chosen by the metadata) as well as the Grid's shape and
+border pattern to choose which cells are considered neighbors.
 
 #### Core Classes
 
