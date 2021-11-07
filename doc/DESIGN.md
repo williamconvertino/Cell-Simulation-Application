@@ -46,10 +46,60 @@ features.
 
 ## High-level Design
 
+The application is created with the Main and Controller classes, and an initial Display is created for the user. If a user wants to
+play a simulation, they can load it using the ChooseFile button, which then signals for the LogicController to load a new Simulation
+based on the sim/csv files. This Simulation is then updated on a loop, dictated by the LogicController, and the resulting cells are then
+sent through the LogicController and into the display, where they are added to the screen.
+
+When a Simulation is created, it updates its internal variables using the metadata in its sim file. Tt then initializes a new 
+Grid based on its associated csv file and the border/shape type specified in the metadata.
+
+When a Simulation is updated, it goes through each of the Cells in the Grid, and changes their next states based on the current and next state.
+When every cell has been updated, the current states are set to be whatever value used to be the next state, and the next states are reset.
+This allows for synchronization between iterations, and prevents conflicts that could occur if one cell's updated state would change the behavior
+of a non-updated cell.
+
+The Simulation's logic is based on a cell's neighbors, which they can get from the Grid class using the getNeighbors method. 
 
 
 #### Core Classes
 
+_Display_ - The Display class manages its active window, showing the active simulation grid and allowing the user to interact
+with the program through buttons and clickable cells. We have a child display class for each different shape. They all share
+the same basic functionality, but have different logic for how the cells are displayed.
+
+_Logic Controller_ - The logic controller manages and updates the simulations. It can load a new simulation from a sim/csv file
+using the initializeFromFile method, and updates it every couple seconds (depending on the current speed) by using a ScheduleExecutorService.
+Each logic controller has a display that it communicates with to display the current state of the grid. It is worth noting that
+when we create multiple concurrent simulations, there is a logic controller that loads and manages each one, and displays it to
+its respective display. This allows us to load a new simulation, play/pause/change the speed of a simulation, or close a simulation
+without it affecting any of the other active simulations.
+
+_Controller_ - The controller manages the functionality of the application as a whole. It initializes each display and logic controller
+when a new simulation instance is created, and handles all the button events.
+
+_Simulation_ - The simulation class is the base class off which each of the simulations are created. when it is initialized, it sets up the
+current simulation by reading the metadata in the sim file (the keys and values). Whenever the simulation is updated, the class
+goes through each of its cells and calls the abstract updateNextGridFromCell method, which allows the child classes to implement
+their own code for how each cell should react. The simulation file does not directly keep track of border logic, different shapes,
+or neighborhood patterns, so these features can be changed separately and easily integrated by simply changing the values in the sim
+file's metadata.
+
+_Grid_ - The grid classes keep track of the cell's current and future states for any given simulation, and have functionality to 
+change cell values. This allows the simulations to update the current state of the simulation. The grid's also have methods to get
+the neighbors of a specific cell, which is useful for knowing how cells should change between iterations. The functionality for what
+is defined as a neighbor is not contained in this class, allowing the neighborhood patterns and shapes to be changed without any
+changes in the grid. Each grid does, however, keep track of the border pattern, and can dictate where, out of the neighbors, a cell
+is able to go.
+
+_Shape Manager_ - The shape manager's role is primarily to dictate the location of all surrounding cells relative to a given cell.
+This allows us to create triangle, hexagon, or square grid and know which cells are considered adjacent. This doesn't directly determine
+what the neighbors of a cell are, as the neighborhood pattern can be nearly anything, but it does create some fundamental rules for the structure
+of our grid.
+
+_NeighborhoodPattern_ - The neighborhood pattern class determines which cells are neighbors of another cell. These classes use the adjacency
+provided by the shape of the cells to determine which cells are considered in its "neighborhood." For example, if you have a square grid, and
+you want to say a neighbor is any adjacent cell above the current cell, the neighborhood pattern would find which cells follow this rule.
 
 ## Assumptions that Affect the Design
 
