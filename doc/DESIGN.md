@@ -8,9 +8,11 @@ Controller and Logic Controller, Error Handling, and the second display. I also 
 the button functionality, and contributed heavily to the design of the project.
 
 Tim Jang - 
+
 Quentin MacFarlane - Created the backend for the WaTorWorld simulation, created the saving file logic and connected it 
 with the controller. Created the English properties files, helped modify and debug the Cell and Grid classes to work 
 with the new changes. Created a lot of tests as well.
+
 Alexis Cruz-Ayala - 
 
 ## Design goals
@@ -140,4 +142,18 @@ how to determine the location of a cell's adjacent cells.
 #### Easy to Add Features
 
 #### Other Features not yet Done
+
+One thing we did not implement is showing the property values from the SIM file on the display. If we were to do this, all
+we would have to do is pass the property values from the LogicController class, where they are parsed, into the Controller
+class so that the Controller could pass it to the Display and the Display could create text for the property values.
+
+We also did not implement using image files for the cell states instead of just colors, but this would be easy as well. You
+would just pass the filepath parsed in LogicController over to Controller and have it pass the image over to the Display.
+The Display would have to update the COLOR_MAP variable to use the values from Controller, so we would have to remove 
+the hardcoded colors that are in there right now. 
+
+We did not implement the user being able to choose which grid edge policy they wanted for the simulation. All this would
+require is a new button in the ButtonManager class and on the event that the button is clicked, it would need to call
+a new method in the LogicController which makes the grid take in the new grid type and create a grid instance of the
+specific edge policy.
 
