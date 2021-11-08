@@ -1,5 +1,5 @@
 # Cell Society Design Final
-### Names
+### William Convertino, Tim Jang, Quentin MacFarlane, Alexis Cruz-Ayala
 
 ## Team Roles and Responsibilities
 
@@ -8,7 +8,9 @@ Controller and Logic Controller, Error Handling, and the second display. I also 
 the button functionality, and contributed heavily to the design of the project.
 
 Tim Jang - 
-Quentin MacFarlane - 
+Quentin MacFarlane - Created the backend for the WaTorWorld simulation, created the saving file logic and connected it 
+with the controller. Created the English properties files, helped modify and debug the Cell and Grid classes to work 
+with the new changes. Created a lot of tests as well.
 Alexis Cruz-Ayala - 
 
 ## Design goals
@@ -109,6 +111,10 @@ you want to say a neighbor is any adjacent cell above the current cell, the neig
 
 ## Significant differences from Original Plan
 
+Our original plan revealed the data structure for the grid, which we used a 2-D array for. This was not good practice,
+so we decided to abstract this out so that our data structure was not unnecessarily revealed. Now, some methods 
+do not require a 2-D array as a parameter anymore, which is very restricting. We changed our grid to be a Map of Coordinates
+to Cells, where each Coordinate holds one Cell. These are objects that we created in our design. 
 
 ## New Features HowTo
 
