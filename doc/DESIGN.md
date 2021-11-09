@@ -136,10 +136,18 @@ how to use the program.
 
 ## Significant differences from Original Plan
 
-Our original plan revealed the data structure for the grid, which we used a 2-D array for. This was not good practice,
-so we decided to abstract this out so that our data structure was not unnecessarily revealed. Now, some methods 
+* Our original plan revealed the data structure for the grid, which we used a 2-D array for. This was not good practice,
+so we decided to abstract this out so that our data structure was not unnecessarily revealed. Now, methods 
 do not require a 2-D array as a parameter anymore, which is very restricting. We changed our grid to be a Map of Coordinates
 to Cells, where each Coordinate holds one Cell. These are objects that we created in our design. 
+
+* Also, for our final version of our project, we needed different neighborhood policies. So, this required us to create
+a NeighborhoodPattern class to get the neighbors of a specific cell instead of just having the neighbor logic implementation
+within the grid class. Now, the grid and the neighborhood patterns communicate with each other to get the correct 
+neighbors for a specific cell. If we stuck with our original plan and implemented the grid policies from the grid class,
+the grid class would have become convoluted and would have not followed the Single Responsibility Principle anymore. So,
+the implementation of the NeighborhoodPattern class was necessary. This also ties into changing our grid from a direct
+2D array that was known to everyone to making it more general and hiding the data structure. 
 
 ## New Features HowTo
 
