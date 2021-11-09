@@ -14,6 +14,10 @@ with the controller. Created the English properties files, helped modify and deb
 with the new changes. Created a lot of tests as well.
 
 Alexis Cruz-Ayala - 
+* Created backend for simulations not including WatorWorld. 
+* Created the shape and neighborhood classes
+* Created tests that didn't use TestFX
+* Created the logic for the grid subclasses
 
 ## Design goals
 
@@ -107,9 +111,28 @@ provided by the shape of the cells to determine which cells are considered in it
 you want to say a neighbor is any adjacent cell above the current cell, the neighborhood pattern would find which cells follow this rule.
 
 ## Assumptions that Affect the Design
+We assumed that:
+* the grids would only ever be composed of symmetrical shapes
+* Cells would only ever have a maximum of two alternate states
+* Grids would follow some more-or-less rectilinear structure
+* The user would understand how to load the games
 
-#### Features Affected by Assumptions
-
+### Features Affected by Assumptions
+* Since we assumed that grids would be composed of symmetrical 
+shapes, we didn't include compatibility for irregular shapes, such
+as scalene triangles. Thus there is a limit on the flexibility of
+our grids when selecting a shape configuration
+* By assuming cells only have 2 alternative states there is exists
+a limit to the types of games able to be implemented. If we were
+to try to add a game that needed cell functionality such as lifespan,
+energy, ***and*** speed, it wouldn't work.
+* With rectilinear grids we weren't able to implement systems that 
+used grids with round or irregular borders. We were able to add logic for
+grids of different cell shapes yet they still followed some more or less
+linear patterns.
+* We didn't include any instruction functionality into our program, which
+could hinder the user experience, as users don't have a direct way to know
+how to use the program.
 
 ## Significant differences from Original Plan
 
@@ -140,6 +163,11 @@ how to determine the location of a cell's adjacent cells.
 [TODO: Talk about the display]
 
 #### Easy to Add Features
+Some features which would be easy to add would be 
+* a panel that gives the metadata for a particular game or the next game to be loaded.
+* setting the color of the cells in the UI rather than just the configuration files
+* letting the user change the orientation of grid 
+* outputting relevant data and updating it as the state of the game changes
 
 #### Other Features not yet Done
 
